@@ -623,6 +623,13 @@ body.projector{overflow:hidden}
 .pj-stage{flex:1;min-height:0;display:grid;position:relative}
 .pj-scene{grid-area:1/1;min-width:0;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(14px,2.4vh,38px);text-align:center;animation:sceneIn .7s var(--glide) both}
 .pj-scene.out{animation:sceneOut .5s cubic-bezier(.4,0,1,1) both;pointer-events:none}
+.pj-scene.iris-in{z-index:2;animation:irisIn 1.05s cubic-bezier(.75,0,.15,1) both}
+.pj-scene.iris-out{z-index:1;animation:irisOut .95s cubic-bezier(.6,0,.4,1) both;pointer-events:none}
+@keyframes irisIn{0%{clip-path:circle(0% at 50% 50%);filter:brightness(1.8) saturate(1.4)}60%{filter:brightness(1.15)}100%{clip-path:circle(75% at 50% 50%);filter:none}}
+@keyframes irisOut{0%{transform:none;opacity:1;filter:none}100%{transform:scale(1.18);opacity:0;filter:blur(16px)}}
+.pj-ring{position:absolute;left:50%;top:50%;z-index:3;width:24vmin;height:24vmin;margin:-12vmin 0 0 -12vmin;border-radius:50%;border:2px solid var(--accent);box-shadow:0 0 40px color-mix(in oklab,var(--accent) 60%,transparent),inset 0 0 40px color-mix(in oklab,var(--accent) 40%,transparent);pointer-events:none;animation:ringOut 1.15s cubic-bezier(.2,.7,.2,1) both}
+.pj-ring.back{border-color:var(--ink);box-shadow:0 0 40px color-mix(in oklab,var(--ink) 30%,transparent)}
+@keyframes ringOut{0%{transform:scale(0);opacity:1}70%{opacity:.6}100%{transform:scale(9);opacity:0}}
 @keyframes sceneIn{from{opacity:0;transform:translateY(3vh) scale(.97);filter:blur(10px)}to{opacity:1;transform:none;filter:none}}
 @keyframes sceneOut{to{opacity:0;transform:translateY(-2vh) scale(1.03);filter:blur(10px)}}
 .pj-scene .eyebrow{font-size:clamp(12px,1vw,17px);letter-spacing:.14em}
@@ -1227,7 +1234,7 @@ const TABS = [
 ];
 const QLABEL = { gsl: 'speakers list', openings: 'opening speech', mod: 'moderated caucus' };
 const TMSG = { 'q-gsl': 'Speaking time has elapsed', 'q-openings': 'Opening speech time has elapsed', 'q-mod': 'Speaking time has elapsed', 'c-total': 'The moderated caucus has ended', 'c-unmod': 'The unmoderated caucus has ended' };
-const KEYS = [['Space', 'Start or pause the timer'], ['N', 'Next speaker'], ['R', 'Reset the timer'], ['F', 'Present on a projector'], ['T', 'Title screen for the room'], ['1 – 7', 'Jump to a section'], ['/', 'Search sessions'], ['?', 'Show all shortcuts'], ['Esc', 'Close a dialog or stop presenting']];
+const KEYS = [['Space', 'Start or pause the timer'], ['N', 'Next speaker'], ['R', 'Reset the timer'], ['F', 'Present on a projector'], ['T or X', 'Title screen for the room'], ['1 – 7', 'Jump to a section'], ['/', 'Search sessions'], ['?', 'Show all shortcuts'], ['Esc', 'Close a dialog or stop presenting']];
 
 /* ═════════════════════════ Icons ═════════════════════════ */
 const ICON = {
@@ -2239,8 +2246,15 @@ function pjApply(st) {
     const old = PJ.scene; PJ.sceneKey = key;
     const sc = document.createElement('section'); sc.className = 'pj-scene s-' + st.m; sc.innerHTML = S.html(st);
     stage.appendChild(sc); PJ.scene = sc;
-    if (old) { old.classList.add('out'); setTimeout(() => old.remove(), 650); }
+    // the title screen gets its own entrance: an iris that opens from the middle, with a ring of light
+    const iris = !reduced && old && (st.m === 'title' || PJ.prevMode === 'title');
+    if (iris) {
+      sc.classList.add('iris-in'); old.classList.add('iris-out');
+      const ring = document.createElement('span'); ring.className = 'pj-ring' + (st.m === 'title' ? '' : ' back'); stage.appendChild(ring);
+      setTimeout(() => ring.remove(), 1300); setTimeout(() => old.remove(), 1000);
+    } else if (old) { old.classList.add('out'); setTimeout(() => old.remove(), 650); }
     S.update?.(sc, st, null); S.enter?.(sc, st);
+    PJ.prevMode = st.m;
   } else S.update?.(PJ.scene, st, prev);
   pjPaint();
 }
@@ -2284,7 +2298,7 @@ function presentKeys(e) {
   else if (e.code === 'Space') { e.preventDefault(); spaceHandled = true; const t = primaryTimer(); if (t) timerToggle(t); }
   else if (k === 'n') { const q = queueKeyForTab(); if (q) nextSpeaker(q); }
   else if (k === 'r') { const t = primaryTimer(); if (t) resetTimer(t); }
-  else if (k === 't') { e.preventDefault(); toggleTitle(); }
+  else if (k === 't' || k === 'x') { e.preventDefault(); toggleTitle(); }
 }
 
 /* ── second screen: the chair's window keeps its current stage in a shared live state;
@@ -3142,7 +3156,7 @@ document.addEventListener('keydown', e => {
   else if (key === 'n') { const q = queueKeyForTab(); if (q) nextSpeaker(q); }
   else if (key === 'r') { if (k) resetTimer(k); }
   else if (key === 'f') { e.preventDefault(); enterPresent(); }
-  else if (key === 't') { e.preventDefault(); toggleTitle(); }
+  else if (key === 't' || key === 'x') { e.preventDefault(); toggleTitle(); }
   else if (/^[1-7]$/.test(e.key)) go(`#/s/${encodeURIComponent(s.id)}/${TABS[+e.key - 1][0]}`);
 });
 document.addEventListener('keyup', e => { if (e.code === 'Space' && spaceHandled) { e.preventDefault(); spaceHandled = false; } });
