@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Privacy policy — Gavel</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<script src="config.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/auth.js"></script>
+</head>
+<body>
+<header class="nav scrolled"><div class="wrap"><div class="nav-in"><a class="brand" href="./"><span data-logo></span>Gavel</a><div class="right"><a class="btn primary" href="login.html">Sign in</a></div></div></div></header>
+<main class="legal">
+  <h1>Privacy policy</h1>
+  <p class="upd">Last updated: 18 November 2026</p>
+  <p>Gavel is a tool for chairing Model United Nations committees. This policy explains what we collect when you use Gavel, why, and the choices you have. We keep it short because we collect very little.</p>
+
+  <h2>What we collect</h2>
+  <ul>
+    <li><b>Your Google account basics.</b> When you sign in with Google we receive your name, email address and profile picture. We do not receive your password and we do not get access to your Gmail, Drive or anything else in your Google account.</li>
+    <li><b>Your answers during setup.</b> Your role, how much chairing experience you have and the conference you chair at, if you tell us.</li>
+    <li><b>The sessions you create.</b> Committee names, topics, the delegations on your roll, speakers lists, motions, votes and the session log.</li>
+    <li><b>Basic technical data.</b> Our hosting providers keep standard server logs (such as IP address and browser type) for security and reliability.</li>
+  </ul>
+
+  <h2>Why we use it</h2>
+  <ul>
+    <li>To sign you in and keep your account secure.</li>
+    <li>To save your sessions and sync them between your devices.</li>
+    <li>To show your name in the app and on your session reports.</li>
+  </ul>
+  <p>We do not sell your data, we do not use it for advertising, and we do not share it with anyone except the service providers listed below who help us run Gavel.</p>
+
+  <h2>Where it is stored</h2>
+  <p>Your account and sessions are stored with <b>Supabase</b> (database and sign-in). The website is hosted by <b>Cloudflare</b>. Sign-in is provided by <b>Google</b>. Gavel also keeps a copy of your sessions in your own browser so it works offline. Flags and fonts are loaded from public content networks.</p>
+
+  <h2>How long we keep it</h2>
+  <p>We keep your account and sessions for as long as your account exists. When you delete a session it is removed from your devices and marked as deleted in our database. If you ask us to delete your account, we delete your profile and all your sessions within 30 days.</p>
+
+  <h2>Your rights</h2>
+  <p>You can ask us for a copy of your data, ask us to correct it, or ask us to delete your account and everything in it. You can also export a backup of your sessions from inside the app at any time. If you are in the European Union you have these rights under the GDPR, and you can complain to your local data protection authority.</p>
+
+  <h2>Children</h2>
+  <p>Model UN is popular with students. If you are under 16, please use Gavel with the permission of a parent, guardian or teacher.</p>
+
+  <h2>Contact</h2>
+  <p>Questions or requests: <a data-contact href="#">contact us by email</a>.</p>
+</main>
+<footer class="foot"><div class="wrap"><div class="foot-in"><a class="brand" href="./"><span data-logo></span>Gavel</a><nav><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav></div></div></footer>
+<script>
+window.GavelSite.fillLogos();
+const mail = window.GAVEL_CONFIG?.contactEmail;
+document.querySelectorAll('[data-contact]').forEach(a => { if (mail) { a.href = 'mailto:' + mail; a.textContent = mail; } else { a.removeAttribute('href'); a.textContent = '(contact email coming soon)'; } });
+</script>
+</body>
+</html>

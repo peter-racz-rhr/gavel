@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Gavel — The calm way to chair Model UN</title>
+<meta name="description" content="Gavel runs your Model UN committee: roll call with flags, speakers lists and timers, caucuses, motions, recorded votes and a beautiful projector view. Sign in with Google and your sessions follow you.">
+<meta property="og:title" content="Gavel — The calm way to chair Model UN">
+<meta property="og:description" content="Roll call, speakers lists, caucuses, motions, voting and a projector view — in one calm app for MUN chairs.">
+<meta name="theme-color" content="#0E0E10">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<script src="config.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/auth.js"></script>
+</head>
+<body>
+
+<header class="nav"><div class="wrap"><div class="nav-in">
+  <a class="brand" href="./" aria-label="Gavel home"><span data-logo></span>Gavel</a>
+  <nav class="nav-links" aria-label="Sections"><a href="#features">Features</a><a href="#projector">Projector</a><a href="#how">How it works</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></nav>
+  <div class="right"><a class="btn ghost" href="login.html" data-auth-link>Sign in</a><a class="btn primary" href="login.html" data-auth-link>Get started <span class="arrow">→</span></a></div>
+</div></div></header>
+
+<main>
+  <!-- hero -->
+  <section class="hero">
+    <div class="hero-glow" aria-hidden="true"></div><div class="hero-grid" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="hero-txt">
+        <a class="chip fade-in" href="#projector" style="text-decoration:none"><b>New</b>Projector mode with live animations</a>
+        <h1 class="display" id="headline">Chair your committee like it's the <em>General&nbsp;Assembly.</em></h1>
+        <p class="lead fade-in" style="--dl:.55s">Roll call with flags, speakers lists and timers, caucuses, motions and recorded votes — plus a stunning projector view for the room. One calm app for Model UN chairs.</p>
+        <div class="cta-row fade-in" style="--dl:.7s">
+          <a class="btn primary lg" href="login.html" data-auth-link><span data-g></span>Start free with Google</a>
+          <a class="btn soft lg" href="#demo">See it in action</a>
+        </div>
+        <p class="fine fade-in" style="--dl:.85s">Free during the beta · No credit card · Works on any laptop</p>
+      </div>
+
+      <div class="stage" id="demo">
+        <div class="globe-bg" aria-hidden="true"><canvas id="hero-globe" style="opacity:0;transition:opacity 1.6s"></canvas></div>
+        <div class="window rv" id="window">
+          <div class="win-bar"><i></i><i></i><i></i><span>gavel · Human Rights Council</span></div>
+          <div class="win-body">
+            <aside class="m-side">
+              <div class="m-ctx"><small>Chaired by you</small><b>Human Rights Council</b><small>Protecting journalists in conflict zones</small></div>
+              <div class="m-nav" id="m-nav"><span class="m-pill" id="m-pill"></span>
+                <a href="#demo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L21 5"/><path d="M20 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h11"/></svg>Roll call</a>
+                <a href="#demo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h7"/></svg>Opening speeches</a>
+                <a href="#demo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="2.5" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3.5"/></svg>Speakers list</a>
+                <a href="#demo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><path d="M3.5 20c0-3.3 2.5-5.6 5.5-5.6s5.5 2.3 5.5 5.6"/></svg>Caucus</a>
+                <a href="#demo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 21V4"/><path d="M5 4h12l-2 4 2 4H5"/></svg>Motions</a>
+                <a href="#demo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 13h16v7H4z"/><path d="M8 13V4.5h8V13"/></svg>Voting</a>
+              </div>
+            </aside>
+            <div class="m-main">
+              <div class="m-head"><div><div class="eyebrow">Opening the session</div><h3>Roll call</h3></div><span class="m-badge" id="m-count">0 of 12 present</span></div>
+              <div class="m-cards" id="m-cards"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- facts -->
+  <section class="sec" style="padding-top:60px;padding-bottom:40px"><div class="wrap">
+    <div class="facts rv">
+      <div><b data-count="196">0</b><span>Nations with flags, ready to seat</span></div>
+      <div><b data-count="7">0</b><span>Committee tools in one place</span></div>
+      <div><b>1 click</b><span>To put your session on the projector</span></div>
+      <div><b>0</b><span>Spreadsheets, stopwatches or paper lists</span></div>
+    </div>
+  </div></section>
+
+  <!-- committees -->
+  <section class="committees" aria-label="Committees Gavel is built for">
+    <p class="eyebrow rv">Built for every committee</p>
+    <div class="mq rv" style="--d:1"><div class="mq-row" id="marquee">
+      <span>🌐 General Assembly</span><span>🛡️ Security Council</span><span>⚖️ Human Rights Council</span><span>🏦 ECOSOC</span><span>🩺 World Health Organization</span><span>🌱 UN Environment</span><span>🕊️ DISEC</span><span>🤝 SOCHUM</span><span>🏛️ International Court of Justice</span><span>🚢 IMO</span><span>📚 UNESCO</span><span>⚡ Crisis committees</span>
+    </div></div>
+  </section>
+
+  <!-- features -->
+  <section class="sec" id="features"><div class="wrap">
+    <div class="sec-head"><div class="eyebrow rv">Everything a chair needs</div><h2 class="title rv" style="--d:1">From roll call to the final vote.</h2><p class="sub rv" style="--d:2">Gavel follows the order of business, so you always know what comes next — and the majorities are worked out for you.</p></div>
+    <div class="features">
+      <article class="feat rv"><div class="ill"><div class="ill-flags" id="ill-flags"></div></div><h3>Roll call with every flag</h3><p>Search any of the 193 member states and observers, mark present or present and voting, and see quorum and majorities update live.</p></article>
+      <article class="feat rv" style="--d:1"><div class="ill"><div class="ill-timer" id="ill-timer">1:30</div><div class="ill-bar"><i></i></div></div><h3>Speakers lists &amp; timers</h3><p>Opening speeches and the general speakers list, with yields to the chair, to questions or to another delegate. Space starts the clock.</p></article>
+      <article class="feat rv" style="--d:2"><div class="ill"><div class="ill-caucus"><i style="--i:0;--x0:10px;--y0:10px;--x1:60px;--y1:40px"></i><i style="--i:1;--x0:90px;--y0:8px;--x1:40px;--y1:30px"></i><i style="--i:2;--x0:50px;--y0:56px;--x1:96px;--y1:50px"></i><i style="--i:3;--x0:20px;--y0:50px;--x1:70px;--y1:6px"></i></div></div><h3>Moderated &amp; unmoderated caucus</h3><p>Set the total time and the speaking time. Gavel keeps both clocks in step and caps the last speaker automatically.</p></article>
+      <article class="feat rv"><div class="ill"><div class="ill-stack"><span style="--i:0">Adjourn the meeting <em>1</em></span><span style="--i:1">Unmoderated caucus <em>4</em></span><span style="--i:2">Moderated caucus <em>5</em></span></div></div><h3>Motions in the right order</h3><p>Motions are ranked by how disruptive they are, voted one by one, and the winning caucus is set up for you.</p></article>
+      <article class="feat rv" style="--d:1"><div class="ill"><div class="ill-vote"><i></i><i></i><i></i></div></div><h3>Recorded votes, done right</h3><p>Procedural and substantive votes with simple or two-thirds majorities. Delegations that are present and voting can't abstain.</p></article>
+      <article class="feat rv" style="--d:2"><div class="ill"><div class="ill-chat"><span style="--i:0;--w:90%"></span><span style="--i:1;--w:70%"></span><span style="--i:2;--w:82%"></span><span style="--i:3;--w:55%"></span></div></div><h3>Automatic log &amp; report</h3><p>Every speech, motion and vote is logged with its time. Finish with a clean session report you can copy or print.</p></article>
+    </div>
+  </div></section>
+
+  <!-- projector -->
+  <section class="sec" id="projector"><div class="wrap">
+    <div class="split">
+      <div>
+        <div class="eyebrow rv">Projector mode</div>
+        <h2 class="title rv" style="--d:1">The room sees a show. You see the controls.</h2>
+        <p class="sub rv" style="--d:2">Open a second window on the projector and Gavel follows you live — speaker flags, a huge countdown, votes flying into their columns.</p>
+        <ul class="ticks rv" style="--d:3">
+          <li><span><b>Live on a second screen</b> — run everything from your laptop.</span></li>
+          <li><span><b>Title, coffee and lunch screens</b> with countdowns until you resume.</span></li>
+          <li><span><b>Confetti when a resolution is adopted.</b> Delegates love it.</span></li>
+        </ul>
+      </div>
+      <div class="rv" style="--d:1">
+        <div class="screen"><div class="screen-in" id="screen">
+          <div class="sc-eye">General speakers list</div>
+          <div class="sc-who" id="sc-who"><img alt="" src="https://flagcdn.com/w320/br.png"><b>Brazil</b></div>
+          <div class="sc-time" id="sc-time">1:30</div>
+          <div class="sc-bar"><i id="sc-bar"></i></div>
+          <div class="sc-next" id="sc-next"></div>
+        </div><span class="screen-tag"><i></i>Projector live</span></div>
+      </div>
+    </div>
+  </div></section>
+
+  <!-- how -->
+  <section class="sec" id="how"><div class="wrap">
+    <div class="sec-head"><div class="eyebrow rv">How it works</div><h2 class="title rv" style="--d:1">Ready before the gavel falls.</h2></div>
+    <div class="steps">
+      <div class="how-step rv"><div class="n">1</div><h3>Sign in with Google</h3><p>One click. No passwords, no forms. Your sessions are saved to your account.</p></div>
+      <div class="how-step rv" style="--d:1"><div class="n">2</div><h3>Set up your committee</h3><p>Name it, add the topic, and seat delegations with a quick preset — the P5, the Security Council or all 193.</p></div>
+      <div class="how-step rv" style="--d:2"><div class="n">3</div><h3>Chair and project</h3><p>Call the roll, run the speakers list, take motions and votes. Put it all on the big screen in one click.</p></div>
+    </div>
+  </div></section>
+
+  <!-- sync -->
+  <section class="sec"><div class="wrap">
+    <div class="split rev">
+      <div>
+        <div class="eyebrow rv">Saved to your account</div>
+        <h2 class="title rv" style="--d:1">Start on your laptop. Check on your phone.</h2>
+        <p class="sub rv" style="--d:2">Every session syncs to your Google account automatically. Open Gavel on another device and pick up exactly where you left off — and it keeps working offline in the middle of a conference hall.</p>
+      </div>
+      <div class="devices rv" style="--d:1" aria-hidden="true">
+        <div class="dev laptop"><div class="ln a" style="width:40%"></div><div class="ln" style="width:70%"></div><div class="row"><i></i><i></i><i></i><i></i></div><div class="row"><i></i><i></i><i></i><i></i></div><div class="ln" style="width:55%"></div></div>
+        <div class="dev phone"><div class="ln a" style="width:60%"></div><div class="row"><i></i><i></i></div><div class="row"><i></i><i></i></div><div class="ln" style="width:80%"></div><div class="ln" style="width:50%"></div></div>
+        <span class="sync-dot"></span><span class="sync-dot" style="animation-delay:1.4s"></span>
+      </div>
+    </div>
+  </div></section>
+
+  <!-- pricing -->
+  <section class="sec" id="pricing"><div class="wrap">
+    <div class="sec-head"><div class="eyebrow rv">Pricing</div><h2 class="title rv" style="--d:1">Free while we are in beta.</h2><p class="sub rv" style="--d:2">Every feature, no limits, no card. Chairs who join now keep their sessions whatever comes next.</p></div>
+    <div class="plans">
+      <article class="plan best rv"><div class="plan-top"><span class="eyebrow">Chair</span><span class="tag">Beta</span></div>
+        <div class="price"><b>€0</b><span>during the beta</span></div>
+        <ul class="ticks"><li><span>Unlimited committees and sessions</span></li><li><span>Roll call, speakers lists, caucuses, motions and voting</span></li><li><span>Projector mode with title and break screens</span></li><li><span>Sync across your devices with Google sign-in</span></li><li><span>Session log and printable reports</span></li></ul>
+        <a class="btn primary lg" href="login.html" data-auth-link><span data-g></span>Start free with Google</a></article>
+      <article class="plan rv" style="--d:1"><div class="plan-top"><span class="eyebrow">Conference</span><span class="tag soft">Coming soon</span></div>
+        <div class="price"><b>Secretariat</b><span>for whole conferences</span></div>
+        <ul class="ticks"><li><span>Every chair of your conference in one place</span></li><li><span>Your conference name and colours on the projector</span></li><li><span>Reports from all committees in one go</span></li></ul>
+        <a class="btn soft lg" href="login.html" data-auth-link>Join the beta to hear first</a></article>
+    </div>
+  </div></section>
+
+  <!-- faq -->
+  <section class="sec" id="faq"><div class="wrap">
+    <div class="sec-head"><div class="eyebrow rv">FAQ</div><h2 class="title rv" style="--d:1">Questions chairs ask.</h2></div>
+    <div class="faq rv">
+      <details><summary>Is Gavel free?</summary><div class="ans">Yes — Gavel is free while it is in beta. If paid plans come later, you will hear about it well in advance, and your existing sessions stay yours.</div></details>
+      <details><summary>Does it follow real MUN rules of procedure?</summary><div class="ans">Gavel follows the usual flow of most conferences: roll call with quorum at one-third, opening speeches, the general speakers list with yields, moderated and unmoderated caucuses, motions ranked by disruptiveness, and recorded votes with simple or two-thirds majorities. You stay in control of every decision.</div></details>
+      <details><summary>Do I need internet during the session?</summary><div class="ans">Gavel keeps working offline and saves to the device. When the connection comes back, your sessions sync to your account.</div></details>
+      <details><summary>How does the projector work?</summary><div class="ans">Click Present, then open Gavel in a second window on the projector and choose “Make this the projector”. It follows your main window live, so you run everything from your laptop.</div></details>
+      <details><summary>What do you do with my data?</summary><div class="ans">We store your name, email and the sessions you create, only to run Gavel for you. We never sell your data. Read the <a href="privacy.html" style="color:var(--accent)">privacy policy</a> for the details.</div></details>
+    </div>
+  </div></section>
+
+  <section class="sec" style="padding-top:20px"><div class="wrap">
+    <div class="band rv"><h2>Your next committee deserves a better chair's desk.</h2><p>Sign in with Google and set up your first session in under a minute.</p><a class="btn primary lg" href="login.html" data-auth-link><span data-g></span>Start free with Google</a></div>
+  </div></section>
+</main>
+
+<footer class="foot"><div class="wrap"><div class="foot-in">
+  <a class="brand" href="./"><span data-logo></span>Gavel</a>
+  <span>© <span id="yr"></span> Gavel · Made for Model UN chairs</span>
+  <nav><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="login.html" data-auth-link>Sign in</a></nav>
+</div></div></footer>
+
+<script>
+(() => {
+const { splitWords, reveal, nav, globe, GOOGLE_G, fillLogos } = window.GavelSite, { getUser, href } = window.GavelAuth;
+fillLogos();
+document.querySelectorAll('[data-g]').forEach(e => e.outerHTML = `<span style="display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#fff;padding:3px">${GOOGLE_G}</span>`);
+document.getElementById('yr').textContent = new Date().getFullYear();
+splitWords(document.getElementById('headline'));
+reveal(); nav();
+
+// signed in already? the buttons go straight into the app
+getUser().then(u => {
+  if (!u) return;
+  document.querySelectorAll('[data-auth-link]').forEach(a => {
+    a.href = href('app/index.html');
+    if (a.classList.contains('ghost')) a.remove();
+    else a.innerHTML = a.closest('.nav, .foot') ? 'Open Gavel <span class="arrow">→</span>' : 'Open your committees <span class="arrow">→</span>';
+  });
+}).catch(() => { });
+
+// hero globe with a few committee markers
+globe(document.getElementById('hero-globe'), { phi: 4.2, theta: .25, markers: [[40.7, -74], [46.2, 6.1], [48.2, 16.4], [-1.3, 36.8], [-15.8, -47.9], [28.6, 77.2], [35.7, 139.7]].map(l => ({ location: l, size: .05 })) });
+
+// counters
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return; io.unobserve(e.target);
+  const el = e.target, to = +el.dataset.count, t0 = performance.now();
+  const step = n => { const p = Math.min(1, (n - t0) / 1400); el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+}), { threshold: .4 });
+document.querySelectorAll('[data-count]').forEach(e => io.observe(e));
+
+// mini app: delegations answer the roll one after another, the pill glides between sections
+const NATIONS = [['br', 'Brazil'], ['cn', 'China'], ['fr', 'France'], ['de', 'Germany'], ['in', 'India'], ['jp', 'Japan'], ['ke', 'Kenya'], ['mx', 'Mexico'], ['ng', 'Nigeria'], ['za', 'South Africa'], ['gb', 'United Kingdom'], ['us', 'United States']];
+const cards = document.getElementById('m-cards'), count = document.getElementById('m-count');
+cards.innerHTML = NATIONS.map(([c, n]) => `<div class="m-card" data-c="${c}"><img alt="" src="https://flagcdn.com/w160/${c}.png" loading="lazy"><b>${n}</b><div class="m-btns"><i></i><i></i></div></div>`).join('');
+const win = document.getElementById('window');
+new IntersectionObserver(([e], o) => { if (e.isIntersecting) { win.classList.add('in'); o.disconnect(); startRoll(); } }, { threshold: .2 }).observe(win);
+function startRoll() {
+  let i = 0;
+  const all = [...cards.children], order = [3, 0, 7, 10, 1, 5, 11, 2, 8, 4, 9, 6];
+  const tick = () => {
+    if (i < order.length) { const c = all[order[i]]; c.classList.add('on', 'pop'); setTimeout(() => c.classList.remove('pop'), 700); i++; count.textContent = `${i} of 12 present`; setTimeout(tick, 650); }
+    else setTimeout(() => { all.forEach(c => c.classList.remove('on')); i = 0; count.textContent = '0 of 12 present'; setTimeout(tick, 900); }, 3200);
+  };
+  setTimeout(tick, 700);
+}
+const pill = document.getElementById('m-pill'), links = [...document.querySelectorAll('#m-nav a')];
+const SEQ = [0, 2, 5]; let k = 0;
+const movePill = () => { pill.style.transform = `translateY(${links[SEQ[k]].offsetTop}px)`; };
+movePill(); setInterval(() => { k = (k + 1) % SEQ.length; movePill(); }, 2600);
+
+// feature: hopping flags + ticking timer
+document.getElementById('ill-flags').innerHTML = ['un', 'fr', 'jp', 'br', 'ke'].map((c, i) => `<img alt="" style="--i:${i}" src="https://flagcdn.com/w160/${c}.png">`).join('');
+let ft = 90; setInterval(() => { ft = ft <= 0 ? 90 : ft - 1; document.getElementById('ill-timer').textContent = `${Math.floor(ft / 60)}:${String(ft % 60).padStart(2, '0')}`; }, 1000);
+
+// projector mock: live countdown with ticking digits, speakers rotate
+const SPK = [['br', 'Brazil'], ['jp', 'Japan'], ['ke', 'Kenya'], ['de', 'Germany'], ['in', 'India']];
+let si = 0, rem = 90;
+const tEl = document.getElementById('sc-time'), bar = document.getElementById('sc-bar'), who = document.getElementById('sc-who'), next = document.getElementById('sc-next');
+const paintNext = () => { next.innerHTML = '<span style="border:0;padding:0">UP NEXT</span>' + [1, 2, 3].map(k => SPK[(si + k) % SPK.length]).map(([c, n]) => `<span><img alt="" src="https://flagcdn.com/w80/${c}.png">${n}</span>`).join(''); };
+const digits = (txt) => { const old = tEl.dataset.t || ''; tEl.dataset.t = txt; tEl.innerHTML = [...txt].map((ch, i) => `<span class="dg${old.length === txt.length && old[i] !== ch ? ' chg' : ''}">${ch}</span>`).join(''); };
+paintNext(); digits('1:30');
+setInterval(() => {
+  rem -= 1;
+  if (rem < 74) { rem = 90; si = (si + 1) % SPK.length; const [c, n] = SPK[si]; who.innerHTML = `<img alt="" src="https://flagcdn.com/w320/${c}.png"><b>${n}</b>`; who.classList.remove('sc-swap'); void who.offsetWidth; who.classList.add('sc-swap'); paintNext(); }
+  digits(`${Math.floor(rem / 60)}:${String(rem % 60).padStart(2, '0')}`); bar.style.transform = `scaleX(${rem / 90})`;
+}, 1000);
+
+// committees strip: duplicate the row so the loop is seamless
+const mq = document.getElementById('marquee'); if (mq) mq.innerHTML += mq.innerHTML;
+})();
+</script>
+</body>
+</html>

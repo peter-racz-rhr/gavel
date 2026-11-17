@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Welcome — Gavel</title>
+<meta name="theme-color" content="#0E0E10">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<script src="config.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/auth.js"></script>
+<style>
+.ob{position:relative;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;isolation:isolate;overflow:hidden}
+.ob-top{display:flex;align-items:center;gap:16px;padding:22px max(22px,env(safe-area-inset-left,0px))}
+.ob-top .brand{font-size:15px}
+.prog{flex:1;max-width:420px;height:6px;margin:0 auto;border-radius:9px;background:var(--surface-3);overflow:hidden}
+.prog i{display:block;height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,var(--accent),color-mix(in oklab,var(--accent) 50%,var(--yes)));transition:width .8s var(--spring)}
+.ob-step-n{font:500 12.5px var(--mono);color:var(--muted);width:90px}
+.ob-skip{font-size:14px;color:var(--muted);text-decoration:none;width:90px;text-align:right}
+.ob-skip:hover{color:var(--ink)}
+.ob-body{flex:1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,430px);gap:clamp(30px,6vw,90px);align-items:center;width:100%;max-width:1200px;margin:0 auto;padding:10px max(22px,env(safe-area-inset-left,0px)) 60px}
+@media (max-width:980px){.ob-body{grid-template-columns:1fr}.desk{display:none}}
+.ob-stage{display:grid;align-items:center;min-height:520px}
+.step{grid-area:1/1;width:min(620px,100%);display:flex;flex-direction:column;gap:22px}
+.step[hidden]{display:none}
+.step.enter{animation:stepIn .8s var(--spring) both}
+.step.enter-back{animation:stepInBack .8s var(--spring) both}
+.step.leave{animation:stepOut .45s cubic-bezier(.5,0,.75,0) both}
+.step.leave-back{animation:stepOutBack .45s cubic-bezier(.5,0,.75,0) both}
+@keyframes stepIn{from{opacity:0;transform:translateX(70px) scale(.97);filter:blur(10px)}to{opacity:1;transform:none;filter:none}}
+@keyframes stepInBack{from{opacity:0;transform:translateX(-70px) scale(.97);filter:blur(10px)}to{opacity:1;transform:none;filter:none}}
+@keyframes stepOut{to{opacity:0;transform:translateX(-60px) scale(.97);filter:blur(8px)}}
+@keyframes stepOutBack{to{opacity:0;transform:translateX(60px) scale(.97);filter:blur(8px)}}
+.step.enter>*,.step.enter-back>*{animation:fadeUp .7s var(--ease) both;animation-delay:calc(var(--k,0) * 70ms + 120ms)}
+.q{font:650 clamp(32px,4.6vw,52px)/1.05 var(--sans);letter-spacing:-.045em;text-wrap:balance}
+.q-sub{font-size:18px;color:var(--ink-2);margin-top:-8px}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.opts.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:560px){.opts,.opts.three{grid-template-columns:1fr}}
+.opt{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:20px;border-radius:20px;background:var(--surface);border:1.5px solid var(--line);text-align:left;transition:border-color .25s,background-color .25s,transform .2s var(--ease),box-shadow .3s}
+.opt:hover{border-color:var(--line-2);transform:translateY(-2px);box-shadow:var(--shadow)}
+.opt .oi{display:grid;place-items:center;width:44px;height:44px;border-radius:14px;background:var(--surface-2);font-size:22px;transition:transform .5s var(--spring),background-color .3s}
+.opt b{font-size:16.5px;font-weight:600;letter-spacing:-.01em}
+.opt small{font-size:13.5px;color:var(--muted);line-height:1.45}
+.opt.on{border-color:var(--accent);background:color-mix(in oklab,var(--accent) 7%,var(--surface))}
+.opt.on .oi{background:var(--accent-soft);transform:scale(1.12) rotate(-6deg)}
+.opt.on::after{content:'';position:absolute;top:16px;right:16px;width:22px;height:22px;border-radius:50%;background:var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 5 5L20 7'/%3E%3C/svg%3E") center/12px no-repeat;animation:popIn .45s var(--spring)}
+@keyframes popIn{from{transform:scale(0)}to{transform:none}}
+.field{display:flex;flex-direction:column;gap:8px}
+.field span{font-size:14px;font-weight:550;color:var(--ink-2)}
+.field span small{font-weight:400;color:var(--muted);margin-left:6px}
+.input{height:56px;padding:0 18px;border-radius:16px;border:1.5px solid var(--line-2);background:var(--surface);font-size:17px;outline:0;transition:border-color .2s,box-shadow .2s}
+.input:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chipb{height:40px;padding:0 16px;border-radius:999px;border:1.5px solid var(--line-2);background:var(--surface);font-size:14.5px;font-weight:550;transition:all .25s var(--ease)}
+.chipb.on{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.actions{display:flex;align-items:center;gap:10px;margin-top:6px}
+.actions .grow{flex:1}
+.hint{font-size:13px;color:var(--muted)}
+kbd{display:inline-grid;place-items:center;min-width:24px;height:24px;padding:0 7px;border-radius:7px;background:var(--surface-2);border:1px solid var(--line-2);border-bottom-width:2px;font:500 12px var(--mono);color:var(--ink)}
+.avatar{width:96px;height:96px;border-radius:30px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),color-mix(in oklab,var(--accent) 40%,var(--yes)));color:#fff;font:650 38px var(--sans);overflow:hidden;box-shadow:0 30px 60px -30px color-mix(in oklab,var(--accent) 80%,transparent);animation:avatarIn 1s var(--spring) both}
+.avatar img{width:100%;height:100%;object-fit:cover}
+@keyframes avatarIn{from{opacity:0;transform:scale(.4) rotate(-20deg)}to{opacity:1;transform:none}}
+.wave{display:inline-block;transform-origin:70% 70%;animation:wave 2.2s ease-in-out .8s 2}
+@keyframes wave{0%,60%,100%{transform:rotate(0)}10%,30%{transform:rotate(16deg)}20%,40%{transform:rotate(-8deg)}}
+.tour{display:grid;gap:12px}
+.tour .t{display:flex;align-items:center;gap:16px;padding:18px 20px;border-radius:18px;background:var(--surface);border:1px solid var(--line);opacity:0;transform:translateY(16px)}
+.tour .t.in{animation:fadeUp .7s var(--spring) forwards}
+.tour .t .ti{flex:none;display:grid;place-items:center;width:46px;height:46px;border-radius:14px;background:var(--accent-soft);color:var(--accent);font-size:20px}
+.tour .t b{display:block;font-size:16px}
+.tour .t span{font-size:14px;color:var(--muted)}
+.done{align-items:flex-start}
+.seal{width:96px;height:96px;border-radius:50%;display:grid;place-items:center;background:var(--yes-soft);color:var(--yes);animation:avatarIn 1s var(--spring) both}
+.seal svg{width:48px;height:48px;stroke-dasharray:40;stroke-dashoffset:40;animation:draw .7s var(--ease) .5s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+/* live desk preview */
+.desk{position:relative;perspective:1400px}
+.desk-glow{position:absolute;inset:-20%;z-index:-1;background:radial-gradient(50% 50% at 50% 50%,color-mix(in oklab,var(--accent) 26%,transparent),transparent 70%);filter:blur(20px);animation:glow 10s ease-in-out infinite alternate}
+.desk-card{position:relative;padding:24px;border-radius:28px;background:color-mix(in oklab,var(--surface) 88%,transparent);border:1px solid var(--line-2);box-shadow:var(--shadow-lg);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);transform:rotateY(var(--ry,-6deg)) rotateX(var(--rx,4deg));transition:transform .5s var(--ease);animation:deskIn 1.1s var(--spring) .2s both}
+@keyframes deskIn{from{opacity:0;transform:translateY(40px) rotateY(-20deg) rotateX(12deg) scale(.92)}}
+.desk-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.desk-live{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--yes)}
+.desk-live i{width:7px;height:7px;border-radius:50%;background:currentColor;animation:live 1.6s ease-in-out infinite}
+.desk-me{display:flex;align-items:center;gap:14px}
+.desk-av{width:52px;height:52px;flex:none;border-radius:17px;display:grid;place-items:center;overflow:hidden;background:linear-gradient(135deg,var(--accent),color-mix(in oklab,var(--accent) 40%,var(--yes)));color:#fff;font:650 21px var(--sans)}
+.desk-av img{width:100%;height:100%;object-fit:cover}
+.desk-me b{display:block;font-size:17px;font-weight:600;letter-spacing:-.01em}
+.desk-badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}
+.badge{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:99px;background:var(--surface-2);font-size:12px;font-weight:550;color:var(--muted);transition:background-color .3s,color .3s}
+.badge.set{background:var(--accent-soft);color:var(--accent)}
+.badge.pop{animation:badgePop .55s var(--spring)}
+@keyframes badgePop{40%{transform:scale(1.18) rotate(-3deg)}}
+.desk-conf{display:flex;align-items:center;gap:10px;margin:18px 0;padding:12px 14px;border-radius:14px;background:var(--surface-2);font-size:14px;color:var(--ink-2);min-height:46px}
+.desk-conf span.ph{color:var(--faint)}
+.desk-com{padding:18px;border-radius:20px;background:var(--surface);border:1px solid var(--line)}
+.desk-com h3{font:650 22px/1.15 var(--sans);letter-spacing:-.03em;margin-top:8px;min-height:1.15em;overflow-wrap:anywhere}
+.desk-com p{font-size:14px;color:var(--ink-2);margin-top:4px;min-height:1.4em;overflow-wrap:anywhere}
+.ph{color:var(--faint)!important}
+.caret::after{content:'';display:inline-block;width:2px;height:1em;margin-left:2px;vertical-align:-.12em;background:var(--accent);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.desk-flags{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;margin-top:16px;min-height:28px}
+.desk-flags img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:4px;box-shadow:0 4px 10px -6px rgba(0,0,0,.6);animation:flagPop .55s var(--spring) both;animation-delay:calc(var(--i) * 35ms)}
+.desk-flags .more{display:grid;place-items:center;aspect-ratio:3/2;border-radius:4px;background:var(--surface-2);font:600 10.5px var(--mono);color:var(--muted);animation:flagPop .55s var(--spring) both;animation-delay:calc(var(--i) * 35ms)}
+.desk-flags .empty{grid-column:1/-1;font-size:13px;color:var(--faint)}
+@keyframes flagPop{from{opacity:0;transform:scale(.3) rotate(-12deg)}to{opacity:1;transform:none}}
+.desk-stats{display:flex;gap:16px;margin-top:14px;font-size:13px;color:var(--muted)}
+.desk-stats b{color:var(--ink);font-variant-numeric:tabular-nums}
+.desk-keys{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+.desk-keys span{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:12px;background:var(--surface-2);font-size:12.5px;color:var(--muted);transition:background-color .3s,color .3s,transform .3s var(--spring)}
+.desk-keys span.hot{background:var(--accent-soft);color:var(--accent);transform:translateY(-3px)}
+.desk-keys span.hot kbd{animation:press .5s var(--ease)}
+@keyframes press{40%{transform:translateY(2px);border-bottom-width:1px}}
+.desk.celebrate .desk-card{animation:deskCheer 1s var(--spring)}
+@keyframes deskCheer{30%{transform:rotateY(0) rotateX(0) scale(1.04)}}
+.desk.celebrate .desk-glow{background:radial-gradient(50% 50% at 50% 50%,color-mix(in oklab,var(--yes) 30%,transparent),transparent 70%)}
+</style>
+</head>
+<body>
+<div class="ob">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <header class="ob-top"><a class="brand" href="./"><span data-logo></span>Gavel</a><div class="prog" aria-hidden="true"><i id="prog"></i></div><a class="ob-skip" href="#" id="skip">Skip</a></header>
+
+  <div class="ob-body">
+  <main class="ob-stage" id="stage">
+    <!-- 0 welcome -->
+    <section class="step" data-step="welcome">
+      <div class="avatar" id="avatar" style="--k:0"></div>
+      <h1 class="q" style="--k:1">Welcome, <span data-first>Chair</span> <span class="wave">👋</span></h1>
+      <p class="q-sub" style="--k:2">Let's set up your chair's desk. It takes about a minute, and you can change everything later.</p>
+      <div class="actions" style="--k:3"><button class="btn primary lg" data-next>Let's go <span class="arrow">→</span></button><span class="hint">or press <kbd>Enter</kbd></span></div>
+    </section>
+
+    <!-- 1 role -->
+    <section class="step" data-step="role" hidden>
+      <h1 class="q" style="--k:0">What's your role?</h1>
+      <div class="opts" data-pick="role" style="--k:1">
+        <button class="opt" data-v="chair" data-label="Chair"><span class="oi">🎙️</span><b>Chair or co-chair</b><small>I run the committee from the dais.</small></button>
+        <button class="opt" data-v="secretariat" data-label="Secretariat"><span class="oi">🏛️</span><b>Secretariat</b><small>I organise the conference and its committees.</small></button>
+        <button class="opt" data-v="advisor" data-label="Advisor"><span class="oi">🎓</span><b>Teacher or advisor</b><small>I run practice sessions with my students.</small></button>
+        <button class="opt" data-v="delegate" data-label="Delegate"><span class="oi">🌍</span><b>Delegate</b><small>I want to practise chairing or rehearse.</small></button>
+      </div>
+      <div class="actions" style="--k:2"><button class="btn ghost" data-back>← Back</button></div>
+    </section>
+
+    <!-- 2 experience -->
+    <section class="step" data-step="experience" hidden>
+      <h1 class="q" style="--k:0">How many committees have you chaired?</h1>
+      <div class="opts three" data-pick="experience" style="--k:1">
+        <button class="opt" data-v="first" data-label="First committee"><span class="oi">🌱</span><b>This is my first</b><small>We'll show you the ropes.</small></button>
+        <button class="opt" data-v="some" data-label="A few committees"><span class="oi">⚖️</span><b>A few</b><small>I know the procedure.</small></button>
+        <button class="opt" data-v="veteran" data-label="Veteran chair"><span class="oi">🏆</span><b>I'm a veteran</b><small>Just give me the shortcuts.</small></button>
+      </div>
+      <div class="actions" style="--k:2"><button class="btn ghost" data-back>← Back</button></div>
+    </section>
+
+    <!-- 3 conference -->
+    <section class="step" data-step="conference" hidden>
+      <h1 class="q" style="--k:0">Where are you chairing?</h1>
+      <p class="q-sub" style="--k:1">The conference or school. It appears on your session reports.</p>
+      <label class="field" style="--k:2"><span>Conference <small>optional</small></span><input class="input" id="conference" maxlength="80" placeholder="e.g. Budapest Model United Nations 2027" autocomplete="off"></label>
+      <div class="actions" style="--k:3"><button class="btn ghost" data-back>← Back</button><span class="grow"></span><button class="btn primary lg" data-next>Continue <span class="arrow">→</span></button></div>
+    </section>
+
+    <!-- 4 first committee -->
+    <section class="step" data-step="committee" hidden>
+      <h1 class="q" style="--k:0">Your first committee</h1>
+      <label class="field" style="--k:1"><span>Committee</span><input class="input" id="committee" maxlength="80" placeholder="e.g. UN Human Rights Council" autocomplete="off"></label>
+      <label class="field" style="--k:2"><span>Agenda topic <small>optional</small></span><input class="input" id="topic" maxlength="140" placeholder="e.g. Protecting journalists in conflict zones" autocomplete="off"></label>
+      <div class="field" style="--k:3"><span>Seat delegations now</span><div class="chips" data-pick="preset"><button class="chipb on" data-v="">Later</button><button class="chipb" data-v="p5">The P5</button><button class="chipb" data-v="unsc">Security Council</button><button class="chipb" data-v="all">All 193 members</button></div></div>
+      <div class="actions" style="--k:4"><button class="btn ghost" data-back>← Back</button><span class="grow"></span><button class="btn primary lg" data-next>Create committee <span class="arrow">→</span></button></div>
+    </section>
+
+    <!-- 5 tour -->
+    <section class="step" data-step="tour" hidden>
+      <h1 class="q" style="--k:0">Three things to remember</h1>
+      <div class="tour" id="tour">
+        <div class="t"><span class="ti">⏱️</span><div><b>Press <kbd>Space</kbd> to start or pause the timer</b><span><kbd>N</kbd> calls the next speaker, <kbd>R</kbd> resets the clock.</span></div></div>
+        <div class="t"><span class="ti">📽️</span><div><b>Present puts it on the projector</b><span>Open a second window on the projector and click “Make this the projector”.</span></div></div>
+        <div class="t"><span class="ti">☕</span><div><b>Press <kbd>T</kbd> for the title screen</b><span>Or choose a coffee or lunch break with a countdown under “Room screen”.</span></div></div>
+      </div>
+      <div class="actions" style="--k:4"><button class="btn ghost" data-back>← Back</button><span class="grow"></span><button class="btn primary lg" data-next>Got it <span class="arrow">→</span></button></div>
+    </section>
+
+    <!-- 6 done -->
+    <section class="step done" data-step="done" hidden>
+      <div class="seal" style="--k:0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg></div>
+      <h1 class="q" style="--k:1">You're all set, <span data-first>Chair</span>.</h1>
+      <p class="q-sub" style="--k:2">Your desk is ready and your first committee is waiting for its roll call.</p>
+      <div class="actions" style="--k:3"><button class="btn primary lg" id="open">Open Gavel <span class="arrow">→</span></button></div>
+    </section>
+  </main>
+
+  <!-- live preview of what is being set up -->
+  <aside class="desk" id="desk" aria-label="Preview of your setup">
+    <div class="desk-glow" aria-hidden="true"></div>
+    <div class="desk-card" id="desk-card">
+      <div class="desk-top"><span class="eyebrow">Your chair's desk</span><span class="desk-live"><i></i>Live preview</span></div>
+      <div class="desk-me"><div class="desk-av" id="desk-av"></div><div><b data-first-full>Chair</b><div class="desk-badges"><span class="badge" id="b-role">Role</span><span class="badge" id="b-exp">Experience</span></div></div></div>
+      <div class="desk-conf">🏛️ <span id="d-conf" class="ph">Your conference</span></div>
+      <div class="desk-com">
+        <div class="eyebrow">First committee</div>
+        <h3 id="d-com" class="ph">Name your committee</h3>
+        <p id="d-topic" class="ph">Agenda topic</p>
+        <div class="desk-flags" id="d-flags"><span class="empty">Delegations appear here</span></div>
+        <div class="desk-stats"><span><b id="d-n">0</b> delegations</span><span>Simple majority <b id="d-maj">–</b></span></div>
+      </div>
+      <div class="desk-keys" id="d-keys"><span><kbd>Space</kbd>Timer</span><span><kbd>N</kbd>Next speaker</span><span><kbd>T</kbd>Title screen</span><span><kbd>F</kbd>Present</span></div>
+    </div>
+  </aside>
+  </div>
+</div>
+
+<script>
+(async () => {
+const { requireUser, saveProfile, getProfile, href } = window.GavelAuth, { fillLogos, confetti, flagUrl, reduced } = window.GavelSite;
+fillLogos();
+const $ = s => document.querySelector(s);
+const user = await requireUser();
+const prev = await getProfile(user).catch(() => null);
+const first = (user.name || 'Chair').split(' ')[0];
+document.querySelectorAll('[data-first]').forEach(e => e.textContent = first);
+document.querySelectorAll('[data-first-full]').forEach(e => e.textContent = user.name || first);
+const avatarHTML = user.avatar ? `<img alt="" src="${user.avatar}" referrerpolicy="no-referrer">` : (first[0] || 'G').toUpperCase();
+$('#avatar').innerHTML = avatarHTML; $('#desk-av').innerHTML = avatarHTML;
+
+/* live desk */
+const ALL = ['us', 'cn', 'fr', 'gb', 'ru', 'br', 'in', 'jp', 'de', 'za', 'ng', 'mx', 'ke', 'id', 'au', 'ca', 'eg', 'ar', 'tr', 'kr', 'sa', 'se', 'it', 'pl'];
+const PRESETS = { p5: ['cn', 'fr', 'ru', 'gb', 'us'], unsc: ['cn', 'fr', 'ru', 'gb', 'us', 'bh', 'co', 'cd', 'lv', 'lr', 'dk', 'gr', 'pk', 'pa', 'so'] };
+function badge(el, text) { el.textContent = text; el.classList.add('set'); el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); }
+function live(el, val, ph) { el.textContent = val || ph; el.classList.toggle('ph', !val); }
+function flags(preset) {
+  const box = $('#d-flags'), n = preset === 'all' ? 193 : (PRESETS[preset] || []).length;
+  const shown = preset === 'all' ? ALL.slice(0, 15) : (PRESETS[preset] || []);
+  box.innerHTML = !n ? '<span class="empty">Delegations appear here</span>'
+    : shown.map((c, i) => `<img alt="" src="${flagUrl(c, 80)}" style="--i:${i}">`).join('') + (preset === 'all' ? `<span class="more" style="--i:15">+178</span>` : '');
+  $('#d-n').textContent = n; $('#d-maj').textContent = n ? Math.floor(n / 2) + 1 : '–';
+}
+['conference', 'committee', 'topic'].forEach(id => $('#' + id).addEventListener('input', e => {
+  const v = e.target.value.trim();
+  if (id === 'conference') live($('#d-conf'), v, 'Your conference');
+  if (id === 'committee') live($('#d-com'), v, 'Name your committee');
+  if (id === 'topic') live($('#d-topic'), v, 'Agenda topic');
+}));
+['committee', 'topic'].forEach(id => { $('#' + id).addEventListener('focus', () => $(id === 'committee' ? '#d-com' : '#d-topic').classList.add('caret')); $('#' + id).addEventListener('blur', () => $(id === 'committee' ? '#d-com' : '#d-topic').classList.remove('caret')); });
+const card = $('#desk-card');
+addEventListener('pointermove', e => { if (reduced) return; const x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5; card.style.setProperty('--ry', (-6 + x * 10).toFixed(2) + 'deg'); card.style.setProperty('--rx', (4 - y * 8).toFixed(2) + 'deg'); });
+
+/* steps */
+const ans = { role: prev?.role || '', experience: prev?.experience || '', preset: '' };
+const steps = [...document.querySelectorAll('.step')];
+let cur = 0;
+const prog = $('#prog');
+function show(n, back) {
+  if (n < 0 || n >= steps.length || n === cur) return;
+  const a = steps[cur], b = steps[n];
+  a.classList.remove('enter', 'enter-back'); a.classList.add(back ? 'leave-back' : 'leave');
+  setTimeout(() => { a.hidden = true; a.classList.remove('leave', 'leave-back'); }, reduced ? 0 : 420);
+  b.hidden = false; b.classList.remove('enter', 'enter-back'); void b.offsetWidth; b.classList.add(back ? 'enter-back' : 'enter');
+  cur = n; prog.style.width = (n / (steps.length - 1) * 100) + '%';
+  setTimeout(() => b.querySelector('input')?.focus(), 450);
+  if (b.dataset.step === 'tour') playTour();
+  if (b.dataset.step === 'done') finish();
+}
+steps[0].classList.add('enter'); prog.style.width = '4%';
+document.addEventListener('click', e => {
+  if (e.target.closest('[data-next]')) next();
+  else if (e.target.closest('[data-back]')) show(cur - 1, true);
+  const opt = e.target.closest('[data-pick] .opt, [data-pick] .chipb');
+  if (opt) {
+    const group = opt.parentElement, key = group.dataset.pick;
+    group.querySelectorAll('.on').forEach(x => x.classList.remove('on')); opt.classList.add('on');
+    ans[key] = opt.dataset.v;
+    if (key === 'role') badge($('#b-role'), opt.dataset.label);
+    if (key === 'experience') badge($('#b-exp'), opt.dataset.label);
+    if (key === 'preset') flags(opt.dataset.v);
+    if (opt.classList.contains('opt')) setTimeout(() => show(cur + 1), reduced ? 0 : 420);
+  }
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.target.closest('button')) { e.preventDefault(); next(); }
+  if (e.key === 'Escape') show(cur - 1, true);
+});
+function next() {
+  const name = steps[cur].dataset.step;
+  if (name === 'role' && !ans.role) return;
+  if (name === 'experience' && !ans.experience) return;
+  if (name === 'committee') {
+    const c = $('#committee');
+    if (!c.value.trim()) { c.focus(); c.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(-8px)' }, { transform: 'translateX(8px)' }, { transform: 'translateX(0)' }], { duration: 300 }); return; }
+  }
+  show(cur + 1);
+}
+$('#skip').addEventListener('click', async e => {
+  e.preventDefault();
+  await saveProfile(user, { full_name: user.name, onboarded: true }).catch(() => { });
+  location.href = href('app/index.html');
+});
+function playTour() {
+  document.querySelectorAll('#tour .t').forEach((t, i) => { t.classList.remove('in'); setTimeout(() => t.classList.add('in'), 250 + i * 260); });
+  const keys = [...document.querySelectorAll('#d-keys span')];
+  keys.forEach((k, i) => setTimeout(() => { keys.forEach(x => x.classList.remove('hot')); k.classList.add('hot'); }, 300 + i * 520));
+  setTimeout(() => keys.forEach(x => x.classList.add('hot')), 300 + keys.length * 520);
+}
+
+let saved = false;
+async function finish() {
+  $('#desk').classList.add('celebrate');
+  confetti({ particleCount: 120, spread: 80, origin: { y: .5 } });
+  setTimeout(() => { confetti({ particleCount: 80, angle: 60, spread: 60, origin: { x: 0, y: .7 } }); confetti({ particleCount: 80, angle: 120, spread: 60, origin: { x: 1, y: .7 } }); }, 300);
+  if (saved) return; saved = true;
+  const committee = $('#committee').value.trim(), topic = $('#topic').value.trim();
+  // the first committee goes straight into this account's local store; the app syncs it up
+  const key = 'gavel.v1:' + user.id; let db;
+  try { db = JSON.parse(localStorage.getItem(key)); } catch { }
+  if (!db || !Array.isArray(db.sessions)) db = { sessions: [] };
+  const now = Date.now(), id = Math.random().toString(36).slice(2, 13);
+  db.sessions.unshift({ id, committee, topic, chair: user.name || '', created: now, updated: now, delegates: [], _preset: ans.preset || undefined, lastTab: 'roll' });
+  try { localStorage.setItem(key, JSON.stringify(db)); } catch { }
+  $('#open').dataset.id = id;
+  await saveProfile(user, { full_name: user.name, role: ans.role, experience: ans.experience, conference: $('#conference').value.trim(), onboarded: true }).catch(() => { });
+}
+$('#open').addEventListener('click', e => { location.href = href('app/index.html') + '#/s/' + (e.currentTarget.dataset.id || '') + '/roll'; });
+})();
+</script>
+</body>
+</html>

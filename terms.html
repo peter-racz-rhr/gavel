@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Terms of use — Gavel</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<script src="config.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/auth.js"></script>
+</head>
+<body>
+<header class="nav scrolled"><div class="wrap"><div class="nav-in"><a class="brand" href="./"><span data-logo></span>Gavel</a><div class="right"><a class="btn primary" href="login.html">Sign in</a></div></div></div></header>
+<main class="legal">
+  <h1>Terms of use</h1>
+  <p class="upd">Last updated: 18 November 2026</p>
+  <p>These terms apply when you use Gavel. By signing in you agree to them. If you do not agree, please do not use Gavel.</p>
+
+  <h2>The service</h2>
+  <p>Gavel helps you run Model United Nations committees: roll calls, speakers lists, caucuses, motions, votes, a projector view and session reports. Gavel is free while it is in beta. We may add, change or remove features, and if we ever introduce paid plans we will tell you before anything changes for you.</p>
+
+  <h2>Your account</h2>
+  <p>You sign in with your Google account and you are responsible for what happens under it. Keep your Google account secure. One person per account, please.</p>
+
+  <h2>Your content</h2>
+  <p>The sessions you create belong to you. You give us permission to store and process them only so we can run Gavel for you, as described in the <a href="privacy.html">privacy policy</a>. You can export or delete your sessions at any time.</p>
+
+  <h2>Fair use</h2>
+  <p>Do not misuse Gavel: no attempts to break, overload or get around its security, no access to other people's accounts, and nothing unlawful. We may suspend accounts that do.</p>
+
+  <h2>No guarantees</h2>
+  <p>We work hard to keep Gavel reliable, but it is provided “as is”. Rules of procedure differ between conferences, and the chair is always responsible for decisions in the committee. Keep a backup of important sessions. To the extent the law allows, we are not liable for indirect losses or lost data.</p>
+
+  <h2>Ending</h2>
+  <p>You can stop using Gavel at any time and ask us to delete your account. We may end the service with reasonable notice, and you will be able to export your sessions before it closes.</p>
+
+  <h2>Changes and contact</h2>
+  <p>If we change these terms in an important way we will tell you in the app. Questions: <a data-contact href="#">contact us by email</a>.</p>
+</main>
+<footer class="foot"><div class="wrap"><div class="foot-in"><a class="brand" href="./"><span data-logo></span>Gavel</a><nav><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav></div></div></footer>
+<script>
+window.GavelSite.fillLogos();
+const mail = window.GAVEL_CONFIG?.contactEmail;
+document.querySelectorAll('[data-contact]').forEach(a => { if (mail) { a.href = 'mailto:' + mail; a.textContent = mail; } else { a.removeAttribute('href'); a.textContent = '(contact email coming soon)'; } });
+</script>
+</body>
+</html>

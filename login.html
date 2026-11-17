@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sign in — Gavel</title>
+<meta name="theme-color" content="#0E0E10">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<script src="config.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/auth.js"></script>
+<style>
+.card{animation:cardIn .9s var(--spring) both}
+@keyframes cardIn{from{opacity:0;transform:translateY(30px) scale(.96);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+.card>*{animation:fadeUp .7s var(--ease) both}
+.card>:nth-child(2){animation-delay:.15s}.card>:nth-child(3){animation-delay:.22s}.card>:nth-child(4){animation-delay:.3s}.card>:nth-child(5){animation-delay:.38s}.card>:nth-child(6){animation-delay:.45s}
+.back{position:absolute;top:22px;left:max(22px,env(safe-area-inset-left,0px));display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--muted);text-decoration:none}
+.back:hover{color:var(--ink)}
+.busy{display:none;flex-direction:column;align-items:center;gap:14px;color:var(--muted);font-size:14px}
+body.working .busy{display:flex} body.working .card{display:none}
+</style>
+</head>
+<body>
+<div class="center">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="globe-corner" aria-hidden="true"><canvas id="globe" style="opacity:0;transition:opacity 1.6s"></canvas></div>
+  <a class="back" href="./">← Back to the website</a>
+
+  <div class="card" role="main">
+    <span data-logo></span>
+    <h1>Welcome to Gavel</h1>
+    <p>Sign in to save your committees to your account and open them on any device.</p>
+    <button class="gbtn" id="google"><span data-g></span>Continue with Google</button>
+    <div class="err" id="err" hidden></div>
+    <p class="legalnote">By continuing you agree to the <a href="terms.html">Terms</a> and the <a href="privacy.html">Privacy policy</a>.</p>
+    <div class="demo" id="demo" hidden><b>Demo mode.</b> Supabase is not connected yet, so this signs you in to a local demo account. Add your keys in <code>config.js</code> to turn on real Google sign-in.</div>
+  </div>
+
+  <div class="busy" role="status"><div class="spinner"></div><span>Getting your desk ready…</span></div>
+</div>
+
+<script>
+(() => {
+const { DEMO, getUser, signInWithGoogle, nextPage, client } = window.GavelAuth, { globe, GOOGLE_G, fillLogos } = window.GavelSite;
+fillLogos();
+document.querySelector('[data-g]').outerHTML = GOOGLE_G;
+if (DEMO) document.getElementById('demo').hidden = false;
+globe(document.getElementById('globe'), { phi: 1.2, theta: .35 });
+
+const err = document.getElementById('err'), btn = document.getElementById('google');
+const fail = m => { document.body.classList.remove('working'); btn.disabled = false; err.hidden = false; err.textContent = m; };
+
+// Coming back from Google (or already signed in): go to onboarding or the app
+(async () => {
+  const back = new URLSearchParams(location.search).has('next') || /[?&#](code|access_token)=/.test(location.href);
+  if (back) document.body.classList.add('working');
+  try {
+    if (!DEMO && back) await client();            // lets Supabase finish the sign-in from the URL
+    const u = await getUser();
+    if (u) { localStorage.setItem('gavel.uid', u.id); location.replace(await nextPage(u)); return; }
+    const e = new URLSearchParams(location.search).get('error_description');
+    if (e) fail(e);
+    else document.body.classList.remove('working');
+  } catch (e) { fail('Sign-in could not finish. Please try again.'); }
+})();
+
+btn.addEventListener('click', async () => {
+  btn.disabled = true; err.hidden = true;
+  try { await signInWithGoogle(); }
+  catch (e) { fail(e?.message || 'Google sign-in is not available right now.'); }
+});
+})();
+</script>
+</body>
+</html>
