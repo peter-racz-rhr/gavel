@@ -278,3 +278,40 @@ h2.title{font:650 clamp(32px,4.4vw,56px)/1.05 var(--sans);letter-spacing:-.045em
 .plan .ticks{margin-top:0;flex:1}
 .plan .btn{align-self:stretch}
 @media (max-width:760px){.plans{grid-template-columns:1fr}}
+
+/* ───────────── phones & lite mode ───────────── */
+html{-webkit-tap-highlight-color:transparent}
+button,a,.btn,.opt,.chipb{touch-action:manipulation}
+html.lite .nav.scrolled .nav-in{-webkit-backdrop-filter:none;backdrop-filter:none;background:color-mix(in oklab,var(--bg) 94%,transparent)}
+html.lite .card,html.lite .desk-card{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--surface)}
+html.lite .hero-glow,html.lite .band::before,html.lite .screen-in::before,html.lite .desk-glow{animation:none}
+html.lite h1.display .w{animation-name:wordUpL}
+html.lite .sc-time .dg.chg{animation-name:digitL}
+@keyframes wordUpL{from{opacity:0;transform:translateY(.45em)}to{opacity:1;transform:none}}
+@keyframes digitL{from{opacity:0;transform:translateY(-30%)}to{opacity:1;transform:none}}
+html.lite .rv{animation-name:rvInL}
+@keyframes rvInL{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+html.lite .feat:hover{transform:none;box-shadow:none}
+@media (max-width:640px){
+  .hero{padding:118px 0 30px}
+  .globe-bg{top:-60px;opacity:.4}
+  .stage{margin-top:44px}
+  .sec{padding:76px 0}
+  .sec-head{margin-bottom:36px}
+  .sub{font-size:16.5px}
+  .cta-row{width:100%;flex-direction:column}
+  .cta-row .btn{width:100%}
+  .nav{top:8px}
+  .nav-in{height:54px;padding:0 6px 0 14px}
+  .nav .right .btn.primary{--h:40px;padding:0 16px;font-size:14px}
+  .facts div{padding:20px 18px}
+  .feat{padding:22px}
+  .plan{padding:24px}
+  .band{padding:56px 22px;border-radius:24px}
+  .devices{height:260px}
+  .screen{padding:8px;border-radius:16px}
+  .m-main{padding:16px}
+  .m-cards{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .m-card:nth-child(n+10){display:none}
+  .foot-in{flex-direction:column;align-items:flex-start}
+}

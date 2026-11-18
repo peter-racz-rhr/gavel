@@ -1001,6 +1001,42 @@ button.scr-tile:active{transform:scale(.985)}
   .rp-none{color:#777;font-style:italic}
   .rp-foot{margin-top:20pt;font-size:8.5pt;color:#888}
 }
+/* ───────────── phones & lite mode ───────────── */
+html{-webkit-tap-highlight-color:transparent}
+button,a,.btn,.rc-b,.chip,.fchip{touch-action:manipulation}
+@media (pointer:coarse){.input,input,select,textarea{font-size:16px}.crumbs a{min-height:40px;padding:0 8px;margin-left:-8px;border-radius:10px}.rc-card .rm{width:36px;height:36px;opacity:.85}.btn.icon.sm{min-width:36px;min-height:36px}}
+.rc-card{content-visibility:auto;contain-intrinsic-size:auto 214px}
+.vcard{content-visibility:auto;contain-intrinsic-size:auto 120px}
+html.lite .topbar,html.lite .mtop{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--bg)}
+html.lite .side{-webkit-backdrop-filter:none;backdrop-filter:none}
+@media (max-width:900px){html.lite .side{background:var(--bg)}}
+html.lite .modal-backdrop{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(0,0,0,.55)}
+html.lite .rc-card .rm,html.lite .pj-pill,html.lite .nav-pill{-webkit-backdrop-filter:none;backdrop-filter:none}
+html.lite .nav-pill{border-radius:999px;background:color-mix(in oklab,var(--ink) 13%,transparent);box-shadow:0 6px 16px -10px rgba(0,0,0,.5)}
+html.lite .nav-pill::before,html.lite .nav-pill::after{display:none}
+html.lite .side .nav a{border-radius:999px}
+html.lite .side .nav a.on{font-weight:600}
+html.lite .pj-pill{background:var(--surface)}
+html.lite .enter .stagger>*:nth-child(n+19){animation:none}
+html.lite .pj-amb i{animation:none}
+html.lite .pj-amb i:nth-child(3){display:none}
+html.lite .sp-flag .flag::before{display:none}
+html.lite .rc-card:hover{box-shadow:none}
+/* entrance animations without blur: the blur filter is what makes phones stutter */
+html.lite .pj-scene{animation-name:sceneInL}
+html.lite .pj-scene.out{animation-name:sceneOutL}
+html.lite .pj-scene.iris-out{animation-name:irisOutL}
+html.lite .pj-h .l{animation-name:letterInL}
+html.lite .pt-d .dg.chg{animation-name:digitInL}
+html.lite .sp-who.leave{animation-name:whoOutL}
+html.lite .rs-stamp span{animation-name:stampL}
+@keyframes sceneInL{from{opacity:0;transform:translateY(3vh) scale(.98)}to{opacity:1;transform:none}}
+@keyframes sceneOutL{to{opacity:0;transform:translateY(-2vh)}}
+@keyframes irisOutL{to{opacity:0;transform:scale(1.12)}}
+@keyframes letterInL{from{opacity:0;transform:translateY(.4em)}to{opacity:1;transform:none}}
+@keyframes digitInL{from{opacity:0;transform:translateY(-30%)}to{opacity:1;transform:none}}
+@keyframes whoOutL{to{opacity:0;transform:translateX(-14vw) rotate(-4deg)}}
+@keyframes stampL{0%{opacity:0;transform:scale(2.2) rotate(-12deg)}60%{opacity:1;transform:scale(.95) rotate(-4deg)}100%{transform:rotate(-4deg)}}
 </style>
 </head>
 <body>
@@ -1305,6 +1341,9 @@ const fmt = sec => { sec = Math.max(0, Math.ceil((sec || 0) - 1e-6)); const m = 
 const clock = t => new Date(t).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
 const plural = (n, one, many = one + 's') => `${n} ${n === 1 ? one : many}`;
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Lite mode: touch screens and low-power devices get the same look with the expensive effects swapped for cheap ones
+const LITE = (() => { try { const c = navigator.connection; return matchMedia('(pointer: coarse)').matches || (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 4 || !!c?.saveData; } catch { return false; } })();
+document.documentElement.classList.toggle('lite', LITE);
 const IN_FRAME = (() => { try { return window.top !== window.self; } catch { return true; } })();
 function copyText(text, msg) {
   const fallback = () => {
@@ -1423,7 +1462,8 @@ function flag(code, size = 'md', name = '') {
   const data = window.FLAG_DATA?.[code], label = `<b>${esc(String(code).toUpperCase())}</b>`;
   if (data) return `<span class="${cls}" data-c="${esc(code)}" aria-hidden="true"><img src="${data}" alt="" draggable="false">${label}</span>`;
   if (IN_FRAME) return `<span class="${cls} noimg" data-c="${esc(code)}" aria-hidden="true">${label}</span>`;
-  return `<span class="${cls}" data-c="${esc(code)}" aria-hidden="true"><img src="https://flagcdn.com/${esc(code)}.svg" alt="" loading="lazy" draggable="false" onerror="this.parentNode.classList.add('noimg');this.remove()">${label}</span>`;
+  const w = size === 'p' ? 320 : size === 'card' || size === 'xl' || size === 'xxl' ? 160 : 40, c = esc(code);
+  return `<span class="${cls}" data-c="${c}" aria-hidden="true"><img src="https://flagcdn.com/w${w}/${c}.png" srcset="https://flagcdn.com/w${w * 2}/${c}.png 2x" alt="" loading="lazy" decoding="async" draggable="false" onerror="this.parentNode.classList.add('noimg');this.remove()">${label}</span>`;
 }
 const dflag = (s, c, size) => flag(c, size, del(s, c).name);
 const pageHead = (eyebrow, title, desc = '', actions = '') => `<header class="ph"><div class="ph-text"><div class="eyebrow">${eyebrow}</div><h1>${title}</h1>${desc ? `<p>${desc}</p>` : ''}</div>${actions ? `<div class="ph-actions">${actions}</div>` : ''}</header>`;
@@ -1691,7 +1731,7 @@ function mountOne(box) {
   box.dataset.mounted = '1';
   (cobeLib ||= import(COBE_URL).then(m => m.default)).then(createGlobe => {
     if (!box.isConnected) return;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = Math.min(window.devicePixelRatio || 1, LITE ? 1.5 : 2);
     const pal = d => d
       ? { dark: 1, diffuse: 1.25, mapBrightness: 5.5, mapBaseBrightness: 0, baseColor: [.32, .33, .38], glowColor: [.2, .23, .36], markerColor: [.51, .6, 1], arcColor: [.51, .6, 1] }
       : { dark: 0, diffuse: 1.35, mapBrightness: 7, mapBaseBrightness: 0, baseColor: [1, 1, 1], glowColor: [.86, .89, .98], markerColor: [.15, .27, .84], arcColor: [.15, .27, .84] };
@@ -1701,7 +1741,7 @@ function mountOne(box) {
     let phi = cfg.focus ? Math.PI - (cfg.focus[1] * Math.PI / 180 - Math.PI / 2) : cfg.phi, theta = rest, vel = 0, tgtTheta = rest, dragging = false, lx = 0, ly = 0, last = 0, moved = 0;
     const base = reduced ? 0 : .0028;
     const g = createGlobe(cv, {
-      devicePixelRatio: dpr, width: size, height: size, phi, theta, mapSamples: 18000, scale: 1, offset: [0, 0], opacity: .95,
+      devicePixelRatio: dpr, width: size, height: size, phi, theta, mapSamples: LITE ? 9000 : 18000, scale: 1, offset: [0, 0], opacity: .95,
       markers: cfg.markers || [], arcs: cfg.arcs || [], arcWidth: .6, arcHeight: .28, markerElevation: .01,
       ...pal(dark),
     });
@@ -1719,7 +1759,7 @@ function mountOne(box) {
     const frame = () => {
       if (!box.isConnected) { g.destroy(); return; }
       requestAnimationFrame(frame);
-      if (document.hidden) return;
+      if (document.hidden || box._off) return;
       if (!dragging) { vel += (base - vel) * .035; phi += vel; tgtTheta += (rest - tgtTheta) * .01; }
       theta += (tgtTheta - theta) * .12;
       const w = box.offsetWidth, d = isDark(), upd = { phi, theta };
@@ -1727,6 +1767,7 @@ function mountOne(box) {
       if (d !== dark) { dark = d; Object.assign(upd, pal(d)); }
       g.update(upd);
     };
+    try { new IntersectionObserver(([e]) => { box._off = !e.isIntersecting; }).observe(box); } catch { }
     requestAnimationFrame(frame);
     requestAnimationFrame(() => box.classList.add('on'));
   }).catch(() => { cobeLib = null; wrap?.classList.add('noglobe'); });
@@ -2582,6 +2623,7 @@ addEventListener('pointermove', e => { LQ.px = e.clientX; LQ.py = e.clientY; }, 
 document.addEventListener('pointerleave', () => { LQ.px = LQ.py = -1e4; });
 (async () => {
   try {
+    if (LITE) return;
     const { attachGlassMerge, elasticPull, SpringValue } = await import(LQ_URL);
     const el = document.createElement('div'); el.id = 'nav-glass'; el.setAttribute('aria-hidden', 'true'); document.body.appendChild(el);
     // a wide refracting rim and a clear middle: the menu text bends where the glass curves
@@ -2637,7 +2679,7 @@ function parseHash() {
   return { view: 'home' };
 }
 function transition(fn, fallback) {
-  if (!document.startViewTransition || reduced) return fallback();
+  if (!document.startViewTransition || reduced || LITE) return fallback();
   let done = false;
   const run = () => { if (!done) { done = true; fn(); } };
   const vt = document.startViewTransition(run);

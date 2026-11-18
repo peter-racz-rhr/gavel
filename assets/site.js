@@ -2,6 +2,9 @@
    A plain script (not a module) so the pages also work when opened straight from disk. */
 window.GavelSite = (() => {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Lite mode: touch screens and low-power devices keep the look but skip the expensive effects
+  const LITE = (() => { try { const c = navigator.connection; return matchMedia('(pointer: coarse)').matches || (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 4 || !!c?.saveData; } catch { return false; } })();
+  document.documentElement.classList.toggle('lite', LITE);
   try { const t = localStorage.getItem('gavel.theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch { }
   const isDark = () => (document.documentElement.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')) === 'dark';
   const LQ_URL = 'https://cdn.jsdelivr.net/npm/@liquefy-ui/core@1.2.0/dist/index.mjs';
@@ -47,6 +50,7 @@ window.GavelSite = (() => {
       lastY = y;
     };
     addEventListener('scroll', onScroll, { passive: true }); onScroll();
+    if (LITE) return;
     import(LQ_URL).then(({ attachGlassMerge, SpringValue }) => {
       const el = document.createElement('div'); el.id = 'site-glass'; el.setAttribute('aria-hidden', 'true'); document.body.appendChild(el);
       const ctl = attachGlassMerge(el, { bezel: 16, strength: 1 });
@@ -72,18 +76,21 @@ window.GavelSite = (() => {
     if (!canvas) return;
     try {
       const { default: createGlobe } = await import('https://cdn.jsdelivr.net/npm/cobe@2.0.1/dist/index.esm.js');
-      const dpr = Math.min(devicePixelRatio || 1, 2);
+      const dpr = Math.min(devicePixelRatio || 1, LITE ? 1.5 : 2);
       let size = canvas.offsetWidth || 600;
       const d = dark ?? isDark();
       const g = createGlobe(canvas, {
-        devicePixelRatio: dpr, width: size, height: size, phi, theta, mapSamples: 20000, scale: 1, offset: [0, 0], opacity: .9,
+        devicePixelRatio: dpr, width: size, height: size, phi, theta, mapSamples: LITE ? 9000 : 20000, scale: 1, offset: [0, 0], opacity: .9,
         dark: d ? 1 : 0, diffuse: d ? 1.25 : 1.35, mapBrightness: d ? 5.5 : 7, mapBaseBrightness: 0,
         baseColor: d ? [.32, .33, .38] : [1, 1, 1], glowColor: d ? [.2, .23, .36] : [.86, .89, .98], markerColor: d ? [.51, .6, 1] : [.15, .27, .84],
         markers, markerElevation: .01,
       });
+      let off = false;
+      try { new IntersectionObserver(([e]) => { off = !e.isIntersecting; }).observe(canvas); } catch { }
       const loop = () => {
         if (!canvas.isConnected) { g.destroy(); return; }
         requestAnimationFrame(loop);
+        if (off || document.hidden) return;
         if (!reduced) phi += speed;
         const w = canvas.offsetWidth, u = { phi };
         if (w && Math.abs(w - size) > 1) { size = w; u.width = size; u.height = size; }
@@ -105,5 +112,5 @@ window.GavelSite = (() => {
   const LOGO = '<span class="mark" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m14 13-8.5 8.5a2.12 2.12 0 0 1-3-3L11 10"/><path d="m16 16 6-6"/><path d="m8 8 6-6"/><path d="m9 7 8 8"/><path d="m21 11-8-8"/></svg></span>';
   const fillLogos = () => document.querySelectorAll('[data-logo]').forEach(e => e.outerHTML = LOGO);
   const flagUrl = (code, w = 160) => `https://flagcdn.com/w${w}/${code}.png`;
-  return { reduced, isDark, splitWords, reveal, nav, globe, confetti, GOOGLE_G, LOGO, fillLogos, flagUrl };
+  return { reduced, LITE, isDark, splitWords, reveal, nav, globe, confetti, GOOGLE_G, LOGO, fillLogos, flagUrl };
 })();

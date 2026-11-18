@@ -16,6 +16,7 @@
 .card{animation:cardIn .9s var(--spring) both}
 @keyframes cardIn{from{opacity:0;transform:translateY(30px) scale(.96);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
 .card>*{animation:fadeUp .7s var(--ease) both}
+html.lite .card{animation-name:cardInL}@keyframes cardInL{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 .card>:nth-child(2){animation-delay:.15s}.card>:nth-child(3){animation-delay:.22s}.card>:nth-child(4){animation-delay:.3s}.card>:nth-child(5){animation-delay:.38s}.card>:nth-child(6){animation-delay:.45s}
 .back{position:absolute;top:22px;left:max(22px,env(safe-area-inset-left,0px));display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--muted);text-decoration:none}
 .back:hover{color:var(--ink)}

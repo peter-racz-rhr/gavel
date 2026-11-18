@@ -34,6 +34,9 @@
 @keyframes stepInBack{from{opacity:0;transform:translateX(-70px) scale(.97);filter:blur(10px)}to{opacity:1;transform:none;filter:none}}
 @keyframes stepOut{to{opacity:0;transform:translateX(-60px) scale(.97);filter:blur(8px)}}
 @keyframes stepOutBack{to{opacity:0;transform:translateX(60px) scale(.97);filter:blur(8px)}}
+html.lite .step.enter{animation-name:stepInL}html.lite .step.enter-back{animation-name:stepInBackL}html.lite .step.leave{animation-name:stepOutL}html.lite .step.leave-back{animation-name:stepOutBackL}
+@keyframes stepInL{from{opacity:0;transform:translateX(50px)}to{opacity:1;transform:none}}@keyframes stepInBackL{from{opacity:0;transform:translateX(-50px)}to{opacity:1;transform:none}}@keyframes stepOutL{to{opacity:0;transform:translateX(-40px)}}@keyframes stepOutBackL{to{opacity:0;transform:translateX(40px)}}
+@media (max-width:640px){.ob-stage{min-height:0}.q{font-size:32px}.opt{padding:16px}.input{height:52px}.actions .btn.lg{--h:50px}.ob-body{padding-top:0}}
 .step.enter>*,.step.enter-back>*{animation:fadeUp .7s var(--ease) both;animation-delay:calc(var(--k,0) * 70ms + 120ms)}
 .q{font:650 clamp(32px,4.6vw,52px)/1.05 var(--sans);letter-spacing:-.045em;text-wrap:balance}
 .q-sub{font-size:18px;color:var(--ink-2);margin-top:-8px}
