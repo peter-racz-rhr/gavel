@@ -1001,6 +1001,101 @@ button.scr-tile:active{transform:scale(.985)}
   .rp-none{color:#777;font-style:italic}
   .rp-foot{margin-top:20pt;font-size:8.5pt;color:#888}
 }
+:root{--prop:#3352D6;--opp:#D2453A}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--prop:#8299FF;--opp:#FF8A7A}}
+:root[data-theme="dark"]{--prop:#8299FF;--opp:#FF8A7A}
+/* ───────────── Oxford-style debate ───────────── */
+.ox-set{align-items:flex-end}
+.ox-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:20px;align-items:start;margin-top:20px}
+.ox-teams{display:grid;gap:16px}
+.ox-team .panel-head h3{display:flex;align-items:center;gap:9px;font:600 15px var(--sans)}
+.ox-dot{width:10px;height:10px;border-radius:50%;background:var(--prop)}
+.ox-team.opp .ox-dot{background:var(--opp)}
+.ox-team.prop{box-shadow:inset 3px 0 0 var(--prop)} .ox-team.opp{box-shadow:inset 3px 0 0 var(--opp)}
+.ox-list{list-style:none;padding:6px 8px}
+.ox-list li{display:flex;align-items:center;gap:10px;min-height:44px;padding:4px 8px;border-radius:12px;transition:background-color .3s}
+.ox-list li .num{width:20px;font:500 12px var(--mono);color:var(--muted)}
+.ox-list li .nm{flex:1;min-width:0;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ox-list li.now{background:var(--accent-soft)}
+.ox-list li.done .nm{color:var(--muted)}
+.ox-ok{color:var(--yes);display:grid}
+.ox-list li .btn{opacity:.6}
+.ox-now.prop{box-shadow:inset 0 3px 0 var(--prop)} .ox-now.opp{box-shadow:inset 0 3px 0 var(--opp)}
+.ox-side.prop{background:color-mix(in oklab,var(--prop) 16%,transparent);color:var(--prop)}
+.ox-side.opp{background:color-mix(in oklab,var(--opp) 16%,transparent);color:var(--opp)}
+.ox-prot{align-self:center;display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 14px;border-radius:99px;background:var(--surface-2);font-size:13px;font-weight:600;color:var(--muted);transition:background-color .35s,color .35s}
+.ox-prot::before{content:'';width:8px;height:8px;border-radius:50%;background:currentColor}
+.ox-prot[data-state="prot"]{background:color-mix(in oklab,var(--abs) 16%,transparent);color:var(--abs)}
+.ox-prot[data-state="open"]{background:var(--yes-soft);color:var(--yes)}
+.ox-prot[data-state="open"]::before{animation:livepulse 1.6s var(--ease) infinite}
+.ox-prot[data-state="over"]{background:var(--no-soft);color:var(--no)}
+.ox-poi{display:flex;align-items:center;justify-content:center;gap:12px;font-size:13.5px;color:var(--ink-2)}
+.ox-poi b{font:600 20px var(--sans);font-variant-numeric:tabular-nums;color:var(--ink)}
+.ox-vote{margin-top:20px}
+.ox-vrow{display:grid;grid-template-columns:150px repeat(3,minmax(0,1fr));gap:12px;align-items:end;margin-bottom:12px}
+.ox-vl{font-size:14px;font-weight:600;padding-bottom:12px}
+.ox-vn{display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:var(--muted)}
+.ox-vn.f span{color:var(--yes)} .ox-vn.a span{color:var(--no)}
+.ox-res{display:grid;gap:10px;margin-top:8px;padding-top:16px;border-top:1px solid var(--line)}
+.ox-br{display:grid;grid-template-columns:70px minmax(0,1fr) 70px;gap:12px;align-items:center;font-size:13px;color:var(--muted)}
+.ox-br b{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink)}
+.ox-bar{display:flex;gap:2px;height:12px;border-radius:99px;overflow:hidden;background:var(--surface-2)}
+.ox-bar i{height:100%;transition:width .8s var(--ease)}
+.ox-bar .f,.oxr-bar .f,.oxr-key .f{background:var(--yes)} .ox-bar .a,.oxr-bar .a,.oxr-key .a{background:var(--no)} .ox-bar .u,.oxr-bar .u,.oxr-key .u{background:var(--faint)}
+.ox-verdict{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:6px;font-size:14px;color:var(--ink-2)}
+.ox-win.prop{color:var(--prop)} .ox-win.opp{color:var(--opp)}
+@media (max-width:1100px){.ox-grid{grid-template-columns:1fr}}
+@media (max-width:640px){.ox-vrow{grid-template-columns:repeat(3,minmax(0,1fr))}.ox-vl{grid-column:1/-1;padding-bottom:0}.ox-br{grid-template-columns:52px minmax(0,1fr) 56px}}
+/* ending a session */
+.ended-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:20px;padding:12px 14px;border-radius:var(--r);background:var(--yes-soft);color:var(--ink-2);font-size:14px}
+.ended-bar .eb-ic{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--yes);color:var(--bg);flex:none}
+.end-sum{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:18px}
+.end-sum div{padding:12px 14px;border-radius:12px;background:var(--surface-2)}
+.end-sum dt{font-size:12px;color:var(--muted)}
+.end-sum dd{font:600 20px/1.3 var(--sans);font-variant-numeric:tabular-nums}
+.end-sum dd small{font-size:13px;color:var(--muted);font-weight:500}
+.end-done{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;padding:8px 0}
+.end-done h2{font:600 26px/1.15 var(--sans);letter-spacing:-.03em}
+.seal-ok{display:grid;place-items:center;width:72px;height:72px;border-radius:50%;background:var(--yes-soft);color:var(--yes);margin-bottom:8px;animation:pop .6s var(--ease)}
+.tag-ended{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:99px;background:var(--surface-2);color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;vertical-align:2px}
+/* projector: debate */
+.pj[data-side="prop"]{--tint:var(--prop)} .pj[data-side="opp"]{--tint:var(--opp)}
+.oxs{display:flex;flex-direction:column;align-items:center;gap:clamp(12px,2.2vh,32px);width:100%}
+.oxs-mo{max-width:min(90vw,1300px)}
+.oxs-mo h2{margin-top:8px;font:600 clamp(20px,2.2vw,40px)/1.2 var(--sans);letter-spacing:-.025em;color:var(--ink-2);text-wrap:balance}
+.oxs-whos{display:grid;width:100%;justify-items:center}
+.oxs-who{grid-area:1/1;display:flex;flex-direction:column;align-items:center;gap:clamp(8px,1.4vh,18px)}
+.oxs-who.in.prop{animation:fromL .85s var(--spring) both} .oxs-who.in.opp{animation:fromR .85s var(--spring) both}
+.oxs-who.leave{animation:fadeOut .45s both}
+@keyframes fromL{from{opacity:0;transform:translateX(-22vw) rotate(-3deg)}to{opacity:1;transform:none}}
+@keyframes fromR{from{opacity:0;transform:translateX(22vw) rotate(3deg)}to{opacity:1;transform:none}}
+.oxs-side{display:inline-flex;align-items:center;gap:10px;padding:8px 18px;border-radius:99px;background:var(--surface-2);font-size:clamp(13px,1.2vw,20px);font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.oxs-who.prop .oxs-side{background:color-mix(in oklab,var(--prop) 18%,transparent);color:var(--prop)}
+.oxs-who.opp .oxs-side{background:color-mix(in oklab,var(--opp) 18%,transparent);color:var(--opp)}
+.oxs-row{display:flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:center;font-size:clamp(14px,1.3vw,22px);color:var(--ink-2)}
+.oxs-prot{display:inline-flex;align-items:center;gap:10px;padding:8px 18px;border-radius:99px;background:var(--surface-2);font-weight:600;color:var(--muted);transition:background-color .4s,color .4s}
+.oxs-prot::before{content:'';width:10px;height:10px;border-radius:50%;background:currentColor}
+.oxs-prot[data-state="prot"]{background:color-mix(in oklab,var(--abs) 18%,transparent);color:var(--abs)}
+.oxs-prot[data-state="open"]{background:var(--yes-soft);color:var(--yes);animation:poiOpen .6s var(--spring)}
+.oxs-prot[data-state="open"]::before{animation:livepulse 1.4s var(--ease) infinite}
+.oxs-prot[data-state="over"]{background:var(--no-soft);color:var(--no)}
+@keyframes poiOpen{40%{transform:scale(1.12)}}
+.oxs-poi b{font-weight:650;color:var(--ink);display:inline-block}
+.pj-chip.ox-prop{box-shadow:inset 3px 0 0 var(--prop)} .pj-chip.ox-opp{box-shadow:inset 3px 0 0 var(--opp)}
+.oxr{display:flex;flex-direction:column;align-items:center;gap:clamp(14px,2.4vh,34px);width:min(100%,1200px)}
+.oxr-mo{font-size:clamp(28px,3.4vw,62px);max-width:24ch}
+.oxr-bars{display:grid;gap:14px;width:100%}
+.oxr-row{display:grid;grid-template-columns:clamp(70px,8vw,130px) minmax(0,1fr) clamp(80px,9vw,150px);gap:18px;align-items:center;font-size:clamp(14px,1.3vw,22px);color:var(--muted);animation:fadeUp .7s var(--ease) both;animation-delay:calc(var(--d) * 200ms + 300ms)}
+.oxr-row b{text-align:right;font:650 clamp(22px,2.4vw,42px) var(--sans);color:var(--ink);font-variant-numeric:tabular-nums}
+.oxr-bar{display:flex;gap:3px;height:clamp(18px,2.6vh,34px);border-radius:99px;overflow:hidden;background:var(--surface-3)}
+.oxr-bar i{height:100%;width:0;transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+.oxr-key{display:flex;gap:22px;justify-content:center;font-size:clamp(12px,1vw,16px);color:var(--muted)}
+.oxr-key span{display:inline-flex;align-items:center;gap:8px}
+.oxr-key i{width:10px;height:10px;border-radius:50%}
+.oxr-swing{font-size:clamp(15px,1.5vw,26px);color:var(--ink-2)}
+.oxr-swing b.prop{color:var(--prop)} .oxr-swing b.opp{color:var(--opp)}
+.oxr .rs-stamp span{font-size:clamp(56px,8vw,160px)}
+
 /* ───────────── phones & lite mode ───────────── */
 html{-webkit-tap-highlight-color:transparent}
 button,a,.btn,.rc-b,.chip,.fchip{touch-action:manipulation}
@@ -1282,14 +1377,16 @@ const MOTIONS = {
 };
 const TABS = [
   ['roll', 'Roll call', 'roll'], ['openings', 'Opening speeches', 'quote'], ['gsl', 'Speakers list', 'mic'],
-  ['caucus', 'Caucus', 'caucus'], ['motions', 'Motions', 'flagic'], ['voting', 'Voting', 'vote'], ['log', 'Session log', 'clock'],
+  ['caucus', 'Caucus', 'caucus'], ['motions', 'Motions', 'flagic'], ['voting', 'Voting', 'vote'], ['debate', 'Debate', 'scale'], ['log', 'Session log', 'clock'],
 ];
 const QLABEL = { gsl: 'speakers list', openings: 'opening speech', mod: 'moderated caucus' };
-const TMSG = { 'q-gsl': 'Speaking time has elapsed', 'q-openings': 'Opening speech time has elapsed', 'q-mod': 'Speaking time has elapsed', 'c-total': 'The moderated caucus has ended', 'c-unmod': 'The unmoderated caucus has ended' };
-const KEYS = [['Space', 'Start or pause the timer'], ['N', 'Next speaker'], ['R', 'Reset the timer'], ['F', 'Present on a projector'], ['T or X', 'Title screen for the room'], ['1 – 7', 'Jump to a section'], ['/', 'Search sessions'], ['?', 'Show all shortcuts'], ['Esc', 'Close a dialog or stop presenting']];
+const TMSG = { 'q-gsl': 'Speaking time has elapsed', 'q-openings': 'Opening speech time has elapsed', 'q-mod': 'Speaking time has elapsed', 'c-total': 'The moderated caucus has ended', 'c-unmod': 'The unmoderated caucus has ended', 'o-speech': 'Speech time has elapsed' };
+const KEYS = [['Space', 'Start or pause the timer'], ['N', 'Next speaker'], ['R', 'Reset the timer'], ['F', 'Present on a projector'], ['T or X', 'Title screen for the room'], ['1 – 8', 'Jump to a section'], ['/', 'Search sessions'], ['?', 'Show all shortcuts'], ['Esc', 'Close a dialog or stop presenting']];
 
 /* ═════════════════════════ Icons ═════════════════════════ */
 const ICON = {
+  scale: '<path d="M12 3v18M7 21h10"/><path d="M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0L5 7zM19 7l-3 7a3 3 0 0 0 6 0l-3-7z"/>',
+  power: '<path d="M12 3v8"/><path d="M6.3 6.6a8 8 0 1 0 11.4 0"/>',
   coffee: '<path d="M6 2.5v2M10 2.5v2M14 2.5v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h12a3.5 3.5 0 1 1 0 7h-1"/>',
   lunch: '<path d="M3 2.5V9a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V2.5"/><path d="M7 2.5v19"/><path d="M21 15V2.5a5 5 0 0 0-5 5V13a2 2 0 0 0 2 2h3Zm0 0v6.5"/>',
   layers: '<path d="m12 3 9 5-9 5-9-5 9-5z"/><path d="m3 13 9 5 9-5"/>',
@@ -1411,10 +1508,13 @@ function normalize(s) {
   s.votes = Array.isArray(s.votes) ? s.votes : [];
   s.log = Array.isArray(s.log) ? s.log : [];
   s.activeVote ??= null;
+  s.ended = typeof s.ended === 'number' ? s.ended : null;
+  s.ox = Object.assign({ motion: '', prop: [], opp: [], idx: -1, done: [], speak: 300, protect: 60, poi: 0, before: null, after: null }, s.ox);
+  s.ox.prop = (s.ox.prop || []).filter(Boolean); s.ox.opp = (s.ox.opp || []).filter(Boolean); s.ox.done = Array.isArray(s.ox.done) ? s.ox.done : [];
   s.screen = s.screen && typeof s.screen === 'object' && (s.screen.m === 'title' || (s.screen.m === 'break' && s.screen.until)) ? s.screen : null;
   const mk = (k, d) => { const t = s.timers[k]; if (!t || typeof t.rem !== 'number' || typeof t.dur !== 'number') s.timers[k] = { dur: d, rem: d, run: false }; };
   for (const k in s.queues) mk('q-' + k, s.queues[k].time);
-  mk('c-total', s.caucus.total); mk('c-unmod', s.caucus.unmod);
+  mk('c-total', s.caucus.total); mk('c-unmod', s.caucus.unmod); mk('o-speech', s.ox.speak);
   return s;
 }
 {
@@ -1489,6 +1589,7 @@ function pickerResults(id, raw) {
   if (id === 'roll') { const have = new Set(s.delegates.map(d => d.code)); pool = COUNTRIES.filter(c => !have.has(c.code)); }
   else if (id.startsWith('q:')) { const inl = new Set(s.queues[id.slice(2)].list); pool = presentPool(s).filter(d => !inl.has(d.code)); }
   else if (id.startsWith('yield:')) { const q0 = s.queues[id.slice(6)]; pool = presentPool(s).filter(d => d.code !== q0.current); }
+  else if (id.startsWith('ox:')) { const taken = new Set([...s.ox.prop, ...s.ox.opp]); pool = presentPool(s).filter(d => !taken.has(d.code)); }
   const limit = id.startsWith('yield:') ? 80 : q ? 8 : 7;
   return pool.map(x => [x, scoreMatch(x, q)]).filter(([, sc]) => sc < 99)
     .sort((a, b) => a[1] - b[1] || (q ? a[0].name.localeCompare(b[0].name) : 0)).slice(0, limit).map(([x]) => x);
@@ -1509,6 +1610,7 @@ function hidePicker(inp) { const wrap = inp.closest('.picker'); if (wrap && !wra
 function pickerSelect(id, code) {
   const s = cur(); if (!s) return;
   if (id.startsWith('yield:')) return doYield(id.slice(6), code);
+  if (id.startsWith('ox:')) { const side = id.slice(3); if (![...s.ox.prop, ...s.ox.opp].includes(code)) { s.ox[side].push(code); touch(s); } refocus = id; render(); return; }
   if (id === 'roll') { if (addDelegate(s, code)) { ui.rollFilter = 'all'; touch(s); } }
   else { const key = id.slice(2), q = s.queues[key]; if (!q.list.includes(code)) { q.list.push(code); justAdded.add(key + code); touch(s); } }
   refocus = id; render();
@@ -1562,6 +1664,7 @@ function resetTimer(k) {
   if (k === 'c-unmod') d = s.caucus.unmod;
   else if (k === 'c-total') d = s.caucus.total;
   else if (k.startsWith('q-')) { const q = s.queues[k.slice(2)]; d = q.yieldFrom ? t.dur : q.time; }
+  else if (k === 'o-speech') d = s.ox.speak;
   t.dur = d; t.rem = d; t.run = false;
   if (k === 'q-mod') s.timers['c-total'].run = false;
   touch(s); paintTimers(s);
@@ -1576,6 +1679,12 @@ function timerEnded(s, k) {
 }
 function paintTimers(s) {
   if (!s) return;
+  $$('[data-oxprot]').forEach(el => {
+    const t = s.timers['o-speech'], p = s.ox.protect, gone = t.dur - t.rem, has = oxOrder(s)[s.ox.idx];
+    const st = !has ? 'ready' : t.rem <= 0 ? 'over' : !t.run && gone < .5 ? 'ready' : p && (gone < p || t.rem < p) ? 'prot' : 'open';
+    const txt = { ready: has ? 'Ready when the speaker is' : 'Waiting for the first speaker', prot: 'Protected time · no points of information', open: 'Points of information welcome', over: 'Time — please conclude' }[st];
+    if (el.dataset.state !== st) { el.dataset.state = st; el.textContent = txt; }
+  });
   $$('[data-timer]').forEach(el => {
     const t = s.timers[el.dataset.timer]; if (!t) return;
     const p = t.dur ? Math.min(1, t.rem / t.dur) : 0, txt = fmt(t.rem);
@@ -1672,8 +1781,8 @@ function featureCard(s) {
   const waiting = s.queues.gsl.list.length + s.queues.openings.list.length;
   return `<section class="panel feature">
     <div class="feature-top">
-      <div style="min-width:0"><div class="eyebrow">Continue · ${esc(relDate(s.updated))}</div><h2>${esc(s.committee)}</h2><p>${esc(s.topic || 'No agenda topic set')}${s.chair ? ` · Chaired by ${esc(s.chair)}` : ''}</p></div>
-      <button class="btn primary" data-a="open" data-id="${esc(s.id)}">Resume ${ic('next', 16)}</button>
+      <div style="min-width:0"><div class="eyebrow">${s.ended ? `Ended · ${esc(relDate(s.ended))}` : `Continue · ${esc(relDate(s.updated))}`}</div><h2>${esc(s.committee)}</h2><p>${esc(s.topic || 'No agenda topic set')}${s.chair ? ` · Chaired by ${esc(s.chair)}` : ''}</p></div>
+      <button class="btn primary" data-a="open" data-id="${esc(s.id)}">${s.ended ? 'Open' : 'Resume'} ${ic('next', 16)}</button>
     </div>
     ${s.activeVote ? '<div class="row" style="margin-top:14px"><span class="live-tag"><i></i>Vote in progress</span></div>' : speaking ? `<div class="row" style="margin-top:14px"><span class="live-tag soft"><i></i>${esc(del(s, speaking).name)} has the floor</span></div>` : ''}
     <div class="fmeta">
@@ -1691,7 +1800,7 @@ function sessionTable(ss) {
     <tbody class="stagger">${ss.map((s, i) => {
       const st = stats(s), pres = s.delegates.filter(isP).slice(0, 5);
       return `<tr class="srow" data-a="open" data-id="${esc(s.id)}" data-q="${esc(norm(`${s.committee} ${s.topic} ${s.chair}`))}" tabindex="0" style="--i:${i}">
-        <td><div class="cname"><span class="avatar">${esc(initials(s.committee))}</span><div><b>${esc(s.committee)}</b><small>${esc(s.topic || 'No agenda topic')}</small></div></div></td>
+        <td><div class="cname"><span class="avatar">${esc(initials(s.committee))}</span><div><b>${esc(s.committee)}${s.ended ? '<span class="tag-ended">Ended</span>' : ''}</b><small>${esc(s.topic || 'No agenda topic')}</small></div></div></td>
         <td class="hide-sm">${pres.length ? `<span class="flags">${pres.map(d => flag(d.code, 'sm', d.name)).join('')}</span>` : '<span class="muted sm">—</span>'}</td>
         <td><div class="att"><span class="lin"><i style="width:${st.total ? st.pres / st.total * 100 : 0}%"></i></span>${st.pres}/${st.total}</div></td>
         <td class="num hide-sm">${s.motions.length}</td><td class="num hide-sm">${s.votes.length}</td>
@@ -1805,12 +1914,12 @@ function sessionView(s) {
         <nav class="crumbs" aria-label="Breadcrumb"><a href="#/">${ic('back', 14)} Sessions</a><span class="sep">/</span><b>${esc(s.committee)}</b></nav>
         <div class="tools"><span class="clock" data-clock title="Current time">${clock(Date.now())}</span>
           <button class="pj-live" data-a="present" data-pjlive${pjLive() ? '' : ' hidden'} title="The projector follows this window"><i></i><span class="hide-sm">Projector live</span></button>
-          ${screenBtn(s)}
+          ${endBtn(s)}${screenBtn(s)}
           <button class="btn sm outline" data-a="present" title="Present on a projector or this screen">${ic('monitor', 15)}<span class="hide-sm">Present</span></button>
           <button class="btn sm ghost" data-a="report" title="View the session report">${ic('file', 15)}<span class="hide-sm">Report</span></button>
           ${soundBtn()}${themeBtn()}${window.acctHTML ? acctHTML() : ''}</div>
       </header>
-      <div class="content"><div class="view" id="view">${(VIEWS[tab] || VIEWS.roll)(s)}</div></div>
+      <div class="content">${endedBar(s)}<div class="view" id="view">${(VIEWS[tab] || VIEWS.roll)(s)}</div></div>
     </main>
   </div>`;
 }
@@ -1959,7 +2068,7 @@ function applyMotion(s, m) {
     if (m.spk) { s.queues.gsl.time = m.spk; if (!s.timers['q-gsl'].run && !s.queues.gsl.current) setTimer(s, 'q-gsl', m.spk); }
     Object.assign(r, { tab: 'gsl', label: 'Speakers list' });
   } else if (m.type === 'voting' || m.type === 'close') Object.assign(r, { tab: 'voting', label: 'Go to voting' });
-  else if (m.type === 'adjourn') r.report = true;
+  else if (m.type === 'adjourn') r.end = true;
   return r;
 }
 function resolveMotion(s, m, result) {
@@ -2044,11 +2153,121 @@ function logView(s) {
         <div class="pad"><button class="btn primary" style="width:100%" data-a="report">${ic('file', 15)} View report</button></div></aside>
     </div>`;
 }
-const VIEWS = { roll: rollView, openings: openingsView, gsl: gslView, caucus: caucusView, motions: motionsView, voting: votingView, log: logView };
+/* ═════════════════════════ Views: Oxford-style debate ═════════════════════════ */
+const SIDE = { prop: 'Proposition', opp: 'Opposition' };
+const ordinal = n => n + (['th', 'st', 'nd', 'rd'][(n % 100 - 20) % 10] || ['th', 'st', 'nd', 'rd'][n % 100] || 'th');
+// Speakers alternate: 1st Proposition, 1st Opposition, 2nd Proposition, …
+function oxOrder(s) {
+  const o = [], a = s.ox.prop, b = s.ox.opp;
+  for (let i = 0; i < Math.max(a.length, b.length); i++) {
+    if (a[i]) o.push({ side: 'prop', code: a[i], n: i + 1 });
+    if (b[i]) o.push({ side: 'opp', code: b[i], n: i + 1 });
+  }
+  return o;
+}
+function oxResult(o) {
+  const ok = v => v && (v.f + v.a + v.u) > 0;
+  if (!ok(o.before) || !ok(o.after)) return null;
+  const pct = v => { const t = v.f + v.a + v.u; return { f: v.f / t * 100, a: v.a / t * 100, u: v.u / t * 100 }; };
+  const b = pct(o.before), a = pct(o.after), swingF = a.f - b.f, swingA = a.a - b.a;
+  return { b, a, before: o.before, after: o.after, swingF, swingA, carried: o.after.f > o.after.a, tied: o.after.f === o.after.a, winner: Math.abs(swingF - swingA) < .5 ? null : swingF > swingA ? 'prop' : 'opp' };
+}
+function oxNext() {
+  const s = cur(), o = s.ox, ord = oxOrder(s), t = s.timers['o-speech'];
+  if (!ord.length) { toast('Add speakers to both sides first'); return; }
+  const c = ord[o.idx];
+  if (c) o.done.unshift({ code: c.code, side: c.side, n: c.n, used: Math.max(0, t.dur - t.rem), poi: o.poi, at: Date.now() });
+  o.idx = Math.min(o.idx + 1, ord.length); o.poi = 0;
+  setTimer(s, 'o-speech', o.speak);
+  const nx = ord[o.idx];
+  if (nx) log(s, `${del(s, nx.code).name} has the floor (${ordinal(nx.n)} ${SIDE[nx.side]} speaker)`);
+  else log(s, 'Oxford debate: all speeches given');
+  touch(s); render();
+}
+const oxTeam = (s, side) => {
+  const o = s.ox, ord = oxOrder(s), spoken = new Set(ord.slice(0, Math.max(0, o.idx)).filter(e => e.side === side).map(e => e.code)), now = ord[o.idx];
+  return `<section class="panel ox-team ${side}"><div class="panel-head"><h3><i class="ox-dot"></i>${SIDE[side]}</h3><span class="count">${o[side].length}</span></div>
+    ${o[side].length ? `<ol class="ox-list">${o[side].map((c, i) => `<li class="${now && now.code === c && now.side === side ? 'now' : spoken.has(c) ? 'done' : ''}"><span class="num">${i + 1}</span>${dflag(s, c, 'md')}<span class="nm">${esc(del(s, c).name)}</span>${spoken.has(c) ? `<span class="ox-ok">${ic('check', 13)}</span>` : ''}<button class="btn icon sm ghost" data-a="oxRm" data-side="${side}" data-i="${i}" aria-label="Remove ${esc(del(s, c).name)}">${ic('x', 14)}</button></li>`).join('')}</ol>`
+      : `<div class="qempty">${ic('caucus', 18)}<span>No speakers yet.</span></div>`}
+    <div class="pad">${picker('ox:' + side, `Add a ${SIDE[side]} speaker…`)}</div></section>`;
+};
+const oxVoteRow = (o, w, label) => { const v = o[w] || { f: 0, a: 0, u: 0 }; return `<div class="ox-vrow"><span class="ox-vl">${label}</span>${[['f', 'For'], ['a', 'Against'], ['u', 'Undecided']].map(([k, l]) => `<label class="ox-vn ${k}"><span>${l}</span><input class="input" type="number" min="0" max="999" inputmode="numeric" data-ch="oxVote" data-w="${w}" data-k="${k}" value="${v[k] || ''}" placeholder="0"></label>`).join('')}</div>`; };
+function oxResultHTML(o) {
+  const r = oxResult(o);
+  if (!r) return `<p class="muted sm">Take a vote of the room before the first speech and again after the last one. The side that moves more of the room wins.</p>`;
+  const bar = p => `<div class="ox-bar"><i class="f" style="width:${p.f}%"></i><i class="a" style="width:${p.a}%"></i><i class="u" style="width:${p.u}%"></i></div>`;
+  const sw = v => `${v >= 0 ? '+' : '−'}${Math.abs(v).toFixed(0)} pts`;
+  return `<div class="ox-res"><div class="ox-br"><span>Before</span>${bar(r.b)}<b>${r.before.f}–${r.before.a}</b></div><div class="ox-br"><span>After</span>${bar(r.a)}<b>${r.after.f}–${r.after.a}</b></div>
+    <div class="ox-verdict"><span class="res ${r.tied ? 'idle' : r.carried ? 'pass' : 'fail'}">${r.tied ? 'Tied vote' : r.carried ? 'Motion carried' : 'Motion defeated'}</span><span>For ${sw(r.swingF)} · Against ${sw(r.swingA)}</span>${r.winner ? `<b class="ox-win ${r.winner}">${SIDE[r.winner]} wins the debate</b>` : '<b>The swing is level</b>'}</div></div>`;
+}
+function debateView(s) {
+  const o = s.ox, ord = oxOrder(s), c = ord[o.idx] || null, finished = ord.length && o.idx >= ord.length, nx = ord[o.idx + 1] || (o.idx < 0 ? ord[0] : null);
+  const nextLabel = !ord.length ? 'Add speakers to begin' : o.idx < 0 ? `Open the debate · ${esc(del(s, ord[0].code).name)}` : finished ? 'All speeches given' : nx ? `Next speaker · ${esc(del(s, nx.code).name)}` : 'End the last speech';
+  return `${pageHead('Oxford-style debate', 'Debate', 'Two sides argue one motion. Speakers alternate between the Proposition and the Opposition, points of information are allowed outside protected time, and the room votes before and after. The side that moves the room wins.',
+      `<button class="btn ghost" data-a="oxReset">${ic('reset', 15)} Start over</button>`)}
+    <div class="card settings ox-set">
+      <label class="field grow"><span>The motion</span><input class="input" data-ch="oxMotion" value="${esc(o.motion)}" placeholder="This House believes that…" maxlength="180" autocomplete="off"></label>
+      <label class="field"><span>Each speech</span><input class="input time" data-ch="oxSpeak" value="${fmt(o.speak)}" inputmode="numeric" autocomplete="off"></label>
+      <label class="field"><span>Protected time</span><select class="input" data-ch="oxProtect">${[[0, 'None'], [30, 'First & last 30 s'], [60, 'First & last minute']].map(([v, l]) => `<option value="${v}"${o.protect === v ? ' selected' : ''}>${l}</option>`).join('')}</select></label>
+    </div>
+    <div class="ox-grid">
+      <section class="card now ox-now ${c ? c.side : ''}" aria-label="Current speaker">
+        <div class="now-top"><span class="eyebrow">${c ? `${ordinal(c.n)} ${SIDE[c.side]} speaker` : finished ? 'Debate complete' : 'Podium'}</span><span class="eyebrow">${plural(o.done.length, 'speech', 'speeches')} so far</span></div>
+        <div class="who">${c ? `${flag(c.code, 'xl', del(s, c.code).name)}<h2>${esc(del(s, c.code).name)}</h2><span class="pill-tag ox-side ${c.side}">${SIDE[c.side]}</span>` : `<span class="who-empty">${ic('scale', 26)}</span><h2 class="muted">${finished ? 'Time for the final vote' : 'The floor is open'}</h2>`}</div>
+        ${timerHTML(s, 'o-speech')}
+        <div class="ox-prot" data-oxprot data-state="ready">Ready</div>
+        ${controls(s, 'o-speech')}
+        ${c ? `<div class="ox-poi"><span>Points of information accepted</span><b data-oxpoi>${o.poi}</b><button class="btn sm soft" data-a="oxPoi">${ic('plus', 14)} POI</button></div>` : ''}
+        <button class="btn primary next-btn" data-a="oxNext"${!ord.length || finished ? ' disabled' : ''}><span class="nb">${nextLabel}</span>${ic('next', 17)}</button>
+        <div class="hints"><span><kbd>Space</kbd>start / pause</span><span><kbd>N</kbd>next</span><span><kbd>R</kbd>reset</span><span><kbd>F</kbd>present</span></div>
+      </section>
+      <div class="ox-teams">${oxTeam(s, 'prop')}${oxTeam(s, 'opp')}</div>
+    </div>
+    <section class="panel ox-vote"><div class="panel-head"><h2>${ic('vote', 15)} Vote of the room</h2><span class="muted sm">Count hands or use a quick poll</span></div>
+      <div class="pad">${oxVoteRow(o, 'before', 'Before the debate')}${oxVoteRow(o, 'after', 'After the debate')}<div data-oxres>${oxResultHTML(o)}</div></div></section>`;
+}
+
+/* ═════════════════════════ Ending a session ═════════════════════════ */
+const fmtDur = ms => { const m = Math.max(1, Math.round(ms / 60000)), h = Math.floor(m / 60); return h ? `${h} h ${m % 60} min` : `${m} min`; };
+function sessionSummary(s) {
+  const speeches = Object.values(s.queues).reduce((n, q) => n + q.done.length, 0) + s.ox.done.length;
+  const mp = s.motions.filter(m => m.result === 'pass').length, va = s.votes.filter(v => v.passed).length;
+  return { speeches, mp, mf: s.motions.filter(m => m.result === 'fail').length, va, vr: s.votes.length - va, time: fmtDur((s.ended || Date.now()) - s.created), pres: stats(s).pres };
+}
+function endSession(s) {
+  if (s.activeVote) { toast('A vote is still open — close or cancel it first'); go(`#/s/${encodeURIComponent(s.id)}/voting`); return; }
+  for (const t of Object.values(s.timers)) t.run = false;
+  s.ended = Date.now(); s.screen = null;
+  log(s, 'Session ended');
+  touch(s); render();
+  const z = sessionSummary(s);
+  openModal(`<div class="end-done"><div class="seal-ok">${ic('check', 30)}</div><div class="eyebrow">${esc(s.committee)}</div><h2>Session closed</h2>
+      <p class="muted">${z.time} · ${plural(z.speeches, 'speech', 'speeches')} · ${plural(z.va, 'resolution')} adopted. The room screen now shows a closing slide.</p></div>
+    <div class="mfoot"><button class="btn ghost" data-m="home">All sessions</button><span class="grow"></span><button class="btn primary" data-m="rep" autofocus>${ic('file', 15)} View report</button></div>`,
+    m => { $('[data-m="rep"]', m).addEventListener('click', () => A.report()); $('[data-m="home"]', m).addEventListener('click', () => { closeModal(); go('#/'); }); }, { label: 'Session closed', cls: 'narrow' });
+}
+function endSessionDialog() {
+  const s = cur(); if (!s) return;
+  if (s.ended) { reopenSession(); return; }
+  const z = sessionSummary(s);
+  openModal(`<div class="eyebrow">End session</div><h2 class="mt">Close ${esc(s.committee)}?</h2>
+    <p class="body">Every timer stops and the room screen shows a closing slide. The session is kept, with its full log and report, and you can reopen it any time.</p>
+    <dl class="end-sum"><div><dt>Duration</dt><dd>${z.time}</dd></div><div><dt>Delegations present</dt><dd>${z.pres}</dd></div><div><dt>Speeches</dt><dd>${z.speeches}</dd></div><div><dt>Motions passed</dt><dd>${z.mp}<small> / ${z.mp + z.mf}</small></dd></div><div><dt>Resolutions adopted</dt><dd>${z.va}<small> / ${z.va + z.vr}</small></dd></div></dl>
+    <div class="mfoot"><button class="btn ghost" data-a="closeModal">Cancel</button><button class="btn primary" data-m="end">${ic('power', 15)} End session</button></div>`,
+    m => { $('[data-m="end"]', m).addEventListener('click', () => { closeModal(); setTimeout(() => endSession(s), 200); }); }, { label: 'End session' });
+}
+function reopenSession() {
+  const s = cur(); if (!s || !s.ended) return;
+  s.ended = null; log(s, 'Session reopened'); touch(s); render(); toast('Session reopened');
+}
+const endBtn = s => `<button class="btn sm ${s.ended ? 'soft' : 'ghost'}" data-a="endSession" title="${s.ended ? 'Reopen this session' : 'End this session'}">${ic(s.ended ? 'reset' : 'power', 15)}<span class="hide-sm">${s.ended ? 'Reopen' : 'End'}</span></button>`;
+const endedBar = s => s.ended ? `<div class="ended-bar"><span class="eb-ic">${ic('check', 15)}</span><span>This session ended ${esc(relDate(s.ended))}. You can still look through everything.</span><span class="grow"></span><button class="btn sm ghost" data-a="report">${ic('file', 14)} Report</button><button class="btn sm soft" data-a="endSession">${ic('reset', 14)} Reopen</button></div>` : '';
+
+const VIEWS = { roll: rollView, openings: openingsView, gsl: gslView, caucus: caucusView, motions: motionsView, voting: votingView, debate: debateView, log: logView };
 
 /* ═════════════════════════ Present mode & projector ═════════════════════════ */
 const queueKeyForTab = () => ({ gsl: 'gsl', openings: 'openings' })[route.tab] || (route.tab === 'caucus' && cur()?.caucus.mode === 'mod' ? 'mod' : null);
-function primaryTimer() { const q = queueKeyForTab(); if (q) return 'q-' + q; return route.tab === 'caucus' ? 'c-unmod' : null; }
+function primaryTimer() { const q = queueKeyForTab(); if (q) return 'q-' + q; return route.tab === 'caucus' ? 'c-unmod' : route.tab === 'debate' ? 'o-speech' : null; }
 
 /* The stage: a small, self-contained description of what the room should see.
    Built on the chair's screen, rendered here or sent to a projector window. */
@@ -2058,6 +2277,7 @@ function buildStage(s) {
   const N = c => { if (String(c).startsWith('x-')) names[c] = del(s, c).name; return c; };
   const T = k => { const t = s.timers[k]; return { d: t.dur, r: Math.round(t.rem * 10) / 10, run: t.run }; };
   const out = { sid: s.id, c: s.committee, t: s.topic, names, at: Date.now() };
+  if (s.ended) { const z = sessionSummary(s); return Object.assign(out, { m: 'closed', z: { speeches: z.speeches, mp: z.mp, va: z.va } }); }
   const sc = s.screen;
   if (sc?.m === 'title') return Object.assign(out, { m: 'title', ti: { chair: s.chair, p: st.pres, codes: s.delegates.filter(isP).slice(0, 80).map(d => d.code).filter(c => !c.startsWith('x-')) } });
   if (sc?.m === 'break') { const left = Math.max(0, (sc.until - Date.now()) / 1000); return Object.assign(out, { m: 'break', b: { kind: sc.kind === 'lunch' ? 'lunch' : 'coffee', until: sc.until, tm: { d: sc.dur || 900, r: Math.round(left * 10) / 10, run: left > 0 } } }); }
@@ -2068,6 +2288,11 @@ function buildStage(s) {
     return Object.assign(out, { m: 'vote', v: { id: v.id, title: v.title, type: v.type, maj: v.maj, y: t.y, no: t.no, ab: t.ab, left: t.left, n: t.n, need: t.needed, base: t.base, pass: t.passing, b } });
   }
   if (lv && Date.now() - lv.at < 15000) return Object.assign(out, { m: 'result', v: { id: lv.id, title: lv.title, y: lv.y, no: lv.no, ab: lv.ab, pass: lv.passed, motion: /^Motion:/.test(lv.title) } });
+  if (route.tab === 'debate') {
+    const o = s.ox, ord = oxOrder(s), c = ord[o.idx] || null, res = oxResult(o);
+    if (!c && res && ord.length && o.idx >= ord.length) return Object.assign(out, { m: 'oxres', x: { motion: o.motion, res } });
+    return Object.assign(out, { m: 'ox', x: { motion: o.motion, cur: c && { code: N(c.code), side: c.side, n: c.n }, next: ord.slice(o.idx + 1, o.idx + 4).map(e => ({ code: N(e.code), side: e.side })), poi: o.poi, protect: o.protect, np: o.prop.length, no: o.opp.length, tm: T('o-speech') } });
+  }
   if (route.tab === 'roll') return Object.assign(out, { m: 'roll', r: { p: st.pres, pv: st.pv, n: st.total, maj: st.simple, two: st.two, q: st.quorum, qn: st.quorumNeed, codes: s.delegates.filter(isP).map(d => N(d.code)), pvc: s.delegates.filter(d => d.status === 'pv').map(d => d.code) } });
   const qk = queueKeyForTab();
   if (qk) {
@@ -2080,7 +2305,7 @@ function buildStage(s) {
 }
 // Running timers are keyed by when they would end, so a ticking clock doesn't count as a change.
 const stageKey = st => JSON.stringify(st, (k, v) => (k === 'r' && typeof v === 'number') || k === 'at' ? undefined : v)
-  + JSON.stringify([st.q?.tm, st.q?.tot, st.u?.tm, st.b?.tm].map(t => t && (t.run ? Math.round((Date.now() / 1000 + t.r) * 2) : 'p' + t.r)));
+  + JSON.stringify([st.q?.tm, st.q?.tot, st.u?.tm, st.b?.tm, st.x?.tm].map(t => t && (t.run ? Math.round((Date.now() / 1000 + t.r) * 2) : 'p' + t.r)));
 
 /* ── rendering ── */
 const pjName = c => PJ.st?.names?.[c] || CMAP[c]?.name || String(c).toUpperCase();
@@ -2267,6 +2492,46 @@ const SCENES = {
       sc.classList.toggle('over', over);
     },
   },
+  ox: {
+    html: st => `<div class="oxs"><div class="oxs-mo"><span class="eyebrow">Oxford-style debate · the motion</span><h2>${esc(st.x.motion || 'This House believes that…')}</h2></div>
+      <div class="oxs-whos" data-x="whos"></div>
+      <div class="pt" data-pjt="tm"><div class="pt-d"></div><div class="pt-bar"><i></i></div></div>
+      <div class="oxs-row"><span class="oxs-prot" data-x="prot" data-state="ready">Ready</span><span class="oxs-poi"><b data-n="poi">0</b> points of information</span></div>
+      <div class="sp-next" data-x="nextwrap"><span class="sp-nl">Up next</span><div class="sp-chips" data-x="next"></div></div></div>`,
+    update(sc, st) {
+      const x = st.x, whos = $('[data-x="whos"]', sc), key = x.cur ? x.cur.side + x.cur.code : '';
+      if (whos.dataset.cur !== key) {
+        const first = whos.dataset.cur === undefined; whos.dataset.cur = key;
+        [...whos.children].forEach(o => { o.classList.add('leave'); setTimeout(() => o.remove(), 650); });
+        whos.insertAdjacentHTML('beforeend', x.cur
+          ? `<div class="oxs-who ${x.cur.side}${first ? '' : ' in'}"><span class="oxs-side">${SIDE[x.cur.side]} · ${ordinal(x.cur.n)} speaker</span><div class="sp-who"><div class="sp-flag">${flag(x.cur.code, 'p', pjName(x.cur.code))}</div><div class="sp-txt"><h2 class="pj-h">${letters(pjName(x.cur.code))}</h2></div></div></div>`
+          : `<div class="oxs-who"><span class="oxs-side">${x.np + x.no ? 'The floor is open' : 'Speakers are being seated'}</span><div class="sp-who empty"><div class="sp-mic">${ic('scale', 44)}</div></div></div>`);
+      }
+      tweenNum($('[data-n="poi"]', sc), x.poi || 0);
+      const keys = x.next.map(e => e.side + ':' + e.code);
+      keyedSync($('[data-x="next"]', sc), keys, k => { const [side, code] = k.split(':'); const el = chip(code); el.classList.add('ox-' + side); return el; }, { stagger: 60 });
+      $('[data-x="nextwrap"]', sc).classList.toggle('none', !keys.length);
+    },
+  },
+  oxres: {
+    html: st => { const r = st.x.res; return `<div class="oxr"><div class="eyebrow">The motion</div><h2 class="pj-h oxr-mo">${letters(st.x.motion || 'This House believes that…')}</h2>
+      <div class="oxr-bars">${[['Before', r.b, r.before], ['After', r.a, r.after]].map(([l, p, v], i) => `<div class="oxr-row" style="--d:${i}"><span>${l}</span><div class="oxr-bar"><i class="f" data-w="${p.f}"></i><i class="a" data-w="${p.a}"></i><i class="u" data-w="${p.u}"></i></div><b>${v.f} – ${v.a}</b></div>`).join('')}
+        <div class="oxr-key"><span><i class="f"></i>For</span><span><i class="a"></i>Against</span><span><i class="u"></i>Undecided</span></div></div>
+      <div class="rs-stamp ${r.tied ? '' : r.carried ? 'pass' : 'fail'}"><span>${r.tied ? 'Tied' : r.carried ? 'Motion carried' : 'Motion defeated'}</span></div>
+      <p class="oxr-swing">${r.winner ? `<b class="${r.winner}">${SIDE[r.winner]}</b> moved the room the most · For ${r.swingF >= 0 ? '+' : '−'}${Math.abs(r.swingF).toFixed(0)} · Against ${r.swingA >= 0 ? '+' : '−'}${Math.abs(r.swingA).toFixed(0)} points` : 'Both sides moved the room equally'}</p></div>`; },
+    enter(sc, st) {
+      setTimeout(() => $$('.oxr-bar i', sc).forEach(i => { i.style.width = i.dataset.w + '%'; }), 120);
+      const w = st.x.res.winner;
+      if (w) setTimeout(() => burst({ particleCount: 140, spread: 90, origin: { y: .55 }, colors: w === 'prop' ? ['#8299FF', '#B9C6FF', '#ffffff'] : ['#FF8A7A', '#FFC2B8', '#ffffff'] }), 900);
+    },
+  },
+  closed: {
+    html: st => `<div class="tt"><div class="tt-globe"><div class="globe-box" data-globe="pj"><canvas aria-hidden="true"></canvas></div></div>
+      <div class="tt-txt"><div class="eyebrow">${esc(st.c)}</div><h2 class="pj-h big">${letters('Session adjourned')}</h2><p class="tt-topic">Thank you, delegates.</p>
+        <div class="pj-stats"><div><b data-n="sp">0</b><span>speeches</span></div><div><b data-n="mo">0</b><span>motions passed</span></div><div><b data-n="ad">0</b><span>resolutions adopted</span></div></div></div></div>`,
+    update(sc, st) { tweenNum($('[data-n="sp"]', sc), st.z.speeches); tweenNum($('[data-n="mo"]', sc), st.z.mp); tweenNum($('[data-n="ad"]', sc), st.z.va); },
+    enter() { GLOBES.pj = { markers: [], phi: 0 }; setTimeout(mountGlobe, 60); },
+  },
   result: {
     html: st => `<div class="rs ${st.v.pass ? 'pass' : 'fail'}"><div class="eyebrow">${esc(st.v.title)}</div>
       <div class="rs-stamp"><span>${st.v.pass ? (st.v.motion ? 'Passes' : 'Adopted') : (st.v.motion ? 'Fails' : 'Rejected')}</span></div>
@@ -2298,6 +2563,7 @@ function pjApply(st) {
   root.dataset.mode = st.m; root.dataset.res = st.m === 'result' ? (st.v.pass ? 'pass' : 'fail') : '';
   const key = [st.m, st.sid || '', st.m === 'vote' || st.m === 'result' ? st.v.id : st.m === 'speech' ? st.q.k : st.m === 'break' ? st.b.kind + st.b.until : ''].join('|');
   root.dataset.kind = st.m === 'break' ? st.b.kind : '';
+  root.dataset.side = st.m === 'ox' && st.x.cur ? st.x.cur.side : st.m === 'oxres' && st.x.res.winner ? st.x.res.winner : '';
   const stage = $('[data-pj="stage"]', root), S = SCENES[st.m];
   if (!PJ.scene || PJ.sceneKey !== key || !PJ.scene.isConnected) {
     const old = PJ.scene; PJ.sceneKey = key;
@@ -2319,13 +2585,19 @@ const pjRem = t => !t ? 0 : t.run ? Math.max(0, t.r - (PJ.st?.at ? Math.max(0, D
 function pjPaint() {
   const sc = PJ.scene, st = PJ.st; if (!sc || !st || !sc.isConnected) return;
   $$('[data-pjt]', sc).forEach(el => {
-    const t = el.dataset.pjt === 'tot' ? st.q?.tot : (st.q?.tm || st.u?.tm || st.b?.tm); if (!t) return;
+    const t = el.dataset.pjt === 'tot' ? st.q?.tot : (st.q?.tm || st.u?.tm || st.b?.tm || st.x?.tm); if (!t) return;
     const rem = pjRem(t); digits($('.pt-d', el), fmt(rem));
     if (st.m === 'break' && rem <= 0 && !el.closest('.over')) SCENES.break.update(sc, { ...st, b: { ...st.b, tm: { ...st.b.tm, run: false, r: 0 } } });
     const bar = $('.pt-bar i', el); if (bar) bar.style.transform = `scaleX(${t.d ? Math.min(1, rem / t.d) : 0})`;
     const warn = rem <= 10 && rem > 0 && t.d > 15, over = rem <= 0 && t.d > 0;
     if (over && !el.classList.contains('over') && el.dataset.pjt === 'tm') { el.classList.remove('ring'); void el.offsetWidth; el.classList.add('ring'); }
     el.classList.toggle('warn', warn); el.classList.toggle('over', over); el.classList.toggle('running', t.run && rem > 0);
+  });
+  $$('[data-x="prot"]', sc).forEach(el => {
+    const t = st.x?.tm; if (!t) return;
+    const rem = pjRem(t), gone = t.d - rem, p = st.x.protect, has = !!st.x.cur;
+    const k = !has ? 'ready' : rem <= 0 ? 'over' : !t.run && gone < .5 ? 'ready' : p && (gone < p || rem < p) ? 'prot' : 'open';
+    if (el.dataset.state !== k) { el.dataset.state = k; el.textContent = { ready: has ? 'Ready' : 'Waiting for the first speaker', prot: 'Protected time', open: 'Points of information welcome', over: 'Time' }[k]; }
   });
   $$('[data-pj-ends]', sc).forEach(el => { const t = st.u?.tm; if (!t) return; const rem = pjRem(t); const txt = rem <= 0 ? 'Time is up' : t.run ? `Ends at ${clock(Date.now() + rem * 1000)}` : rem < t.d ? 'Paused' : 'Ready to start'; if (el.textContent !== txt) el.textContent = txt; });
 }
@@ -2353,7 +2625,7 @@ function presentKeys(e) {
   const k = e.key.toLowerCase();
   if (e.key === 'Escape' || k === 'f') { e.preventDefault(); exitPresent(); }
   else if (e.code === 'Space') { e.preventDefault(); spaceHandled = true; const t = primaryTimer(); if (t) timerToggle(t); }
-  else if (k === 'n') { const q = queueKeyForTab(); if (q) nextSpeaker(q); }
+  else if (k === 'n') { const q = queueKeyForTab(); if (q) nextSpeaker(q); else if (route.tab === 'debate') oxNext(); }
   else if (k === 'r') { const t = primaryTimer(); if (t) resetTimer(t); }
   else if (k === 't' || k === 'x') { e.preventDefault(); toggleTitle(); }
 }
@@ -2542,6 +2814,7 @@ function reportHTML(s) {
     <section><h2>Speeches</h2>${speeches.length ? speeches.map(([k, l]) => `<h3>${l}</h3>${tbl(['#', 'Delegation', 'Time used', 'At', 'Note'], [...s.queues[k].done].reverse().map((x, i) => [i + 1, esc(del(s, x.code).name), fmt(x.used), clock(x.at), esc(x.note || '')]))}`).join('') : '<p class="rp-none">No speeches recorded.</p>'}</section>
     <section><h2>Motions</h2>${tbl(['Motion', 'Proposed by', 'Details', 'Result'], [...s.motions].sort((a, b) => a.at - b.at).map(m => [MOTIONS[m.type].label, m.by ? esc(del(s, m.by).name) : 'The chair', esc([m.dur && fmt(m.dur), m.spk && `${fmt(m.spk)} per speaker`, m.topic].filter(Boolean).join(' · ')), m.result ? (m.result === 'pass' ? 'Passed' : 'Failed') : 'Not decided']))}</section>
     <section><h2>Votes</h2>${tbl(['Subject', 'Type', 'For', 'Against', 'Abstain', 'Result'], [...s.votes].reverse().map(v => [esc(v.title), (v.type === 'proc' ? 'Procedural' : 'Substantive') + (v.maj === '2/3' ? ', two-thirds' : ''), v.y, v.no, v.ab, v.passed ? 'Passed' : 'Failed']))}</section>
+    ${s.ox.done.length || s.ox.motion ? `<section><h2>Oxford-style debate</h2>${s.ox.motion ? `<p><b>Motion:</b> ${esc(s.ox.motion)}</p>` : ''}${tbl(['Speaker', 'Side', 'Time', 'Points of information'], [...s.ox.done].reverse().map(d => [esc(del(s, d.code).name), `${ordinal(d.n)} ${SIDE[d.side]}`, fmt(d.used), d.poi || 0]))}${(() => { const r = oxResult(s.ox); return r ? `<p>Room vote before: ${s.ox.before.f} for, ${s.ox.before.a} against, ${s.ox.before.u} undecided. After: ${s.ox.after.f} for, ${s.ox.after.a} against, ${s.ox.after.u} undecided. <b>${r.tied ? 'Tied' : r.carried ? 'Motion carried' : 'Motion defeated'}</b>${r.winner ? `; the ${SIDE[r.winner]} moved the room the most` : ''}.</p>` : ''; })()}</section>` : ''}
     <section><h2>Session log</h2>${tbl(['Time', 'Event'], [...s.log].reverse().map(e => [`${new Date(e.t).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })} ${clock(e.t)}`, esc(e.m)]))}</section>
     <footer class="rp-foot">Generated by Gavel on ${esc(new Date().toLocaleString('en-GB', { dateStyle: 'long', timeStyle: 'short' }))}</footer>
   </article>`;
@@ -2858,6 +3131,11 @@ const A = {
     try { localStorage.setItem(THEME_KEY, next); } catch { }
     $$('[data-a="theme"]').forEach(b => { b.outerHTML = themeBtn(); });
   },
+  oxNext() { oxNext(); },
+  oxPoi() { const s = cur(); s.ox.poi++; touch(s); const b = $('[data-oxpoi]'); if (b) { b.textContent = s.ox.poi; b.classList.remove('bump'); void b.offsetWidth; b.classList.add('bump'); } },
+  oxRm(el) { const s = cur(), side = el.dataset.side, i = +el.dataset.i, c = oxOrder(s)[s.ox.idx]; s.ox[side].splice(i, 1); if (c) s.ox.idx = Math.max(-1, oxOrder(s).findIndex(e => e.code === c.code && e.side === c.side)); touch(s); render(); },
+  oxReset() { confirmModal({ title: 'Start the debate over?', body: 'The speaking order goes back to the first speaker and the room votes are cleared. The two sides stay as they are.', ok: 'Start over', fn() { const s = cur(); Object.assign(s.ox, { idx: -1, done: [], poi: 0, before: null, after: null }); setTimer(s, 'o-speech', s.ox.speak); log(s, 'Oxford debate restarted'); touch(s); render(); } }); },
+  endSession() { endSessionDialog(); },
   sound() {
     db.prefs.sound = !db.prefs.sound; save();
     $$('[data-a="sound"]').forEach(b => { b.outerHTML = soundBtn(); });
@@ -3017,7 +3295,7 @@ const A = {
     const s = cur(), m = s.motions.find(x => x.id === el.dataset.id); if (!m) return;
     const r = resolveMotion(s, m, el.dataset.v);
     render();
-    const action = r.tab ? { label: r.label, fn: () => go(`#/s/${encodeURIComponent(s.id)}/${r.tab}`) } : r.report ? { label: 'View report', fn: () => A.report() } : null;
+    const action = r.tab ? { label: r.label, fn: () => go(`#/s/${encodeURIComponent(s.id)}/${r.tab}`) } : r.end ? { label: 'End the session', fn: () => endSessionDialog() } : r.report ? { label: 'View report', fn: () => A.report() } : null;
     toast(`${MOTIONS[m.type].label} — ${m.result === 'pass' ? 'passes' : 'fails'}`, action);
   },
   mrm(el) { const s = cur(), m = s.motions.find(x => x.id === el.dataset.id); if (!m) return; undoable(s, 'Motion withdrawn', () => { s.motions = s.motions.filter(x => x !== m); }); },
@@ -3083,6 +3361,14 @@ const A = {
 
 /* change handlers */
 const CH = {
+  oxMotion(el) { const s = cur(); s.ox.motion = el.value.trim(); touch(s); },
+  oxSpeak(el) { const s = cur(), v = parseTime(el.value, 'm'); if (!v) { toast('Enter a time like 5:00, or a number of minutes'); render(); return; } s.ox.speak = v; if (!s.timers['o-speech'].run) setTimer(s, 'o-speech', v); touch(s); render(); },
+  oxProtect(el) { const s = cur(); s.ox.protect = +el.value || 0; touch(s); paintTimers(s); },
+  oxVote(el) {
+    const s = cur(), w = el.dataset.w, v = Math.max(0, Math.min(999, parseInt(el.value, 10) || 0));
+    s.ox[w] = Object.assign({ f: 0, a: 0, u: 0 }, s.ox[w], { [el.dataset.k]: v }); touch(s);
+    const r = $('[data-oxres]'); if (r) r.innerHTML = oxResultHTML(s.ox);
+  },
   qtime(el) {
     const s = cur(), key = el.dataset.q, q = s.queues[key], v = parseTime(el.value, 's');
     if (!v) { toast('Enter a time like 1:30, or a number of seconds'); render(); return; }
@@ -3211,11 +3497,11 @@ document.addEventListener('keydown', e => {
   const s = cur(); if (!s) return;
   const k = primaryTimer(), key = e.key.toLowerCase();
   if (e.code === 'Space') { if (k) { e.preventDefault(); spaceHandled = true; timerToggle(k); } }
-  else if (key === 'n') { const q = queueKeyForTab(); if (q) nextSpeaker(q); }
+  else if (key === 'n') { const q = queueKeyForTab(); if (q) nextSpeaker(q); else if (route.tab === 'debate') oxNext(); }
   else if (key === 'r') { if (k) resetTimer(k); }
   else if (key === 'f') { e.preventDefault(); enterPresent(); }
   else if (key === 't' || key === 'x') { e.preventDefault(); toggleTitle(); }
-  else if (/^[1-7]$/.test(e.key)) go(`#/s/${encodeURIComponent(s.id)}/${TABS[+e.key - 1][0]}`);
+  else if (/^[1-8]$/.test(e.key)) go(`#/s/${encodeURIComponent(s.id)}/${TABS[+e.key - 1][0]}`);
 });
 document.addEventListener('keyup', e => { if (e.code === 'Space' && spaceHandled) { e.preventDefault(); spaceHandled = false; } });
 document.addEventListener('mousemove', () => { if (ui.presenting || PJ.role === 'projector') idleKick(); });
