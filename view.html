@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Live session — Gavel</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0E0E10">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js"></script>
+<style>
+.vw{max-width:640px;margin:0 auto;padding:22px max(16px,env(safe-area-inset-left,0px)) 60px}
+.vw-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:26px}
+.vw-top .brand{font-size:15px}
+.vw-upd{font-size:12.5px;color:var(--muted);text-align:right}
+.vw-h{animation:fadeUp .7s var(--ease) both}
+.vw-h h1{font:650 clamp(30px,8vw,44px)/1.05 var(--sans);letter-spacing:-.045em;margin-top:8px;overflow-wrap:anywhere}
+.vw-h p{margin-top:8px;color:var(--ink-2)}
+.vw-ended{display:inline-flex;margin-top:12px;padding:6px 12px;border-radius:99px;background:var(--surface-2);font-size:13px;font-weight:600;color:var(--muted)}
+.blk{margin-top:16px;padding:18px;border-radius:20px;background:var(--surface);border:1px solid var(--line);animation:fadeUp .7s var(--ease) both}
+.blk h2{display:flex;align-items:center;justify-content:space-between;gap:10px;font:600 15px var(--sans);letter-spacing:-.01em;margin-bottom:14px}
+.blk h2 span{font:500 12px var(--mono);color:var(--muted)}
+.stats3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.stats3 div{padding:12px;border-radius:14px;background:var(--surface-2)}
+.stats3 b{display:block;font:650 26px/1.1 var(--sans);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.stats3 span{font-size:12px;color:var(--muted)}
+.flagwall{display:grid;grid-template-columns:repeat(auto-fill,minmax(52px,1fr));gap:8px;margin-top:14px}
+.flagwall div{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
+.flagwall img,.fl{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:5px;background:var(--surface-2)}
+.flagwall .pv img{outline:2px solid var(--accent);outline-offset:2px}
+.flagwall small{max-width:100%;font-size:10.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.now{display:flex;align-items:center;gap:14px;padding:14px;border-radius:16px;background:var(--accent-soft)}
+.now img{width:64px;aspect-ratio:3/2;object-fit:cover;border-radius:7px}
+.now b{display:block;font-size:18px;font-weight:600}
+.now small{font-size:12.5px;color:var(--accent);font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.list{list-style:none;margin-top:10px;display:grid;gap:4px}
+.list li{display:flex;align-items:center;gap:12px;min-height:44px;padding:4px 6px;border-radius:12px}
+.list li .n{width:22px;font:500 12px var(--mono);color:var(--muted)}
+.list li img{width:30px;aspect-ratio:3/2;object-fit:cover;border-radius:4px}
+.list li .t{flex:1;min-width:0;font-weight:500;overflow-wrap:anywhere}
+.res{flex:none;padding:4px 10px;border-radius:99px;font-size:12px;font-weight:600}
+.res.p{background:var(--yes-soft);color:var(--yes)} .res.f,.res.v{background:color-mix(in oklab,var(--no) 14%,transparent);color:var(--no)} .res.t{background:var(--surface-2);color:var(--muted)}
+.tally{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.sides{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.sides h3{font-size:13px;margin-bottom:6px}
+.sides .prop h3{color:var(--accent)} .sides .opp h3{color:var(--no)}
+.empty-v{min-height:70vh;display:grid;place-items:center;text-align:center;color:var(--ink-2)}
+.empty-v .mark{width:56px;height:56px;border-radius:18px;margin:0 auto 18px}
+.vw-foot{margin-top:28px;text-align:center;font-size:12.5px;color:var(--muted)}
+</style>
+</head>
+<body>
+<main class="vw" id="vw"></main>
+<script>
+(async () => {
+  const { LOGO, fillLogos } = window.GavelSite;
+  const root = document.getElementById('vw');
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+  const flagImg = (c, w = 80) => /^[a-z]{2}$/.test(c) ? `<img alt="" loading="lazy" src="https://flagcdn.com/w${w}/${c}.png">` : '<span class="fl"></span>';
+  const clock = t => new Date(t).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const empty = msg => { root.innerHTML = `<div class="empty-v"><div>${LOGO}<h1 style="font:650 26px var(--sans);letter-spacing:-.03em">Gavel</h1><p style="margin-top:8px">${msg}</p></div></div>`; };
+
+  async function unpack(h) {
+    const kind = h[0], b = atob(h.slice(1).replace(/-/g, '+').replace(/_/g, '/')), bytes = Uint8Array.from(b, ch => ch.charCodeAt(0));
+    if (kind === 'j') return JSON.parse(new TextDecoder().decode(bytes));
+    const out = await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).text();
+    return JSON.parse(out);
+  }
+  async function show() {
+    const h = location.hash.slice(1);
+    if (!h) return empty('Scan the QR code on the room screen to follow the session here.');
+    let d; try { d = await unpack(h); } catch { return empty('This link could not be read. Scan the QR code on the room screen again.'); }
+    const names = d.x || {};
+    let regionNames; try { regionNames = new Intl.DisplayNames(['en'], { type: 'region' }); } catch { }
+    const nm = c => names[c] || (regionNames && /^[a-z]{2}$/.test(c) ? (regionNames.of(c.toUpperCase()) || c) : c.toUpperCase());
+    const present = [...(d.p || []), ...(d.pv || [])].sort((a, b) => nm(a).localeCompare(nm(b))), pvs = new Set(d.pv || []);
+    const maj = present.length ? Math.floor(present.length / 2) + 1 : 0, two = present.length ? Math.ceil(present.length * 2 / 3) : 0;
+    const R = { p: 'Passed', f: 'Failed', v: 'Vetoed', t: 'Tied' };
+    const SPK = { gsl: 'Speakers list', openings: 'Opening speeches', mod: 'Moderated caucus' };
+    root.innerHTML = `
+      <header class="vw-top"><span class="brand">${LOGO}Gavel</span><span class="vw-upd">Updated ${clock(d.at)}<br>scan again for the latest</span></header>
+      <section class="vw-h"><div class="eyebrow">${d.h ? 'Chaired by ' + esc(d.h) : 'Live session'}</div><h1>${esc(d.c)}</h1>${d.t ? `<p>${esc(d.t)}</p>` : ''}${d.end ? '<span class="vw-ended">This session has ended</span>' : ''}</section>
+      <section class="blk"><h2>In the room <span>${present.length} of ${d.n}</span></h2>
+        <div class="stats3"><div><b>${present.length}</b><span>present</span></div><div><b>${maj}</b><span>simple majority</span></div><div><b>${two}</b><span>two-thirds</span></div></div>
+        ${present.length ? `<div class="flagwall">${present.map(c => `<div class="${pvs.has(c) ? 'pv' : ''}">${flagImg(c)}<small>${esc(nm(c))}</small></div>`).join('')}</div>` : ''}</section>
+      ${d.sp ? `<section class="blk"><h2>${SPK[d.sp.k] || 'Speakers'} <span>${d.sp.list.length} waiting</span></h2>
+        ${d.sp.cur ? `<div class="now">${flagImg(d.sp.cur, 160)}<div><small>Has the floor</small><b>${esc(nm(d.sp.cur))}</b></div></div>` : ''}
+        ${d.sp.list.length ? `<ol class="list">${d.sp.list.map((c, i) => `<li><span class="n">${i + 1}</span>${flagImg(c)}<span class="t">${esc(nm(c))}</span></li>`).join('')}</ol>` : ''}</section>` : ''}
+      ${d.ox ? `<section class="blk"><h2>Oxford-style debate ${d.ox.r ? `<span class="res ${d.ox.r}">${d.ox.r === 'p' ? 'Motion carried' : d.ox.r === 'f' ? 'Motion defeated' : 'Tied'}</span>` : ''}</h2>
+        ${d.ox.m ? `<p style="color:var(--ink-2)">${esc(d.ox.m)}</p>` : ''}
+        <div class="sides"><div class="prop"><h3>Proposition</h3>${d.ox.prop.map(c => `<div style="display:flex;gap:8px;align-items:center;margin:4px 0">${flagImg(c)}<span>${esc(nm(c))}</span></div>`).join('') || '<small class="muted">—</small>'}</div>
+        <div class="opp"><h3>Opposition</h3>${d.ox.opp.map(c => `<div style="display:flex;gap:8px;align-items:center;margin:4px 0">${flagImg(c)}<span>${esc(nm(c))}</span></div>`).join('') || '<small class="muted">—</small>'}</div></div></section>` : ''}
+      ${d.vt?.length ? `<section class="blk"><h2>Votes <span>${d.vt.length}</span></h2><ul class="list">${d.vt.map(v => `<li><span class="t">${esc(v.t)}<br><span class="tally">${v.y} for · ${v.n} against · ${v.a} abstaining</span></span><span class="res ${v.r}">${R[v.r]}</span></li>`).join('')}</ul></section>` : ''}
+      ${d.mo?.length ? `<section class="blk"><h2>Motions <span>${d.mo.length}</span></h2><ul class="list">${d.mo.map(m => `<li><span class="t">${esc(m.l)}</span><span class="res ${m.r}">${R[m.r]}</span></li>`).join('')}</ul></section>` : ''}
+      <p class="vw-foot">A snapshot from the chair's Gavel · scan the code again to refresh</p>`;
+  }
+  addEventListener('hashchange', show);
+  show();
+})();
+</script>
+</body>
+</html>

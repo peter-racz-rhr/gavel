@@ -1096,6 +1096,62 @@ button.scr-tile:active{transform:scale(.985)}
 .oxr-swing b.prop{color:var(--prop)} .oxr-swing b.opp{color:var(--opp)}
 .oxr .rs-stamp span{font-size:clamp(56px,8vw,160px)}
 
+/* ───────────── new roll call, voice ───────────── */
+.roll-ask{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;padding:6px 0}
+.roll-ask h2{font:600 24px/1.2 var(--sans);letter-spacing:-.03em}
+.roll-ask p{max-width:38ch;font-size:14px;line-height:1.55}
+.ra-ic{display:grid;place-items:center;width:64px;height:64px;border-radius:20px;background:var(--accent-soft);color:var(--accent);margin-bottom:6px;animation:pop .6s var(--ease)}
+.seq-mic{gap:8px}
+.seq-mic.on{background:var(--no-soft);color:var(--no)}
+.seq-mic.on .mic-dot{width:8px;height:8px;border-radius:50%;background:currentColor;animation:livepulse 1.2s var(--ease) infinite}
+.seq-heard{min-height:20px;text-align:center;font-size:13px;color:var(--muted)}
+.seq-heard b{color:var(--ink)}
+/* ───────────── scores ───────────── */
+.podium{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.pod{display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 12px;border-radius:18px;background:var(--surface-2);text-align:center;animation:rise .6s var(--ease) both;animation-delay:calc(var(--i) * 90ms)}
+.pod.p1{background:linear-gradient(180deg,color-mix(in oklab,var(--gold,#F5C451) 22%,var(--surface-2)),var(--surface-2));box-shadow:inset 0 0 0 1px color-mix(in oklab,var(--gold,#F5C451) 40%,transparent)}
+.pod-medal{font-size:28px;line-height:1}
+.pod b{font-size:15px;font-weight:600;overflow-wrap:anywhere}
+.pod-award{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.pod-pts{font:650 22px var(--sans);font-variant-numeric:tabular-nums}
+.pod-pts small{font-size:12px;color:var(--muted);font-weight:500}
+.sc-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:12px}
+.sc-row{display:flex;flex-direction:column;gap:14px;padding:16px;border-radius:18px;background:var(--surface);border:1px solid var(--line);content-visibility:auto;contain-intrinsic-size:auto 250px}
+.sc-head{display:flex;align-items:center;gap:12px}
+.sc-name{flex:1;min-width:0}
+.sc-name b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sc-name small{display:block;font-size:12.5px;color:var(--muted)}
+.sc-total{text-align:right}
+.sc-total b{font:650 26px/1 var(--sans);font-variant-numeric:tabular-nums}
+.sc-total small{display:block;font-size:11.5px;color:var(--muted)}
+.sc-crit{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 16px}
+.sc-c{display:flex;flex-direction:column;gap:6px}
+.sc-c span{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink-2)}
+.sc-c span b{font-variant-numeric:tabular-nums;color:var(--ink)}
+.sc-c input[type=range]{width:100%;height:28px;accent-color:var(--accent);cursor:pointer}
+.sc-note{height:38px;font-size:13.5px}
+.rate{display:inline-flex;gap:1px;margin-left:6px}
+.rate button{width:22px;height:24px;padding:0;font-size:14px;line-height:1;color:var(--faint);border-radius:6px;transition:color .2s,transform .15s var(--ease)}
+.rate button.on{color:#F5B731}
+.rate button:hover{transform:scale(1.2)}
+@media (pointer:coarse){.rate button{width:28px;height:32px;font-size:17px}}
+@media (max-width:640px){.podium{grid-template-columns:1fr}.sc-crit{grid-template-columns:1fr}}
+/* ───────────── veto & QR ───────────── */
+.veto-tag{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:99px;background:var(--no-soft);color:var(--no);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.qr-box{display:grid;place-items:center;width:min(280px,100%);aspect-ratio:1;margin:18px auto 0;padding:14px;border-radius:20px;background:#fff}
+.qr-box svg{width:100%;height:100%}
+.qr-box svg rect[fill="#ffffff"]{fill:#fff}
+.qrs{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(24px,5vw,90px);align-items:center;max-width:min(92vw,1400px);text-align:left}
+.qrs-card{position:relative;width:min(44vh,40vw);aspect-ratio:1;padding:clamp(14px,1.6vw,26px);border-radius:clamp(20px,2vw,34px);background:#fff;box-shadow:0 40px 90px -40px rgba(0,0,0,.7),0 0 0 8px color-mix(in oklab,var(--accent) 30%,transparent);overflow:hidden;animation:qrIn .9s var(--spring) both}
+.qrs-card svg{width:100%;height:100%;display:block}
+.qrs-scan{position:absolute;left:0;right:0;height:22%;top:-22%;background:linear-gradient(180deg,transparent,color-mix(in oklab,var(--accent) 35%,transparent),transparent);animation:qrScan 3.2s ease-in-out infinite;pointer-events:none}
+@keyframes qrIn{from{opacity:0;transform:scale(.6) rotate(-6deg)}to{opacity:1;transform:none}}
+@keyframes qrScan{0%{top:-22%}60%,100%{top:100%}}
+.qrs-txt p{margin-top:14px;max-width:32ch;font-size:clamp(16px,1.6vw,28px);line-height:1.4;color:var(--ink-2)}
+.qrs-txt .qrs-upd{font-size:clamp(13px,1.1vw,18px);color:var(--muted)}
+@media (max-width:700px){.qrs{grid-template-columns:1fr;justify-items:center;text-align:center}.qrs-card{width:min(70vw,48vh)}}
+html.lite .qrs-scan{display:none}
+
 /* ───────────── phones & lite mode ───────────── */
 html{-webkit-tap-highlight-color:transparent}
 button,a,.btn,.rc-b,.chip,.fchip{touch-action:manipulation}
@@ -1377,14 +1433,17 @@ const MOTIONS = {
 };
 const TABS = [
   ['roll', 'Roll call', 'roll'], ['openings', 'Opening speeches', 'quote'], ['gsl', 'Speakers list', 'mic'],
-  ['caucus', 'Caucus', 'caucus'], ['motions', 'Motions', 'flagic'], ['voting', 'Voting', 'vote'], ['debate', 'Debate', 'scale'], ['log', 'Session log', 'clock'],
+  ['caucus', 'Caucus', 'caucus'], ['motions', 'Motions', 'flagic'], ['voting', 'Voting', 'vote'], ['debate', 'Debate', 'scale'], ['scores', 'Scores', 'trophy'], ['log', 'Session log', 'clock'],
 ];
 const QLABEL = { gsl: 'speakers list', openings: 'opening speech', mod: 'moderated caucus' };
 const TMSG = { 'q-gsl': 'Speaking time has elapsed', 'q-openings': 'Opening speech time has elapsed', 'q-mod': 'Speaking time has elapsed', 'c-total': 'The moderated caucus has ended', 'c-unmod': 'The unmoderated caucus has ended', 'o-speech': 'Speech time has elapsed' };
-const KEYS = [['Space', 'Start or pause the timer'], ['N', 'Next speaker'], ['R', 'Reset the timer'], ['F', 'Present on a projector'], ['T or X', 'Title screen for the room'], ['1 – 8', 'Jump to a section'], ['/', 'Search sessions'], ['?', 'Show all shortcuts'], ['Esc', 'Close a dialog or stop presenting']];
+const KEYS = [['Space', 'Start or pause the timer'], ['N', 'Next speaker'], ['R', 'Reset the timer'], ['F', 'Present on a projector'], ['T or X', 'Title screen for the room'], ['1 – 9', 'Jump to a section'], ['/', 'Search sessions'], ['?', 'Show all shortcuts'], ['Esc', 'Close a dialog or stop presenting']];
 
 /* ═════════════════════════ Icons ═════════════════════════ */
 const ICON = {
+  trophy: '<path d="M8 21h8M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/>',
+  qr: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/>',
+  micon: '<rect x="9" y="2.5" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3.5"/>',
   scale: '<path d="M12 3v18M7 21h10"/><path d="M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0L5 7zM19 7l-3 7a3 3 0 0 0 6 0l-3-7z"/>',
   power: '<path d="M12 3v8"/><path d="M6.3 6.6a8 8 0 1 0 11.4 0"/>',
   coffee: '<path d="M6 2.5v2M10 2.5v2M14 2.5v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h12a3.5 3.5 0 1 1 0 7h-1"/>',
@@ -1509,9 +1568,10 @@ function normalize(s) {
   s.log = Array.isArray(s.log) ? s.log : [];
   s.activeVote ??= null;
   s.ended = typeof s.ended === 'number' ? s.ended : null;
+  s.scores = s.scores && typeof s.scores === 'object' ? s.scores : {};
   s.ox = Object.assign({ motion: '', prop: [], opp: [], idx: -1, done: [], speak: 300, protect: 60, poi: 0, before: null, after: null }, s.ox);
   s.ox.prop = (s.ox.prop || []).filter(Boolean); s.ox.opp = (s.ox.opp || []).filter(Boolean); s.ox.done = Array.isArray(s.ox.done) ? s.ox.done : [];
-  s.screen = s.screen && typeof s.screen === 'object' && (s.screen.m === 'title' || (s.screen.m === 'break' && s.screen.until)) ? s.screen : null;
+  s.screen = s.screen && typeof s.screen === 'object' && (s.screen.m === 'title' || s.screen.m === 'qr' || (s.screen.m === 'break' && s.screen.until)) ? s.screen : null;
   const mk = (k, d) => { const t = s.timers[k]; if (!t || typeof t.rem !== 'number' || typeof t.dur !== 'number') s.timers[k] = { dur: d, rem: d, run: false }; };
   for (const k in s.queues) mk('q-' + k, s.queues[k].time);
   mk('c-total', s.caucus.total); mk('c-unmod', s.caucus.unmod); mk('o-speech', s.ox.speak);
@@ -1942,7 +2002,7 @@ function rollView(s) {
   const ds = s.delegates, st = stats(s), f = ui.rollFilter;
   const shown = ds.filter(d => f === 'all' || (f === 'present' ? isP(d) : !isP(d)));
   return `${pageHead('Opening the session', 'Roll call', 'Add every delegation in the room, then call the roll. Delegations that answer “present and voting” may not abstain on substantive votes.',
-      ds.length ? `<button class="btn soft" data-a="allPresent">${ic('check', 16)} Mark all present</button><button class="btn primary" data-a="callRoll">${ic('play', 14)} Call the roll</button>` : '')}
+      ds.length ? `<button class="btn soft" data-a="allPresent">${ic('check', 16)} Mark all present</button>${s.rollAt ? `<button class="btn ghost" data-a="newRoll" title="Mark everyone absent and call the roll again">${ic('reset', 15)} New roll call</button>` : ''}<button class="btn primary" data-a="callRoll">${ic('play', 14)} ${s.rollAt ? 'Continue roll call' : 'Call the roll'}</button>` : '')}
     <div class="rc-tools">${picker('roll', 'Add a nation — type a name or code, then press Enter')}<button class="btn outline" data-a="addCustom">${ic('plus', 16)} Custom delegation</button></div>
     <div class="quick"><span class="lbl">Quick add</span><button class="chip" data-a="preset" data-p="p5">P5</button><button class="chip" data-a="preset" data-p="unsc">Security Council</button><button class="chip" data-a="preset" data-p="all">All 193 members</button>${ds.length ? `<button class="chip subtle" data-a="clearRoll">${ic('trash', 14)} Clear roll</button>` : ''}</div>
     ${ds.length ? `<div class="rc-bar">
@@ -1984,7 +2044,7 @@ function queueView(s, key, o = {}) {
       ${q.list.length ? `<ol class="qlist" data-q="${key}">${q.list.map((c, i) => qItem(s, key, c, i, q.list.length)).join('')}</ol>` : `<div class="qempty">${ic('mic', 18)}<span>No one is waiting. Search above to add delegations, then drag to reorder.</span></div>`}
     </section>
     <section class="panel spoken"><div class="panel-head"><h3>${ic('check', 15)} Already spoken</h3><span class="count">${q.done.length}</span></div>
-      ${q.done.length ? `<ul class="slist">${q.done.map(d => `<li>${dflag(s, d.code, 'sm')}<span class="dn">${esc(del(s, d.code).name)}${d.note ? `<small>${esc(d.note)}</small>` : ''}</span><span class="t">${fmt(d.used)}<small>${clock(d.at)}</small></span></li>`).join('')}</ul>` : '<div class="feed-empty">Speeches appear here as delegations finish, with the time each one used.</div>'}
+      ${q.done.length ? `<ul class="slist">${q.done.map(d => `<li>${dflag(s, d.code, 'sm')}<span class="dn">${esc(del(s, d.code).name)}${d.note ? `<small>${esc(d.note)}</small>` : ''}</span><span class="t">${fmt(d.used)}<small>${clock(d.at)}</small></span>${stars(key, q.done.indexOf(d), d.rate)}</li>`).join('')}</ul>` : '<div class="feed-empty">Speeches appear here as delegations finish, with the time each one used.</div>'}
     </section>
   </div>`;
 }
@@ -2087,12 +2147,17 @@ function tally(s, v) {
   for (const d of vs) { const x = v.votes[d.code]; if (x === 'y') y++; else if (x === 'n') no++; else if (x === 'ab') ab++; }
   const n = vs.length, left = n - y - no - ab, base = v.type === 'proc' ? n : y + no;
   const needed = base ? (v.maj === '2/3' ? Math.ceil(base * 2 / 3) : Math.floor(base / 2) + 1) : 0;
-  return { n, y, no, ab, left, base, needed, passing: base > 0 && y >= needed };
+  if (v.sc) {
+    // Security Council: nine of fifteen (three fifths of the members present), and on substantive votes any P5 "no" is a veto
+    const need = Math.ceil(n * 9 / 15), veto = v.type === 'proc' ? [] : PRESETS.p5.filter(c => v.votes[c] === 'n' && vs.some(d => d.code === c));
+    return { n, y, no, ab, left, base: n, needed: need, veto, sc: true, passing: n > 0 && y >= need && !veto.length };
+  }
+  return { n, y, no, ab, left, base, needed, veto: [], passing: base > 0 && y >= needed };
 }
 const tallyInner = () => `<div class="tnums"><div><span><i class="dot p"></i>In favour</span><b data-tv="y">0</b></div><div><span><i class="dot n"></i>Against</span><b data-tv="no">0</b></div><div><span><i class="dot ab"></i>Abstaining</span><b data-tv="ab">0</b></div><div><span><i class="dot a"></i>Yet to vote</span><b data-tv="left">0</b></div></div><div class="tbar"><i class="y"></i><i class="n"></i><i class="ab"></i></div><div class="verdict"><span data-tv="need"></span><span class="res idle" data-tv="res"></span></div>`;
 const vCard = (s, v, d, i) => { const on = v.votes[d.code] || ''; return `<div class="vcard" data-code="${esc(d.code)}" data-on="${on}" style="--i:${i}">${flag(d.code, 'lg', d.name)}<span class="nm" title="${esc(d.name)}">${esc(d.name)}</span>
   <div class="vbtns" role="group" aria-label="Vote of ${esc(d.name)}"><button data-a="vset" data-code="${esc(d.code)}" data-v="y" aria-pressed="${on === 'y'}">Yes</button><button data-a="vset" data-code="${esc(d.code)}" data-v="n" aria-pressed="${on === 'n'}">No</button><button data-a="vset" data-code="${esc(d.code)}" data-v="ab" aria-pressed="${on === 'ab'}"${canAbstain(s, v, d.code) ? '' : ' disabled title="Cannot abstain"'}>Abs.</button></div></div>`; };
-const vhRow = v => { const tot = v.y + v.no + v.ab || 1; return `<div class="vh"><div class="vh-t"><b>${esc(v.title)}</b><small>${v.type === 'proc' ? 'Procedural' : 'Substantive'} · ${v.maj === '2/3' ? 'two-thirds' : 'simple majority'} · ${clock(v.at)}</small></div><div class="tbar"><i class="y" style="width:${v.y / tot * 100}%"></i><i class="n" style="width:${v.no / tot * 100}%"></i><i class="ab" style="width:${v.ab / tot * 100}%"></i></div><span class="cnt">${v.y} · ${v.no} · ${v.ab}</span><span class="res ${v.passed ? 'pass' : 'fail'}">${v.passed ? 'Passed' : 'Failed'}</span></div>`; };
+const vhRow = v => { const tot = v.y + v.no + v.ab || 1; return `<div class="vh"><div class="vh-t"><b>${esc(v.title)}</b><small>${v.type === 'proc' ? 'Procedural' : 'Substantive'} · ${v.maj === '2/3' ? 'two-thirds' : 'simple majority'} · ${clock(v.at)}</small></div><div class="tbar"><i class="y" style="width:${v.y / tot * 100}%"></i><i class="n" style="width:${v.no / tot * 100}%"></i><i class="ab" style="width:${v.ab / tot * 100}%"></i></div><span class="cnt">${v.y} · ${v.no} · ${v.ab}</span><span class="res ${v.passed ? 'pass' : 'fail'}">${v.veto?.length ? 'Vetoed' : v.passed ? 'Passed' : 'Failed'}</span></div>`; };
 function votingView(s) {
   const v = s.activeVote;
   if (v) {
@@ -2109,6 +2174,7 @@ function votingView(s) {
     <form class="card vote-form" data-form="vote">
       <label class="field grow"><span>What is being voted on</span><input class="input" name="title" required maxlength="120" placeholder="e.g. Draft Resolution 1.1" autocomplete="off"></label>
       <div class="field"><span>Type</span><div class="seg2" data-on="sub" data-group="type" role="radiogroup" aria-label="Vote type"><button type="button" role="radio" data-a="segpick" data-v="sub">Substantive</button><button type="button" role="radio" data-a="segpick" data-v="proc">Procedural</button></div></div>
+      <div class="field"><span>Rules</span><div class="seg2" data-on="${/security council|unsc/i.test(s.committee) || (PRESETS.p5.every(c => s.delegates.some(d => d.code === c)) && s.delegates.length <= 20) ? 'sc' : 'std'}" data-group="rules" role="radiogroup" aria-label="Rules"><button type="button" role="radio" data-a="segpick" data-v="std">Standard</button><button type="button" role="radio" data-a="segpick" data-v="sc">Security Council</button></div></div>
       <div class="field"><span>Majority</span><div class="seg2" data-on="simple" data-group="maj" role="radiogroup" aria-label="Majority needed"><button type="button" role="radio" data-a="segpick" data-v="simple">Simple</button><button type="button" role="radio" data-a="segpick" data-v="2/3">Two-thirds</button></div></div>
       <button class="btn primary" type="submit">Begin vote ${ic('next', 16)}</button>
     </form>
@@ -2129,9 +2195,10 @@ function paintTally(s) {
     const w = (sel, x) => { const e = $(sel, el); if (e) e.style.width = (x / n * 100) + '%'; };
     w('.tbar .y', t.y); w('.tbar .n', t.no); w('.tbar .ab', t.ab);
     const need = $('[data-tv="need"]', el);
-    if (need) need.textContent = t.base ? `${t.needed} in favour needed · ${t.base} ${v.type === 'proc' ? 'present' : 'voting yes or no'}` : 'Waiting for the first votes…';
+    if (need) need.textContent = t.sc ? `${t.needed} in favour needed · Security Council rules${v.type === 'proc' ? '' : ' · P5 veto applies'}` : t.base ? `${t.needed} in favour needed · ${t.base} ${v.type === 'proc' ? 'present' : 'voting yes or no'}` : 'Waiting for the first votes…';
     const r = $('[data-tv="res"]', el);
-    if (r) { r.className = 'res ' + (t.base ? (t.passing ? 'pass' : 'fail') : 'idle'); r.textContent = t.base ? (t.left ? (t.passing ? 'Currently passing' : 'Currently failing') : (t.passing ? 'Will pass' : 'Will fail')) : 'No votes yet'; }
+    if (r && t.veto?.length) { r.className = 'res fail'; r.textContent = 'Vetoed by ' + t.veto.map(c => del(s, c).name).join(', '); }
+    else if (r) { r.className = 'res ' + (t.base ? (t.passing ? 'pass' : 'fail') : 'idle'); r.textContent = t.base ? (t.left ? (t.passing ? 'Currently passing' : 'Currently failing') : (t.passing ? 'Will pass' : 'Will fail')) : 'No votes yet'; }
   });
 }
 
@@ -2259,11 +2326,143 @@ function endSessionDialog() {
 function reopenSession() {
   const s = cur(); if (!s || !s.ended) return;
   s.ended = null; log(s, 'Session reopened'); touch(s); render(); toast('Session reopened');
+  setTimeout(() => promptRoll(s, 'Welcome back — the session is open again.'), 500);
 }
 const endBtn = s => `<button class="btn sm ${s.ended ? 'soft' : 'ghost'}" data-a="endSession" title="${s.ended ? 'Reopen this session' : 'End this session'}">${ic(s.ended ? 'reset' : 'power', 15)}<span class="hide-sm">${s.ended ? 'Reopen' : 'End'}</span></button>`;
 const endedBar = s => s.ended ? `<div class="ended-bar"><span class="eb-ic">${ic('check', 15)}</span><span>This session ended ${esc(relDate(s.ended))}. You can still look through everything.</span><span class="grow"></span><button class="btn sm ghost" data-a="report">${ic('file', 14)} Report</button><button class="btn sm soft" data-a="endSession">${ic('reset', 14)} Reopen</button></div>` : '';
 
-const VIEWS = { roll: rollView, openings: openingsView, gsl: gslView, caucus: caucusView, motions: motionsView, voting: votingView, debate: debateView, log: logView };
+/* ═════════════════════════ New roll call, voice, scores, delegate QR ═════════════════════════ */
+// ── a fresh roll call: everyone absent, then called one by one
+function startNewRoll(s) {
+  s.delegates.forEach(d => { d.status = 'a'; });
+  log(s, 'New roll call started');
+  touch(s);
+  if (route.view !== 'session' || route.tab !== 'roll') go(`#/s/${encodeURIComponent(s.id)}/roll`);
+  setTimeout(() => A.callRoll(), 350);
+}
+function promptRoll(s, why) {
+  if (!s.delegates.length) return;
+  openModal(`<div class="roll-ask"><div class="ra-ic">${ic('roll', 26)}</div><div class="eyebrow">${esc(s.committee)}</div><h2>Take a new roll call?</h2><p class="muted">${esc(why)} Delegations may have come and gone, so call the roll again before you continue.</p></div>
+    <div class="mfoot"><button class="btn ghost" data-a="closeModal">Not now</button><span class="grow"></span><button class="btn primary" data-m="go" autofocus>${ic('roll', 15)} New roll call</button></div>`,
+    m => { $('[data-m="go"]', m).addEventListener('click', () => { closeModal(); setTimeout(() => startNewRoll(s), 200); }); }, { label: 'New roll call', cls: 'narrow' });
+}
+
+// ── voice: the browser's speech recognition, or the host's dictation inside claude.ai
+const VOICE = { stop: null, dict: null };
+(async () => { try { for (let i = 0; i < 100 && !window.claude?.use; i++) await new Promise(r => setTimeout(r, 150)); if (window.claude?.use) VOICE.dict = await window.claude.use('dictation'); } catch { } })();
+const voiceSupported = () => !!(VOICE.dict || (!IN_FRAME && (window.SpeechRecognition || window.webkitSpeechRecognition)));
+function voiceStart(onText, onState) {
+  if (VOICE.dict) {
+    const d = VOICE.dict, offF = d.onFinal(({ text }) => onText(text)), offS = d.onState(({ state }) => onState(state === 'listening'));
+    d.start().catch(() => onState(false));
+    VOICE.stop = () => { try { d.stop(); } catch { } try { offF?.(); offS?.(); } catch { } VOICE.stop = null; onState(false); };
+    return;
+  }
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition, r = new SR(); let on = true;
+  r.lang = 'en-GB'; r.continuous = true; r.interimResults = false;
+  r.onresult = e => { for (let i = e.resultIndex; i < e.results.length; i++) if (e.results[i].isFinal) onText(e.results[i][0].transcript); };
+  r.onend = () => { if (on) { try { r.start(); } catch { } } else onState(false); };
+  r.onerror = e => { if (e.error === 'not-allowed' || e.error === 'service-not-allowed') { on = false; toast('Microphone access is blocked for this page'); onState(false); } };
+  try { r.start(); onState(true); } catch { onState(false); }
+  VOICE.stop = () => { on = false; try { r.stop(); } catch { } VOICE.stop = null; onState(false); };
+}
+function voiceCmd(t) {
+  t = ' ' + String(t).toLowerCase() + ' ';
+  if (/present (and|&|n) voting|and voting| voting /.test(t)) return 'pv';
+  if (/absent|not present|missing|not here/.test(t)) return 'a';
+  if (/present| here /.test(t)) return 'p';
+  if (/ back |previous|go back/.test(t)) return 'prev';
+  if (/skip| next | pass /.test(t)) return 'next';
+  return null;
+}
+
+// ── scores: the chair's rubric plus what Gavel has seen, ranked for the awards
+const CRIT = [['sp', 'Speaking'], ['dip', 'Diplomacy'], ['know', 'Knowledge'], ['proc', 'Procedure']];
+const AWARDS = ['Best Delegate', 'Outstanding Delegate', 'Honourable Mention'];
+function delegStats(s) {
+  const m = {}, g = c => m[c] ||= { speeches: 0, time: 0, ratings: [], motions: 0, pois: 0 };
+  for (const q of Object.values(s.queues)) for (const d of q.done) { const x = g(d.code); x.speeches++; x.time += d.used || 0; if (d.rate) x.ratings.push(d.rate); }
+  for (const d of s.ox.done) { const x = g(d.code); x.speeches++; x.time += d.used || 0; x.pois += d.poi || 0; if (d.rate) x.ratings.push(d.rate); }
+  for (const mo of s.motions) if (mo.by) g(mo.by).motions++;
+  return c => m[c] || { speeches: 0, time: 0, ratings: [], motions: 0, pois: 0 };
+}
+function scoreOf(s, code, st) {
+  const r = s.scores[code] || {}, rubric = CRIT.reduce((a, [k]) => a + (+r[k] || 0), 0);
+  const avg = st.ratings.length ? st.ratings.reduce((a, b) => a + b, 0) / st.ratings.length : 0;
+  const part = Math.min(10, st.speeches * 2 + st.motions + st.pois);
+  return { rubric, avg, part, total: Math.round((rubric + avg * 2 + part) * 10) / 10 };
+}
+function ranking(s) {
+  const get = delegStats(s), pool = s.delegates.some(isP) ? s.delegates.filter(isP) : s.delegates;
+  return pool.map(d => { const st = get(d.code); return { d, st, sc: scoreOf(s, d.code, st) }; }).sort((a, b) => b.sc.total - a.sc.total || a.d.name.localeCompare(b.d.name));
+}
+const podiumHTML = s => {
+  const top = ranking(s).filter(x => x.sc.total > 0).slice(0, 3);
+  if (!top.length) return `<div class="feed-empty">Score delegations below and rate speeches in the speakers lists. The award ranking builds itself here.</div>`;
+  return `<div class="podium">${top.map((x, i) => `<div class="pod p${i + 1}" style="--i:${i}"><span class="pod-medal">${['🥇', '🥈', '🥉'][i]}</span>${flag(x.d.code, 'lg', x.d.name)}<b>${esc(x.d.name)}</b><span class="pod-award">${AWARDS[i]}</span><span class="pod-pts">${x.sc.total} <small>/ 60</small></span></div>`).join('')}</div>`;
+};
+function scoresView(s) {
+  const rows = ranking(s), sort = ui.scoreSort || 'score', list = sort === 'name' ? [...rows].sort((a, b) => a.d.name.localeCompare(b.d.name)) : rows;
+  return `${pageHead('Chair only · delegates never see this', 'Scores', 'Score each delegation from 0 to 10 on four criteria as the session goes, and tap the stars next to finished speeches in the speakers lists. Gavel adds what it has seen — speeches, motions, points of information — and ranks everyone for the awards.',
+      `<button class="btn soft" data-a="copyRanking">${ic('file', 15)} Copy ranking</button>`)}
+    <section class="panel"><div class="panel-head"><h2>${ic('trophy', 15)} Awards</h2><span class="muted sm">Out of 60: rubric 40 · speech ratings 10 · participation 10</span></div><div class="pad" data-podium>${podiumHTML(s)}</div></section>
+    <div class="sec-head"><h2>Delegations <span class="count">${rows.length}</span></h2><div class="filters" role="group" aria-label="Sort">${[['score', 'By score'], ['name', 'A–Z']].map(([k, l]) => `<button class="fchip${sort === k ? ' on' : ''}" data-a="scoreSort" data-v="${k}" aria-pressed="${sort === k}">${l}</button>`).join('')}</div></div>
+    ${rows.length ? `<div class="sc-list">${list.map(({ d, st, sc }, i) => { const r = s.scores[d.code] || {}; return `<article class="sc-row" data-code="${esc(d.code)}" style="--i:${Math.min(i, 18)}">
+        <div class="sc-head">${flag(d.code, 'lg', d.name)}<div class="sc-name"><b>${esc(d.name)}</b><small>${plural(st.speeches, 'speech', 'speeches')} · ${fmt(st.time)}${st.motions ? ` · ${plural(st.motions, 'motion')}` : ''}${st.pois ? ` · ${st.pois} POI` : ''}${st.ratings.length ? ` · ★ ${(st.ratings.reduce((a, b) => a + b, 0) / st.ratings.length).toFixed(1)}` : ''}</small></div><div class="sc-total"><b data-total>${sc.total}</b><small>/ 60</small></div></div>
+        <div class="sc-crit">${CRIT.map(([k, l]) => `<label class="sc-c"><span>${l}<b data-val="${k}">${+r[k] || 0}</b></span><input type="range" min="0" max="10" step="1" value="${+r[k] || 0}" data-ch="score" data-in="scoreLive" data-code="${esc(d.code)}" data-k="${k}" aria-label="${l} for ${esc(d.name)}"></label>`).join('')}</div>
+        <input class="input sc-note" data-ch="scoreNote" data-code="${esc(d.code)}" value="${esc(r.note || '')}" placeholder="Private note, e.g. strong bloc leadership" maxlength="160" autocomplete="off"></article>`; }).join('')}</div>`
+      : emptyState('trophy', 'No delegations yet', 'Add delegations in Roll call first, then score them here.')}`;
+}
+function refreshScoreRow(s, code) {
+  const row = $(`.sc-row[data-code="${CSS.escape(code)}"]`); if (row) { const st = delegStats(s)(code); $('[data-total]', row).textContent = scoreOf(s, code, st).total; }
+  const p = $('[data-podium]'); if (p) p.innerHTML = podiumHTML(s);
+}
+const stars = (key, i, rate) => `<span class="rate" role="group" aria-label="Rate this speech">${[1, 2, 3, 4, 5].map(n => `<button class="${n <= (rate || 0) ? 'on' : ''}" data-a="rate" data-q="${key}" data-i="${i}" data-v="${n}" aria-label="${n} of 5">★</button>`).join('')}</span>`;
+
+// ── delegate QR: a snapshot of the session packed into a link for the delegate page
+const QR_LIB = 'https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js';
+const QRC = {};
+let qrLibP = null;
+const qrLib = () => qrLibP ||= new Promise((res, rej) => { if (window.qrcode) return res(window.qrcode); const sc = document.createElement('script'); sc.src = QR_LIB; sc.onload = () => res(window.qrcode); sc.onerror = () => { qrLibP = null; rej(); }; document.head.appendChild(sc); });
+async function qrSvg(text) { const q = await qrLib(), qr = q(0, 'L'); qr.addData(text, 'Byte'); qr.make(); return qr.createSvgTag({ cellSize: 4, margin: 2, scalable: true }); }
+const viewBase = () => !IN_FRAME && /\/app\//.test(location.pathname) ? new URL(location.protocol === 'file:' || location.hostname === 'localhost' ? '../view.html' : '../view', location.href).href : (db.prefs.viewBase && !db.prefs.viewBase.includes('gavel.pages.dev') ? db.prefs.viewBase : 'https://gavel.peter-racz-rhr.workers.dev/view');
+const b64url = bytes => { let s = ''; for (let i = 0; i < bytes.length; i += 8192) s += String.fromCharCode(...bytes.subarray(i, i + 8192)); return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); };
+async function pack(str) {
+  if (!window.CompressionStream) return 'j' + b64url(new TextEncoder().encode(str));
+  const buf = new Uint8Array(await new Response(new Blob([str]).stream().pipeThrough(new CompressionStream('deflate-raw'))).arrayBuffer());
+  return 'z' + b64url(buf);
+}
+function snapshot(s) {
+  const names = {}, N = c => { if (String(c).startsWith('x-')) names[c] = del(s, c).name; return c; };
+  const sp = ['gsl', 'openings', 'mod'].map(k => [k, s.queues[k]]).find(([, q]) => q.current || q.list.length);
+  const r = oxResult(s.ox);
+  return {
+    v: 1, c: s.committee, t: s.topic, h: s.chair, at: Date.now(), n: s.delegates.length, end: s.ended ? 1 : 0,
+    p: s.delegates.filter(d => d.status === 'p').map(d => N(d.code)), pv: s.delegates.filter(d => d.status === 'pv').map(d => N(d.code)),
+    sp: sp ? { k: sp[0], cur: sp[1].current ? N(sp[1].current) : null, list: sp[1].list.slice(0, 15).map(N) } : null,
+    vt: s.votes.slice(0, 6).map(v => ({ t: v.title, y: v.y, n: v.no, a: v.ab, r: v.veto?.length ? 'v' : v.passed ? 'p' : 'f' })),
+    mo: s.motions.filter(m => m.result).slice(-6).reverse().map(m => ({ l: MOTIONS[m.type].label + (m.dur ? ` (${fmt(m.dur)})` : ''), r: m.result === 'pass' ? 'p' : 'f' })),
+    ox: s.ox.motion || s.ox.prop.length ? { m: s.ox.motion, prop: s.ox.prop.map(N), opp: s.ox.opp.map(N), r: r ? (r.tied ? 't' : r.carried ? 'p' : 'f') : null, w: r?.winner || null } : null,
+    x: names,
+  };
+}
+async function refreshQr(s) { if (!s) return; try { QRC[s.id] = { link: viewBase() + '#' + await pack(JSON.stringify(snapshot(s))), at: Date.now() }; } catch { } }
+setInterval(() => { const s = cur(); if (s && (s.screen?.m === 'qr' || $('[data-qrbox]'))) refreshQr(s).then(() => { const b = $('[data-qrbox]'); if (b && QRC[s.id]) qrSvg(QRC[s.id].link).then(svg => { b.innerHTML = svg; }).catch(() => { }); }); }, 12000);
+function qrDialog() {
+  const s = cur(); if (!s) return;
+  openModal(`<div class="eyebrow">Share with delegates</div><h2 class="mt">Session on their phones</h2>
+    <p class="body">Delegates scan this code to see who is present, the speakers list and every result on their own phone. It is a snapshot: the code refreshes every few seconds, so they can scan again for the latest.</p>
+    <div class="qr-box" data-qrbox><div class="spinner"></div></div>
+    ${IN_FRAME ? `<label class="field" style="margin-top:14px"><span>Delegate page address <small>your website's view page</small></span><input class="input" data-ch="viewBase" value="${esc(db.prefs.viewBase && !db.prefs.viewBase.includes('gavel.pages.dev') ? db.prefs.viewBase : 'https://gavel.peter-racz-rhr.workers.dev/view')}" autocomplete="off" spellcheck="false"></label>` : ''}
+    <div class="mfoot"><button class="btn ghost" data-m="copy">${ic('file', 14)} Copy link</button><span class="grow"></span><button class="btn soft" data-m="room">${ic('monitor', 14)} Show on room screen</button><button class="btn primary" data-a="closeModal">Done</button></div>`,
+    m => {
+      refreshQr(s).then(() => qrSvg(QRC[s.id].link)).then(svg => { const b = $('[data-qrbox]', m); if (b) b.innerHTML = svg; }).catch(() => { const b = $('[data-qrbox]', m); if (b) b.innerHTML = '<p class="muted sm">The QR code needs an internet connection the first time.</p>'; });
+      $('[data-m="copy"]', m).addEventListener('click', () => QRC[s.id] && copyText(QRC[s.id].link, 'Link copied — share it in your committee chat'));
+      $('[data-m="room"]', m).addEventListener('click', () => { closeModal(); setScreen(s, { m: 'qr' }); });
+    }, { label: 'Share with delegates' });
+}
+
+const VIEWS = { roll: rollView, openings: openingsView, gsl: gslView, caucus: caucusView, motions: motionsView, voting: votingView, debate: debateView, scores: scoresView, log: logView };
 
 /* ═════════════════════════ Present mode & projector ═════════════════════════ */
 const queueKeyForTab = () => ({ gsl: 'gsl', openings: 'openings' })[route.tab] || (route.tab === 'caucus' && cur()?.caucus.mode === 'mod' ? 'mod' : null);
@@ -2279,15 +2478,16 @@ function buildStage(s) {
   const out = { sid: s.id, c: s.committee, t: s.topic, names, at: Date.now() };
   if (s.ended) { const z = sessionSummary(s); return Object.assign(out, { m: 'closed', z: { speeches: z.speeches, mp: z.mp, va: z.va } }); }
   const sc = s.screen;
+  if (sc?.m === 'qr') return Object.assign(out, { m: 'qr', qr: QRC[s.id] || null });
   if (sc?.m === 'title') return Object.assign(out, { m: 'title', ti: { chair: s.chair, p: st.pres, codes: s.delegates.filter(isP).slice(0, 80).map(d => d.code).filter(c => !c.startsWith('x-')) } });
   if (sc?.m === 'break') { const left = Math.max(0, (sc.until - Date.now()) / 1000); return Object.assign(out, { m: 'break', b: { kind: sc.kind === 'lunch' ? 'lunch' : 'coffee', until: sc.until, tm: { d: sc.dur || 900, r: Math.round(left * 10) / 10, run: left > 0 } } }); }
   const lv = s.votes[0];
   if (s.activeVote) {
     const v = s.activeVote, t = tally(s, v), b = {};
     for (const d of voters(s)) { const x = v.votes[d.code]; if (x) b[N(d.code)] = x; }
-    return Object.assign(out, { m: 'vote', v: { id: v.id, title: v.title, type: v.type, maj: v.maj, y: t.y, no: t.no, ab: t.ab, left: t.left, n: t.n, need: t.needed, base: t.base, pass: t.passing, b } });
+    return Object.assign(out, { m: 'vote', v: { id: v.id, title: v.title, type: v.type, maj: v.maj, y: t.y, no: t.no, ab: t.ab, left: t.left, n: t.n, need: t.needed, base: t.base, pass: t.passing, veto: t.veto || [], b } });
   }
-  if (lv && Date.now() - lv.at < 15000) return Object.assign(out, { m: 'result', v: { id: lv.id, title: lv.title, y: lv.y, no: lv.no, ab: lv.ab, pass: lv.passed, motion: /^Motion:/.test(lv.title) } });
+  if (lv && Date.now() - lv.at < 15000) return Object.assign(out, { m: 'result', v: { id: lv.id, title: lv.title, veto: lv.veto || [], y: lv.y, no: lv.no, ab: lv.ab, pass: lv.passed, motion: /^Motion:/.test(lv.title) } });
   if (route.tab === 'debate') {
     const o = s.ox, ord = oxOrder(s), c = ord[o.idx] || null, res = oxResult(o);
     if (!c && res && ord.length && o.idx >= ord.length) return Object.assign(out, { m: 'oxres', x: { motion: o.motion, res } });
@@ -2461,6 +2661,7 @@ const SCENES = {
       const se = $('[data-x="state"]', sc), state = !v.base ? 'idle' : v.pass ? 'pass' : 'fail';
       if (se.dataset.s !== state) { se.dataset.s = state; se.className = 'vt-state ' + state; se.textContent = state === 'idle' ? 'No votes yet' : v.left ? (v.pass ? 'Currently passing' : 'Currently failing') : (v.pass ? 'Will pass' : 'Will fail'); if (pv) { se.classList.add('flip'); } }
       else se.textContent = state === 'idle' ? 'No votes yet' : v.left ? (v.pass ? 'Currently passing' : 'Currently failing') : (v.pass ? 'Will pass' : 'Will fail');
+      if (v.veto?.length) { se.className = 'vt-state fail'; se.textContent = 'Vetoed by ' + v.veto.map(pjName).join(', '); if (pv && !(pv.veto || []).length) { se.classList.add('flip'); pjToast(`<span class="veto-tag">Veto</span><b>${esc(v.veto.map(pjName).join(', '))}</b>`); } }
       if (pv) {
         const ch = codes.filter(c => pv.b[c] !== v.b[c]);
         const word = { y: 'votes in favour', n: 'votes against', ab: 'abstains' };
@@ -2532,9 +2733,19 @@ const SCENES = {
     update(sc, st) { tweenNum($('[data-n="sp"]', sc), st.z.speeches); tweenNum($('[data-n="mo"]', sc), st.z.mp); tweenNum($('[data-n="ad"]', sc), st.z.va); },
     enter() { GLOBES.pj = { markers: [], phi: 0 }; setTimeout(mountGlobe, 60); },
   },
+  qr: {
+    html: st => `<div class="qrs"><div class="qrs-card" data-x="code"><div class="qrs-scan"></div></div>
+      <div class="qrs-txt"><div class="eyebrow">${esc(st.c)}</div><h2 class="pj-h">${letters('Follow along on your phone')}</h2>
+        <p>Scan with your camera to see who is present, the speakers list and every result.</p><p class="qrs-upd" data-x="upd"></p></div></div>`,
+    update(sc, st) {
+      const box = $('[data-x="code"]', sc), link = st.qr?.link || '';
+      if (link && box.dataset.link !== link) { box.dataset.link = link; qrSvg(link).then(svg => { box.innerHTML = svg + '<div class="qrs-scan"></div>'; }).catch(() => { }); }
+      $('[data-x="upd"]', sc).textContent = st.qr?.at ? `Updated ${clock(st.qr.at)} · scan again for the latest` : 'Preparing the code…';
+    },
+  },
   result: {
     html: st => `<div class="rs ${st.v.pass ? 'pass' : 'fail'}"><div class="eyebrow">${esc(st.v.title)}</div>
-      <div class="rs-stamp"><span>${st.v.pass ? (st.v.motion ? 'Passes' : 'Adopted') : (st.v.motion ? 'Fails' : 'Rejected')}</span></div>
+      <div class="rs-stamp"><span>${st.v.veto?.length ? 'Vetoed' : st.v.pass ? (st.v.motion ? 'Passes' : 'Adopted') : (st.v.motion ? 'Fails' : 'Rejected')}</span></div>${st.v.veto?.length ? `<p class="oxr-swing">Vetoed by <b>${esc(st.v.veto.map(pjName).join(', '))}</b></p>` : ''}
       <div class="pj-stats"><div><b data-n="y">0</b><span>in favour</span></div><div><b data-n="no">0</b><span>against</span></div><div><b data-n="ab">0</b><span>abstaining</span></div></div></div>`,
     update(sc, st) { tweenNum($('[data-n="y"]', sc), st.v.y); tweenNum($('[data-n="no"]', sc), st.v.no); tweenNum($('[data-n="ab"]', sc), st.v.ab); },
     enter(sc, st) {
@@ -2748,14 +2959,17 @@ function pjOffer() {
     <button class="btn ghost" data-a="closeModal">Not now</button></div>`,
     m => { $('[data-m="go"]', m).addEventListener('click', () => becomeProjector()); }, { label: 'Projector', cls: 'narrow' });
 }
-const screenLabel = s => !s.screen ? 'Room screen' : s.screen.m === 'title' ? 'Title screen on' : `${s.screen.kind === 'lunch' ? 'Lunch' : 'Coffee'} break · ${clock(s.screen.until)}`;
+const screenLabel = s => !s.screen ? 'Room screen' : s.screen.m === 'title' ? 'Title screen on' : s.screen.m === 'qr' ? 'QR code on' : `${s.screen.kind === 'lunch' ? 'Lunch' : 'Coffee'} break · ${clock(s.screen.until)}`;
 const screenBtn = s => `<button class="btn sm ${s.screen ? 'scr-on' : 'ghost'}" data-a="screenMenu" data-scrbtn title="Choose what the room sees (T toggles the title screen)">${ic(s.screen?.m === 'break' ? (s.screen.kind === 'lunch' ? 'lunch' : 'coffee') : 'layers', 15)}<span class="hide-sm">${esc(screenLabel(s))}</span></button>`;
 function setScreen(s, sc) {
+  const wasBreak = s.screen?.m === 'break';
   s.screen = sc;
+  if (wasBreak && sc?.m !== 'break' && s.delegates.length) setTimeout(() => promptRoll(s, 'The break is over.'), 450);
+  if (sc?.m === 'qr') refreshQr(s);
   if (sc?.m === 'break') log(s, `${sc.kind === 'lunch' ? 'Lunch' : 'Coffee'} break until ${clock(sc.until)}`);
   touch(s);
   $$('[data-scrbtn]').forEach(b => { b.outerHTML = screenBtn(s); });
-  toast(!sc ? 'The room screen follows what you open again' : sc.m === 'title' ? 'The room now sees the title screen' : `${sc.kind === 'lunch' ? 'Lunch' : 'Coffee'} break until ${clock(sc.until)}`);
+  toast(!sc ? 'The room screen follows what you open again' : sc.m === 'title' ? 'The room now sees the title screen' : sc.m === 'qr' ? 'The room now sees the delegate QR code' : `${sc.kind === 'lunch' ? 'Lunch' : 'Coffee'} break until ${clock(sc.until)}`);
 }
 function screenMenu() {
   const s = cur(); if (!s) return;
@@ -2765,6 +2979,7 @@ function screenMenu() {
     <div class="scr-grid">
       <button class="scr-tile${on === 'auto' ? ' on' : ''}" data-m="auto"><span class="pj-ci">${ic('monitor', 20)}</span><b>Follow what I open</b><small>Roll call, speeches, caucuses and votes show as you run them</small></button>
       <button class="scr-tile${on === 'title' ? ' on' : ''}" data-m="title"><span class="pj-ci">${ic('layers', 20)}</span><b>Title screen</b><small>Committee and topic over a spinning globe. For when you are speaking. Shortcut <kbd>T</kbd></small></button>
+      <button class="scr-tile${on === 'qr' ? ' on' : ''}" data-m="qr"><span class="pj-ci">${ic('qr', 20)}</span><b>Delegate QR code</b><small>Delegates scan it to follow the session on their phones</small></button>
       <div class="scr-tile${on === 'break' && kind !== 'lunch' ? ' on' : ''}"><span class="pj-ci">${ic('coffee', 20)}</span><b>Coffee break</b><small>Countdown until the session resumes</small><div class="row">${mins('coffee', [10, 15, 20, 30])}</div></div>
       <div class="scr-tile${on === 'break' && kind === 'lunch' ? ' on' : ''}"><span class="pj-ci">${ic('lunch', 20)}</span><b>Lunch break</b><small>Countdown until the session resumes</small><div class="row">${mins('lunch', [30, 45, 60, 90])}</div></div>
     </div>
@@ -2772,6 +2987,7 @@ function screenMenu() {
     m => {
       $('[data-m="auto"]', m).addEventListener('click', () => { closeModal(); setScreen(s, null); });
       $('[data-m="title"]', m).addEventListener('click', () => { closeModal(); setScreen(s, { m: 'title' }); });
+      $('[data-m="qr"]', m).addEventListener('click', () => { closeModal(); setTimeout(qrDialog, 200); });
       $$('[data-m="brk"]', m).forEach(b => b.addEventListener('click', () => { const d = +b.dataset.v * 60; closeModal(); setScreen(s, { m: 'break', kind: b.dataset.k, dur: d, until: Date.now() + d * 1000 }); }));
     }, { label: 'Room screen', cls: 'wide' });
 }
@@ -2813,7 +3029,7 @@ function reportHTML(s) {
     <section><h2>Attendance</h2>${tbl(['Delegation', 'Status'], s.delegates.map(d => [esc(d.name), STATUS[d.status]]))}</section>
     <section><h2>Speeches</h2>${speeches.length ? speeches.map(([k, l]) => `<h3>${l}</h3>${tbl(['#', 'Delegation', 'Time used', 'At', 'Note'], [...s.queues[k].done].reverse().map((x, i) => [i + 1, esc(del(s, x.code).name), fmt(x.used), clock(x.at), esc(x.note || '')]))}`).join('') : '<p class="rp-none">No speeches recorded.</p>'}</section>
     <section><h2>Motions</h2>${tbl(['Motion', 'Proposed by', 'Details', 'Result'], [...s.motions].sort((a, b) => a.at - b.at).map(m => [MOTIONS[m.type].label, m.by ? esc(del(s, m.by).name) : 'The chair', esc([m.dur && fmt(m.dur), m.spk && `${fmt(m.spk)} per speaker`, m.topic].filter(Boolean).join(' · ')), m.result ? (m.result === 'pass' ? 'Passed' : 'Failed') : 'Not decided']))}</section>
-    <section><h2>Votes</h2>${tbl(['Subject', 'Type', 'For', 'Against', 'Abstain', 'Result'], [...s.votes].reverse().map(v => [esc(v.title), (v.type === 'proc' ? 'Procedural' : 'Substantive') + (v.maj === '2/3' ? ', two-thirds' : ''), v.y, v.no, v.ab, v.passed ? 'Passed' : 'Failed']))}</section>
+    <section><h2>Votes</h2>${tbl(['Subject', 'Type', 'For', 'Against', 'Abstain', 'Result'], [...s.votes].reverse().map(v => [esc(v.title), (v.type === 'proc' ? 'Procedural' : 'Substantive') + (v.maj === '2/3' ? ', two-thirds' : ''), v.y, v.no, v.ab, v.veto?.length ? `Vetoed by ${esc(v.veto.map(c => del(s, c).name).join(', '))}` : v.passed ? 'Passed' : 'Failed']))}</section>
     ${s.ox.done.length || s.ox.motion ? `<section><h2>Oxford-style debate</h2>${s.ox.motion ? `<p><b>Motion:</b> ${esc(s.ox.motion)}</p>` : ''}${tbl(['Speaker', 'Side', 'Time', 'Points of information'], [...s.ox.done].reverse().map(d => [esc(del(s, d.code).name), `${ordinal(d.n)} ${SIDE[d.side]}`, fmt(d.used), d.poi || 0]))}${(() => { const r = oxResult(s.ox); return r ? `<p>Room vote before: ${s.ox.before.f} for, ${s.ox.before.a} against, ${s.ox.before.u} undecided. After: ${s.ox.after.f} for, ${s.ox.after.a} against, ${s.ox.after.u} undecided. <b>${r.tied ? 'Tied' : r.carried ? 'Motion carried' : 'Motion defeated'}</b>${r.winner ? `; the ${SIDE[r.winner]} moved the room the most` : ''}.</p>` : ''; })()}</section>` : ''}
     <section><h2>Session log</h2>${tbl(['Time', 'Event'], [...s.log].reverse().map(e => [`${new Date(e.t).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })} ${clock(e.t)}`, esc(e.m)]))}</section>
     <footer class="rp-foot">Generated by Gavel on ${esc(new Date().toLocaleString('en-GB', { dateStyle: 'long', timeStyle: 'short' }))}</footer>
@@ -3009,6 +3225,7 @@ function openModal(html, mount, opts = {}) {
   requestAnimationFrame(() => (m.querySelector('[autofocus]') || m.querySelector('input,select,button:not([disabled])'))?.focus({ preventScroll: true }));
 }
 function closeModal() {
+  try { VOICE.stop?.(); } catch { }
   if (!modal) return;
   const st = modal; modal = null;
   const root = $('#modal-root'); root.classList.add('closing');
@@ -3049,7 +3266,8 @@ function sequence(cfg) {
       <div class="seq-progress"><i></i></div>
       <div class="seq-stage" aria-live="polite"></div>
       <div class="seq-opts" style="grid-template-columns:repeat(${cfg.options.length},minmax(0,1fr))">${cfg.options.map(o => `<button class="o-${o.v}" data-sv="${o.v}">${o.label}<kbd>${o.key.toUpperCase()}</kbd></button>`).join('')}</div>
-      <div class="seq-nav"><button class="btn sm ghost" data-s="prev">${ic('back', 14)} Back</button><span class="muted sm">Press the key shown, or use ← →</span><button class="btn sm ghost" data-s="skip">Skip ${ic('chev', 14)}</button></div>
+      <div class="seq-heard" data-s-heard></div>
+      <div class="seq-nav"><button class="btn sm ghost" data-s="prev">${ic('back', 14)} Back</button>${cfg.voice && voiceSupported() ? `<button class="btn sm soft seq-mic" data-s="mic" title="Say present, present and voting, absent, skip or back">${ic('micon', 14)}<span>Voice</span><i class="mic-dot"></i></button>` : '<span class="muted sm">Press the key shown, or use ← →</span>'}<button class="btn sm ghost" data-s="skip">Skip ${ic('chev', 14)}</button></div>
     </div>`, (m, st) => {
     const s = cur();
     const draw = dir => {
@@ -3073,6 +3291,15 @@ function sequence(cfg) {
       const b = e.target.closest('[data-sv]'); if (b) { choose(b.dataset.sv); return; }
       const n = e.target.closest('[data-s]'); if (!n || busy) return;
       if (n.dataset.s === 'prev') prev(); else if (n.dataset.s === 'skip') next();
+      else if (n.dataset.s === 'mic') {
+        if (VOICE.stop) { VOICE.stop(); return; }
+        const heard = $('[data-s-heard]', m), setOn = on => { n.classList.toggle('on', on); $('span', n).textContent = on ? 'Listening' : 'Voice'; if (!on && heard) heard.textContent = ''; };
+        voiceStart(text => {
+          const c = voiceCmd(text); if (heard) heard.innerHTML = 'Heard <b>“' + esc(text.trim()) + '”</b>';
+          if (c === 'prev') prev(); else if (c === 'next') next(); else if (c) choose(c);
+        }, setOn);
+        if (heard) heard.textContent = 'Say “present”, “present and voting”, “absent”, “skip” or “back”';
+      }
     });
     st.key = e => {
       const o = cfg.options.find(x => x.key === e.key.toLowerCase());
@@ -3136,6 +3363,10 @@ const A = {
   oxRm(el) { const s = cur(), side = el.dataset.side, i = +el.dataset.i, c = oxOrder(s)[s.ox.idx]; s.ox[side].splice(i, 1); if (c) s.ox.idx = Math.max(-1, oxOrder(s).findIndex(e => e.code === c.code && e.side === c.side)); touch(s); render(); },
   oxReset() { confirmModal({ title: 'Start the debate over?', body: 'The speaking order goes back to the first speaker and the room votes are cleared. The two sides stay as they are.', ok: 'Start over', fn() { const s = cur(); Object.assign(s.ox, { idx: -1, done: [], poi: 0, before: null, after: null }); setTimer(s, 'o-speech', s.ox.speak); log(s, 'Oxford debate restarted'); touch(s); render(); } }); },
   endSession() { endSessionDialog(); },
+  rate(el) { const s = cur(), list = el.dataset.q === 'ox' ? s.ox.done : s.queues[el.dataset.q]?.done, d = list?.[+el.dataset.i]; if (!d) return; const v = +el.dataset.v; d.rate = d.rate === v ? 0 : v; touch(s); el.parentElement.querySelectorAll('button').forEach((b, i) => b.classList.toggle('on', i < d.rate)); },
+  scoreSort(el) { ui.scoreSort = el.dataset.v; render(); },
+  copyRanking() { const s = cur(); const txt = ranking(s).filter(x => x.sc.total > 0).map((x, i) => `${i + 1}. ${x.d.name} — ${x.sc.total}/60${i < 3 ? ' (' + AWARDS[i] + ')' : ''}${(s.scores[x.d.code] || {}).note ? ' · ' + s.scores[x.d.code].note : ''}`).join('\n'); copyText(`${s.committee} — award ranking\n${txt || 'No scores yet'}`, 'Ranking copied'); },
+  qrShare() { qrDialog(); },
   sound() {
     db.prefs.sound = !db.prefs.sound; save();
     $$('[data-a="sound"]').forEach(b => { b.outerHTML = soundBtn(); });
@@ -3219,6 +3450,7 @@ const A = {
       s.timers['c-total'].run = false;
     });
   },
+  newRoll() { const s = cur(); if (!s.delegates.length) return; confirmModal({ title: 'Start a new roll call?', body: 'Every delegation is marked absent and called again, one by one.', ok: 'New roll call', fn() { startNewRoll(s); } }); },
   callRoll() {
     const s = cur();
     sequence({
@@ -3226,7 +3458,8 @@ const A = {
       options: [{ v: 'p', label: 'Present', key: 'p' }, { v: 'pv', label: 'Present & voting', key: 'v' }, { v: 'a', label: 'Absent', key: 'a' }],
       get: c => del(s, c).status,
       set: (c, v) => { const d = s.delegates.find(x => x.code === c); if (d) { d.status = v; touch(s); } },
-      done: () => { const st = stats(s); log(s, `Roll call: ${st.pres} of ${st.total} present (${st.pv} present and voting)`); touch(s); toast(`Roll call complete — ${st.pres} present${st.quorum ? ', quorum established' : ''}`); },
+      voice: true,
+      done: () => { const st = stats(s); s.rollAt = Date.now(); log(s, `Roll call: ${st.pres} of ${st.total} present (${st.pv} present and voting)`); touch(s); toast(`Roll call complete — ${st.pres} present${st.quorum ? ', quorum established' : ''}`); },
       onClose: () => render(),
     });
   },
@@ -3342,13 +3575,13 @@ const A = {
     const s = cur(), v = s.activeVote; if (!v) return;
     const close = () => {
       const t = tally(s, v);
-      s.votes.unshift({ id: v.id, title: v.title, type: v.type, maj: v.maj, y: t.y, no: t.no, ab: t.ab, n: t.n, needed: t.needed, passed: t.passing, at: Date.now(), votes: v.votes });
+      s.votes.unshift({ id: v.id, title: v.title, type: v.type, maj: v.maj, y: t.y, no: t.no, ab: t.ab, n: t.n, needed: t.needed, passed: t.passing, veto: t.veto || [], sc: !!v.sc, at: Date.now(), votes: v.votes });
       s.activeVote = null;
-      log(s, `${v.title}: ${t.passing ? 'passed' : 'failed'} (${t.y} in favour, ${t.no} against, ${t.ab} abstaining)`);
+      log(s, `${v.title}: ${t.veto?.length ? `vetoed by ${t.veto.map(c => del(s, c).name).join(', ')}` : t.passing ? 'passed' : 'failed'} (${t.y} in favour, ${t.no} against, ${t.ab} abstaining)`);
       let r = {};
       if (v.motionId) { const m = s.motions.find(x => x.id === v.motionId); if (m && !m.result) r = resolveMotion(s, m, t.passing ? 'pass' : 'fail'); }
       touch(s); render('view'); chime();
-      openModal(`<div class="verdict-modal"><div class="eyebrow">${esc(v.title)}</div><div class="big ${t.passing ? 'pass' : 'fail'}">${t.passing ? (v.motionId ? 'Passes' : 'Adopted') : (v.motionId ? 'Fails' : 'Rejected')}</div>
+      openModal(`<div class="verdict-modal"><div class="eyebrow">${esc(v.title)}</div><div class="big ${t.passing ? 'pass' : 'fail'}">${t.veto?.length ? 'Vetoed' : t.passing ? (v.motionId ? 'Passes' : 'Adopted') : (v.motionId ? 'Fails' : 'Rejected')}</div>${t.veto?.length ? `<p class="muted" style="text-align:center;margin-top:-6px">Vetoed by ${esc(t.veto.map(c => del(s, c).name).join(', '))}</p>` : ''}
         <div class="counts"><div><b>${t.y}</b>in favour</div><div><b>${t.no}</b>against</div><div><b>${t.ab}</b>abstaining</div></div>
         <div class="row" style="justify-content:center">${r.tab ? `<button class="btn soft" data-m="go">${r.label}</button>` : ''}<button class="btn primary" data-a="closeModal" autofocus>Done</button></div></div>`,
         m => { const g = $('[data-m="go"]', m); if (g) g.addEventListener('click', () => { closeModal(); go(`#/s/${encodeURIComponent(s.id)}/${r.tab}`); }); }, { label: 'Vote result' });
@@ -3361,6 +3594,9 @@ const A = {
 
 /* change handlers */
 const CH = {
+  score(el) { const s = cur(), c = el.dataset.code; s.scores[c] = Object.assign({}, s.scores[c], { [el.dataset.k]: +el.value }); touch(s); refreshScoreRow(s, c); },
+  scoreNote(el) { const s = cur(), c = el.dataset.code; s.scores[c] = Object.assign({}, s.scores[c], { note: el.value.trim() }); touch(s); },
+  viewBase(el) { const v = el.value.trim(); if (!/^https?:\/\//.test(v)) { toast('Enter the full address, starting with https://'); return; } db.prefs.viewBase = v; save(); const s = cur(); refreshQr(s).then(() => { const b = $('[data-qrbox]'); if (b && QRC[s.id]) qrSvg(QRC[s.id].link).then(svg => { b.innerHTML = svg; }); }); },
   oxMotion(el) { const s = cur(); s.ox.motion = el.value.trim(); touch(s); },
   oxSpeak(el) { const s = cur(), v = parseTime(el.value, 'm'); if (!v) { toast('Enter a time like 5:00, or a number of minutes'); render(); return; } s.ox.speak = v; if (!s.timers['o-speech'].run) setTimer(s, 'o-speech', v); touch(s); render(); },
   oxProtect(el) { const s = cur(); s.ox.protect = +el.value || 0; touch(s); paintTimers(s); },
@@ -3443,7 +3679,7 @@ const FORMS = {
   vote(fd, form) {
     const s = cur(), title = String(fd.get('title') || '').trim(); if (!s || !title) return;
     if (!s.delegates.length) { toast('Add delegations in Roll call first'); return; }
-    s.activeVote = { id: uid(), title, type: $('[data-group="type"]', form).dataset.on, maj: $('[data-group="maj"]', form).dataset.on, votes: {} };
+    s.activeVote = { id: uid(), title, type: $('[data-group="type"]', form).dataset.on, maj: $('[data-group="maj"]', form).dataset.on, sc: $('[data-group="rules"]', form)?.dataset.on === 'sc', votes: {} };
     log(s, `Voting opened: ${title}`);
     touch(s); render('view');
   },
@@ -3468,6 +3704,7 @@ document.addEventListener('submit', e => {
   e.preventDefault(); FORMS[f.dataset.form]?.(new FormData(f), f);
 });
 document.addEventListener('input', e => {
+  if (e.target.matches?.('[data-in="scoreLive"]')) { const l = e.target.closest('.sc-c')?.querySelector('[data-val]'); if (l) l.textContent = e.target.value; }
   const t = e.target;
   if (t.matches('[data-pick-input]')) showPicker(t);
   else if (t.matches('[data-home-search]')) {
@@ -3501,7 +3738,7 @@ document.addEventListener('keydown', e => {
   else if (key === 'r') { if (k) resetTimer(k); }
   else if (key === 'f') { e.preventDefault(); enterPresent(); }
   else if (key === 't' || key === 'x') { e.preventDefault(); toggleTitle(); }
-  else if (/^[1-8]$/.test(e.key)) go(`#/s/${encodeURIComponent(s.id)}/${TABS[+e.key - 1][0]}`);
+  else if (/^[1-9]$/.test(e.key)) go(`#/s/${encodeURIComponent(s.id)}/${TABS[+e.key - 1][0]}`);
 });
 document.addEventListener('keyup', e => { if (e.code === 'Space' && spaceHandled) { e.preventDefault(); spaceHandled = false; } });
 document.addEventListener('mousemove', () => { if (ui.presenting || PJ.role === 'projector') idleKick(); });
