@@ -8,8 +8,8 @@ The calm way to chair Model UN: roll call with flags, speakers lists and timers,
 - `app/` — the Gavel app (`app/cloud.js` syncs sessions to your account)
 - `view.html` — delegate page opened from the QR code (a snapshot packed into the link)
 - `privacy.html`, `terms.html`
-- `config.js` — Supabase keys (empty = demo mode)
-- `supabase/schema.sql` — database
-- `SETUP.md` — how to go live (Hungarian)
+- `config.js` — Firebase keys (empty = demo mode)
+- `firestore.rules` — database rules
+- `SETUP.md` — how to go live
 
-A static site: no build step. Deploy the repository root as it is (Cloudflare Pages: framework preset *None*, build command empty, output directory `/`).
+A static site: no build step. Deploy the repository root as it is (Cloudflare Workers or Pages, no build command).

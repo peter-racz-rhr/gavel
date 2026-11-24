@@ -37,7 +37,7 @@ body.working .busy{display:flex} body.working .card{display:none}
     <button class="gbtn" id="google"><span data-g></span>Continue with Google</button>
     <div class="err" id="err" hidden></div>
     <p class="legalnote">By continuing you agree to the <a href="terms.html">Terms</a> and the <a href="privacy.html">Privacy policy</a>.</p>
-    <div class="demo" id="demo" hidden><b>Demo mode.</b> Supabase is not connected yet, so this signs you in to a local demo account. Add your keys in <code>config.js</code> to turn on real Google sign-in.</div>
+    <div class="demo" id="demo" hidden><b>Demo mode.</b> Firebase is not connected yet, so this signs you in to a local demo account. Add your keys in <code>config.js</code> to turn on real Google sign-in.</div>
   </div>
 
   <div class="busy" role="status"><div class="spinner"></div><span>Getting your desk ready…</span></div>
@@ -59,7 +59,7 @@ const fail = m => { document.body.classList.remove('working'); btn.disabled = fa
   const back = new URLSearchParams(location.search).has('next') || /[?&#](code|access_token)=/.test(location.href);
   if (back) document.body.classList.add('working');
   try {
-    if (!DEMO && back) await client();            // lets Supabase finish the sign-in from the URL
+    if (!DEMO && back) await client();            // lets Firebase finish a redirect sign-in
     const u = await getUser();
     if (u) { localStorage.setItem('gavel.uid', u.id); location.replace(await nextPage(u)); return; }
     const e = new URLSearchParams(location.search).get('error_description');
@@ -71,7 +71,7 @@ const fail = m => { document.body.classList.remove('working'); btn.disabled = fa
 btn.addEventListener('click', async () => {
   btn.disabled = true; err.hidden = true;
   try { await signInWithGoogle(); }
-  catch (e) { fail(e?.message || 'Google sign-in is not available right now.'); }
+  catch (e) { if (e?.code?.includes('cancelled') || e?.code?.includes('closed')) { btn.disabled = false; return; } fail(e?.message || 'Google sign-in is not available right now.'); }
 });
 })();
 </script>

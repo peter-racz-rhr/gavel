@@ -1,110 +1,94 @@
-# Gavel élesítése – teendők holnapra
+# Going live with Firebase
 
-Az egész oldal már működik **demó módban** (kulcsok nélkül): a Google-gomb ilyenkor egy helyi demó fiókkal léptet be, és minden a böngészőben marad. Ha az alábbiakat megcsinálod, valódi Google-belépés és fiókhoz kötött, eszközök között szinkronizált mentés lesz belőle.
+The whole site already works in **demo mode** (no keys): the Google button signs you in to a local demo account and everything stays in the browser. After these steps you get real Google sign-in and sessions saved to each account, synced between devices.
 
-Kb. **30–40 perc**, sorrendben haladj.
+About **15 minutes**. Follow the steps in order.
 
 ---
 
-## 1. Supabase (adatbázis + bejelentkezés) – kb. 10 perc
+## 1. Add a web app to your Firebase project (3 min)
 
-1. Menj a **https://supabase.com** oldalra → **Start your project** → lépj be (GitHubbal vagy e-maillel).
-2. **New project**
-   - Name: `gavel`
-   - Database password: generálj egyet, és **mentsd el** valahova.
-   - Region: **Central EU (Frankfurt)** – ez van a legközelebb.
-   - Free plan → **Create new project**. Várj 1–2 percet.
-3. Bal oldalt **SQL Editor** → **New query** → másold be a `supabase/schema.sql` fájl **teljes** tartalmát → **Run**. Azt kell írnia: *Success. No rows returned.*
-4. Bal oldalt **Project Settings** (fogaskerék) → **API**:
-   - **Project URL** → ez lesz a `supabaseUrl`
-   - **anon public** kulcs → ez lesz a `supabaseAnonKey`
-   - (A **service_role** kulcsot **soha** ne tedd be sehova, az titkos.)
+1. Open **https://console.firebase.google.com** and pick your project.
+2. On the project overview page, click the **`</>`** (Web) icon under "Get started by adding Firebase to your app".
+3. App nickname: `Gavel web`. Leave **Firebase Hosting unticked** (the site is on Cloudflare). Click **Register app**.
+4. You see a code block with `const firebaseConfig = { … }`. Keep this page open for step 4.
+   (You can find it again any time: ⚙️ **Project settings** → **General** → **Your apps**.)
 
-## 2. A kulcsok beírása – 1 perc
+## 2. Turn on Google sign-in (2 min)
 
-Nyisd meg a `config.js` fájlt, és töltsd ki:
+1. Left menu: **Build** → **Authentication** → **Get started**.
+2. **Sign-in method** tab → **Google** → switch **Enable** on.
+3. Pick your email as **Project support email** → **Save**.
+4. **Settings** tab → **Authorized domains** → **Add domain** and add:
+   - `gavel.peter-racz-rhr.workers.dev`
+   - your own domain later, if you get one
+   (`localhost` is already there, so testing on your computer works.)
+
+## 3. Create the database (3 min)
+
+1. Left menu: **Build** → **Firestore Database** → **Create database**.
+2. Location: **eur3 (Europe)** or **europe-west3 (Frankfurt)**. This matters for GDPR and **cannot be changed later**.
+3. Choose **Start in production mode** → **Create**.
+4. Open the **Rules** tab, delete everything there, paste the full contents of `firestore.rules` from this repo, and click **Publish**.
+
+The rules make sure everyone can read and write only their own profile and sessions.
+
+## 4. Paste the keys into `config.js` (1 min)
+
+Copy the values from the `firebaseConfig` block of step 1 into `config.js`:
 
 ```js
 window.GAVEL_CONFIG = {
-  supabaseUrl: 'https://IDE-A-SAJAT.supabase.co',
-  supabaseAnonKey: 'eyJhbGciOi...',
-  contactEmail: 'a-te-email-cimed@pelda.hu',
+  firebase: {
+    apiKey: 'AIza...',
+    authDomain: 'your-project.firebaseapp.com',
+    projectId: 'your-project',
+    storageBucket: 'your-project.firebasestorage.app',
+    messagingSenderId: '1234567890',
+    appId: '1:1234567890:web:abc123',
+  },
+  contactEmail: 'you@example.com',
 };
 ```
 
-Az anon kulcs nyugodtan lehet nyilvános, azt pont erre tervezték. Az adatokat a sémában lévő szabályok védik: mindenki csak a saját sessionjeit látja.
+These keys are **not secret**. Firebase web keys are designed to sit in public code; the rules from step 3 protect the data.
 
-## 3. Google-bejelentkezés – kb. 15 perc
+## 5. Publish (2 min)
 
-1. Menj a **https://console.cloud.google.com** oldalra → fent **Select a project** → **New project** → név: `Gavel` → **Create**.
-2. Bal menü: **APIs & Services** → **OAuth consent screen** (vagy **Google Auth Platform**) → **Get started**:
-   - App name: `Gavel`
-   - User support email: a te címed
-   - Audience: **External**
-   - Contact email: a te címed → **Create**
-3. **Branding** fül: ide írd be az oldalad címét, valamint az adatvédelmi és a feltételek oldal linkjét, ha már megvan a domain (lásd 4. pont):
-   - `https://A-DOMAINED/privacy`
-   - `https://A-DOMAINED/terms`
-4. **Clients** → **Create client**:
-   - Application type: **Web application**
-   - Name: `Gavel web`
-   - **Authorized JavaScript origins:** `https://A-DOMAINED` (és a Cloudflare-es címed is, pl. `https://gavel.pages.dev`)
-   - **Authorized redirect URIs:** `https://IDE-A-SAJAT.supabase.co/auth/v1/callback`
-     (a pontos címet a Supabase is kiírja: Authentication → Sign In / Providers → Google)
-   - **Create** → kapsz egy **Client ID**-t és egy **Client secret**-et.
-5. Vissza a **Supabase**-be: **Authentication** → **Sign In / Providers** → **Google** → kapcsold be → másold be a Client ID-t és a Client secretet → **Save**.
-6. Supabase: **Authentication** → **URL Configuration**:
-   - **Site URL:** `https://A-DOMAINED`
-   - **Redirect URLs:** add hozzá ezeket:
-     - `https://A-DOMAINED/**`
-     - `https://gavel.pages.dev/**` (a saját Cloudflare-címeddel)
-     - `http://localhost:5517/**` (ha gépen is tesztelnéd)
+Commit and push to the `gavel` repo on GitHub (or ask Claude to). Cloudflare redeploys automatically within about a minute.
 
-Csak nevet, e-mailt és profilképet kérünk, ezért a Google-nek nem kell külön ellenőriznie az appot. Élesítés előtt az **Audience** oldalon nyomd meg a **Publish app** gombot, különben csak a tesztfelhasználóként felvett címek tudnak belépni.
+## 6. Try it
 
-## 4. Közzététel a Cloudflare Pages-en – kb. 5 perc
-
-A kód már fent van a GitHubon a `gavel` repóban.
-1. **https://dash.cloudflare.com** → lépj be → bal oldalt **Compute (Workers & Pages)** → **Create** → **Pages** fül → **Connect to Git**.
-2. Kapcsold össze a GitHub-fiókodat, és válaszd ki a **gavel** repót → **Begin setup**.
-3. Beállítások:
-   - Project name: `gavel` (ebből lesz a cím: `https://gavel.pages.dev`)
-   - Production branch: `main`
-   - Framework preset: **None**
-   - Build command: **üres**
-   - Build output directory: **`/`**
-4. **Save and Deploy**. Kb. egy perc múlva kész. Kapsz egy címet, pl. `https://gavel.pages.dev`. Ezt írd be a 3. pontban a Google-höz és a Supabase-hez.
-5. Ezután minden `git push` a `main` ágra magától frissíti az oldalt.
-
-**Saját domain (opcionális):** a Cloudflare-ben **Pages projekt → Custom domains → Set up a custom domain**. Ha a domain is a Cloudflare-nél van, egy kattintás.
-
-Tipp: a Cloudflare a `login.html`-t magától `/login` címen szolgálja ki. Ez rendben van, a belépés így is működik.
-
-## 5. Kipróbálás
-
-1. Nyisd meg az oldalt → **Start free with Google** → válaszd ki a fiókod.
-2. Végigmész a bevezetőn (onboarding) → létrejön az első bizottságod → megnyílik a Gavel.
-3. A jobb felső sarokban a profilképeden lévő **zöld pötty** azt jelenti, hogy a mentés a fiókodban van.
-4. Nyisd meg a telefonodon is, lépj be ugyanazzal a Google-fiókkal: ott lesznek a sessionjeid.
+1. Open `https://gavel.peter-racz-rhr.workers.dev` → **Start free with Google** → a Google window opens → pick your account.
+2. Go through onboarding → your first committee is created → Gavel opens.
+3. The **green dot** on your profile picture (top right) means your sessions are saved to your account.
+4. Open the site on your phone and sign in with the same Google account: your sessions are there.
 
 ---
 
-## Ha valami nem megy
+## If something goes wrong
 
-| Hiba | Megoldás |
+| Problem | Fix |
 |---|---|
-| `redirect_uri_mismatch` a Google-nél | A Google Clientben a redirect URI pontosan `https://...supabase.co/auth/v1/callback` legyen. |
-| Belépés után visszadob a login oldalra | Supabase → URL Configuration → Redirect URLs alatt legyen ott a domained `/**` végződéssel. |
-| „Access blocked: app is in testing” | Google → Audience → **Publish app**, vagy vedd fel magad tesztfelhasználónak. |
-| Narancs pötty a profilképen | Nincs internet, vagy hibás a Supabase-kulcs. A gépen minden megmarad, és később szinkronizál. |
+| "This web address is not allowed yet" | Firebase → Authentication → Settings → **Authorized domains**: add the address you opened the site from. |
+| "Google sign-in is not switched on yet" | Firebase → Authentication → Sign-in method → Google → **Enable**. |
+| Nothing happens when you click the Google button | The browser blocked the pop-up. Allow pop-ups for the site, or try again: Gavel then falls back to a full-page sign-in. |
+| Orange dot on the profile picture | No internet, the rules weren't published, or a key in `config.js` is wrong. Everything stays on the device and syncs later. |
+| Sign-in works on the computer but not when opening the file directly | Sign-in needs a real web address (`https://…` or `localhost`), not `file://`. |
 
-## Fájlok röviden
+## Free limits (Spark plan)
 
-- `index.html` – bemutató oldal
-- `login.html` – Google-belépés
-- `onboarding.html` – animált bevezető az első belépés után
-- `app/` – maga a Gavel (`app/cloud.js`: szinkron és fiókmenü)
-- `privacy.html`, `terms.html` – adatvédelem és feltételek
-- `config.js` – **ide jönnek a kulcsok**
-- `supabase/schema.sql` – adatbázis
-- `tools/build-app.mjs` – ha a Gavel appot módosítjuk: az új fájlt másold a `tools/app-source.html` helyére, majd futtasd: `node tools/build-app.mjs`
+Free with no time limit, and the project never pauses. Every day you get 50,000 reads, 20,000 writes and 1 GB of storage. A chaired session uses a few dozen writes, so this is enough for thousands of sessions a month.
+
+## Files
+
+- `index.html`: landing page
+- `login.html`: Google sign-in
+- `onboarding.html`: first-time setup after the first sign-in
+- `app/`: the Gavel app (`app/cloud.js` handles sync and the account menu)
+- `view.html`: the delegate page opened from the QR code
+- `privacy.html`, `terms.html`
+- `config.js`: **the keys go here**
+- `firestore.rules`: database rules
+- `assets/auth.js`: sign-in and cloud storage (Firebase)
+- `tools/build-app.mjs`: after changing the Gavel app, copy the new file over `tools/app-source.html` and run `node tools/build-app.mjs`

@@ -1,0 +1,28 @@
+rules_version = '2';
+// Gavel database rules. Paste all of this into Firebase → Firestore Database → Rules → Publish.
+// Everyone can read and write only their own profile and sessions.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isOwner(uid) { return request.auth != null && request.auth.uid == uid; }
+
+    match /users/{uid} {
+      allow read: if isOwner(uid);
+      // "plan" is reserved for paid plans later: people cannot set it themselves
+      allow create: if isOwner(uid) && !('plan' in request.resource.data);
+      allow update: if isOwner(uid)
+        && request.resource.data.get('plan', null) == resource.data.get('plan', null);
+      allow delete: if false;
+
+      match /sessions/{sid} {
+        allow read, delete: if isOwner(uid);
+        allow create, update: if isOwner(uid)
+          && request.resource.data.keys().hasOnly(['data', 'deleted', 'updated_at'])
+          && request.resource.data.data is string
+          && request.resource.data.data.size() < 900000
+          && request.resource.data.deleted is bool;
+      }
+    }
+
+    match /{document=**} { allow read, write: if false; }
+  }
+}
