@@ -10,12 +10,12 @@
  */
 window.GAVEL_CONFIG = {
   firebase: {
-    apiKey: '',              // Firebase → Project settings → General → Your apps → Web app → SDK setup and configuration
-    authDomain: '',          // e.g. 'gavel-12345.firebaseapp.com'
-    projectId: '',           // e.g. 'gavel-12345'
-    storageBucket: '',
-    messagingSenderId: '',
-    appId: '',
+    apiKey: 'AIzaSyBOeKk49Ike58L1i4Tc74fAPKEJpaKJC3s',   // Firebase → Project settings → General → Your apps → Gavel web
+    authDomain: 'gavel-mun-e80c5.firebaseapp.com',
+    projectId: 'gavel-mun-e80c5',
+    storageBucket: 'gavel-mun-e80c5.firebasestorage.app',
+    messagingSenderId: '607539536449',
+    appId: '1:607539536449:web:89fb6a0f52f1901ca7dcc0',
   },
   contactEmail: '',          // shown on the privacy and terms pages, e.g. 'hello@gavel-mun.com'
 };
