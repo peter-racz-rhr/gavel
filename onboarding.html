@@ -119,6 +119,9 @@ kbd{display:inline-grid;place-items:center;min-width:24px;height:24px;padding:0 
 .desk.celebrate .desk-card{animation:deskCheer 1s var(--spring)}
 @keyframes deskCheer{30%{transform:rotateY(0) rotateX(0) scale(1.04)}}
 .desk.celebrate .desk-glow{background:radial-gradient(50% 50% at 50% 50%,color-mix(in oklab,var(--yes) 30%,transparent),transparent 70%)}
+.trial-note{display:flex;flex-direction:column;gap:4px;max-width:440px;margin:18px auto 0;padding:16px 20px;border-radius:18px;background:linear-gradient(135deg,var(--accent-soft),color-mix(in oklab,#F5C451 16%,transparent));text-align:center;animation:fadeUp .7s var(--ease) both;animation-delay:calc(var(--k,0) * 120ms + 200ms)}
+.trial-note b{font-size:15px}
+.trial-note span{font-size:13.5px;color:var(--ink-2)}
 </style>
 </head>
 <body>
@@ -192,6 +195,7 @@ kbd{display:inline-grid;place-items:center;min-width:24px;height:24px;padding:0 
       <div class="seal" style="--k:0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg></div>
       <h1 class="q" style="--k:1">You're all set, <span data-first>Chair</span>.</h1>
       <p class="q-sub" style="--k:2">Your desk is ready and your first committee is waiting for its roll call.</p>
+      <div class="trial-note" style="--k:2"><b>✦ 14 days of Gavel Pro, on us.</b><span>Scores and awards, Oxford debates, Security Council voting, the delegate QR page and more. No card needed.</span></div>
       <div class="actions" style="--k:3"><button class="btn primary lg" id="open">Open Gavel <span class="arrow">→</span></button></div>
     </section>
   </main>
@@ -218,7 +222,7 @@ kbd{display:inline-grid;place-items:center;min-width:24px;height:24px;padding:0 
 
 <script>
 (async () => {
-const { requireUser, saveProfile, getProfile, href } = window.GavelAuth, { fillLogos, confetti, flagUrl, reduced } = window.GavelSite;
+const { requireUser, saveProfile, getProfile, startTrial, href } = window.GavelAuth, { fillLogos, confetti, flagUrl, reduced } = window.GavelSite;
 fillLogos();
 const $ = s => document.querySelector(s);
 const user = await requireUser();
@@ -299,6 +303,7 @@ function next() {
 $('#skip').addEventListener('click', async e => {
   e.preventDefault();
   await saveProfile(user, { full_name: user.name, onboarded: true }).catch(() => { });
+  if (!prev?.trial_started) await startTrial(user).catch(() => { });
   location.href = href('app/index.html');
 });
 function playTour() {
@@ -324,6 +329,7 @@ async function finish() {
   try { localStorage.setItem(key, JSON.stringify(db)); } catch { }
   $('#open').dataset.id = id;
   await saveProfile(user, { full_name: user.name, role: ans.role, experience: ans.experience, conference: $('#conference').value.trim(), onboarded: true }).catch(() => { });
+  if (!prev?.trial_started) await startTrial(user).catch(() => { });
 }
 $('#open').addEventListener('click', e => { location.href = href('app/index.html') + '#/s/' + (e.currentTarget.dataset.id || '') + '/roll'; });
 })();

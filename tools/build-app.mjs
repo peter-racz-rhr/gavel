@@ -9,6 +9,7 @@ const R = (a, b) => { if (!s.includes(a)) throw new Error('Could not find: ' + a
 
 R(/<title>[^<]*<\/title>/.exec(s)[0], '<title>Gavel</title>');
 const head = `<script src="../config.js"></script>
+<script src="../assets/plans.js"></script>
 <script>(function () { var u = null; try { u = localStorage.getItem('gavel.uid'); } catch (e) { } window.GAVEL_STORE = 'gavel.v1:' + (u || 'anon'); document.documentElement.classList.add('auth-wait'); })();</script>
 <style>
 .auth-wait #app{visibility:hidden}
@@ -23,6 +24,11 @@ const head = `<script src="../config.js"></script>
 .acct-sync{display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:8px 14px;border-radius:99px;background:var(--surface-2);font-size:13px;color:var(--ink-2)}
 .acct-sync i{width:8px;height:8px;border-radius:50%;background:var(--faint)}
 .acct-sync[data-sync="synced"] i{background:var(--yes)} .acct-sync[data-sync="syncing"] i{background:var(--accent)} .acct-sync[data-sync="offline"] i{background:var(--abs)}
+.acct-plan{display:flex;flex-direction:column;align-items:center;gap:4px;width:100%;margin-top:16px;padding:16px;border-radius:18px;background:linear-gradient(135deg,var(--accent-soft),color-mix(in oklab,#F5C451 14%,transparent))}
+.acct-plan b{display:inline-flex;align-items:center;gap:7px;font-size:15px}
+.acct-plan b .ic{color:var(--accent)}
+.acct-plan span{font-size:13px;color:var(--muted)}
+.acct-plan .btn{margin-top:8px;text-decoration:none}
 </style>
 `;
 const i = s.indexOf('<script>');

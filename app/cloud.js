@@ -5,7 +5,7 @@
  * first, the cloud catches up when it can). A plain script so it also runs from disk.
  */
 (async () => {
-const { DEMO, href, requireUser, getProfile, pullSessions, pushSession, removeSession, watchSessions, signOut } = window.GavelAuth;
+const { DEMO, href, requireUser, getProfile, watchProfile, startTrial, pullSessions, pushSession, removeSession, watchSessions, signOut } = window.GavelAuth;
 const user = await requireUser();
 if (window.GAVEL_STORE !== 'gavel.v1:' + user.id) {
   // first visit on this device for this account: reopen with the right local store
@@ -22,6 +22,35 @@ if (!profile?.onboarded && DEMO && !db.sessions.length) { location.replace(href(
 
 window.GAVEL_USER = { name: profile?.full_name || user.name || '', email: user.email || '', avatar: user.avatar || '' };
 window.GAVEL_SYNC = !DEMO;
+
+/* plan: Free, a 14-day Pro trial, or Pro (paid, written to the profile by the billing worker) */
+const PL = window.GAVEL_PLANS, BILL = (window.GAVEL_CONFIG || {}).billing || {};
+const ms = v => !v ? 0 : typeof v.toMillis === 'function' ? v.toMillis() : typeof v === 'number' ? v : Date.parse(v) || 0;
+function planOf(p) {
+  const now = Date.now(), until = ms(p?.plan_until), trial = ms(p?.trial_started), trialEnd = trial + PL.trialDays * 864e5;
+  if (p?.plan === 'pro' && (!until || until > now)) return { state: 'pro', pro: true, kind: p.plan_kind || 'yearly', until: until || null, portal: p.billing?.portal || null, trialUsed: true };
+  if (trial && trialEnd > now) return { state: 'trial', pro: true, kind: 'trial', until: trialEnd, trialUsed: true };
+  return { state: 'free', pro: false, trialUsed: !!trial || p?.plan === 'pro', expired: p?.plan === 'pro' };
+}
+const checkoutUrl = kind => {
+  const base = BILL[kind]; if (!base) return '';
+  const u = new URL(base);
+  u.searchParams.set('checkout[custom][uid]', user.id);
+  if (user.email && !DEMO) u.searchParams.set('checkout[email]', user.email);
+  if (window.GAVEL_USER.name) u.searchParams.set('checkout[name]', window.GAVEL_USER.name);
+  return u.href;
+};
+function setPlan(p) {
+  window.GAVEL_PLAN = Object.assign(planOf(p), {
+    pricingUrl: href('pricing.html'),
+    checkout(kind) { const url = checkoutUrl(kind); if (!url) return false; const w = window.open(url, '_blank', 'noopener'); if (!w) location.href = url; return true; },
+    startTrial: () => startTrial(user).then(np => { if (DEMO && np) setPlan(np); }),
+  });
+  window.dispatchEvent(new CustomEvent('gavel-plan'));
+}
+setPlan(profile);
+watchProfile(user, p => { if (p) { window.GAVEL_LAST_PROFILE = p; setPlan(p); } }).catch(() => { });
+setInterval(() => { const p = window.GAVEL_PLAN; if (p?.until && p.until < Date.now()) setPlan(window.GAVEL_LAST_PROFILE || profile); }, 60000);
 
 /* delegations picked during onboarding */
 for (const s of db.sessions) {
@@ -40,10 +69,21 @@ const STATUS = { synced: 'All sessions are saved to your account', syncing: 'Syn
 A.acct = () => openModal(`<div class="acct-card">
     <div class="acct-av">${window.GAVEL_USER.avatar ? `<img alt="" src="${esc(window.GAVEL_USER.avatar)}" referrerpolicy="no-referrer">` : esc(initials)}</div>
     <h2>${esc(window.GAVEL_USER.name || 'Your account')}</h2><p class="muted">${esc(window.GAVEL_USER.email)}</p>
-    <div class="acct-sync" data-sync="${status}"><i></i><span>${STATUS[status]}</span></div>
+    <div class="acct-sync" data-sync="${status}"><i></i><span>${STATUS[status]}</span></div>${planCard()}
   </div>
   <div class="mfoot"><a class="btn ghost" href="${href('index.html')}">Website</a><span class="grow"></span><button class="btn soft" data-m="out">Sign out</button></div>`,
-  m => { m.querySelector('[data-m="out"]').addEventListener('click', () => signOut()); }, { label: 'Account', cls: 'narrow' });
+  m => {
+    m.querySelector('[data-m="out"]').addEventListener('click', () => signOut());
+    m.querySelector('[data-m="up"]')?.addEventListener('click', () => { closeModal(); setTimeout(() => A.paywall(), 200); });
+  }, { label: 'Account', cls: 'narrow' });
+const fmtDate = t => new Date(t).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+function planCard() {
+  const p = window.GAVEL_PLAN; if (!p) return '';
+  const KIND = { monthly: 'Pro monthly', yearly: 'Pro yearly', pass: 'Conference Pass' };
+  if (p.state === 'pro') return `<div class="acct-plan pro"><b>${ic('spark', 15)} ${KIND[p.kind] || 'Gavel Pro'}</b><span>${p.until ? (p.kind === 'pass' ? 'Until ' : 'Paid until ') + fmtDate(p.until) : 'Active'}</span>${p.portal ? `<a class="btn sm soft" href="${esc(p.portal)}" target="_blank" rel="noopener">Manage billing</a>` : ''}</div>`;
+  if (p.state === 'trial') return `<div class="acct-plan"><b>${ic('spark', 15)} Pro trial</b><span>${plural(daysLeft(p.until), 'day')} left · ends ${fmtDate(p.until)}</span><button class="btn sm primary" data-m="up">Choose a plan</button></div>`;
+  return `<div class="acct-plan"><b>Free plan</b><span>${Math.min(db.sessions.length, window.GAVEL_PLANS.freeSessions)} of ${window.GAVEL_PLANS.freeSessions} sessions used</span><button class="btn sm primary" data-m="up">${ic('spark', 14)} Upgrade to Pro</button></div>`;
+}
 function setStatus(s) {
   status = s;
   document.querySelectorAll('[data-sync]').forEach(e => { e.dataset.sync = s; const t = e.querySelector('span:not(:first-child)'); if (e.classList.contains('acct-sync') && t) t.textContent = STATUS[s]; });

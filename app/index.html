@@ -909,6 +909,58 @@ button.scr-tile:active{transform:scale(.985)}
 
 /* ───────────── motion ───────────── */
 @keyframes rise{from{opacity:0;transform:translateY(10px)}}
+/* ───────────── plans & paywall (website only) ───────────── */
+.pro-tag{display:inline-flex;align-items:center;margin-left:8px;padding:2px 6px;border-radius:6px;background:linear-gradient(135deg,color-mix(in oklab,var(--accent) 20%,transparent),color-mix(in oklab,#F5C451 24%,transparent));color:var(--accent);font:700 9.5px/1.3 var(--sans);letter-spacing:.08em;font-style:normal;vertical-align:middle;flex:none}
+.plan-chip{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 13px;border-radius:99px;background:linear-gradient(135deg,var(--accent-soft),color-mix(in oklab,#F5C451 16%,transparent));color:var(--ink);font-size:13px;font-weight:600;white-space:nowrap;transition:transform .18s var(--ease),box-shadow .25s}
+.plan-chip .ic{color:var(--accent)}
+.plan-chip small{font-size:12.5px;font-weight:500;color:var(--muted)}
+.plan-chip:hover{transform:translateY(-1px);box-shadow:0 10px 26px -12px color-mix(in oklab,var(--accent) 70%,transparent)}
+.plan-chip.pro{background:transparent;color:var(--muted);font-weight:600;padding:0 8px}
+@media (max-width:720px){.plan-chip small{display:none}}
+.mtop .plan-chip small{display:none}
+@media (max-width:1100px){.mtop .plan-chip span{display:none}.mtop .plan-chip{width:34px;padding:0;justify-content:center}}
+@media (max-width:520px){.plan-chip span{display:none}.plan-chip{width:34px;padding:0;justify-content:center}}
+.pw-hero{display:flex;gap:16px;align-items:flex-start}
+.pw-ic{flex:none;display:grid;place-items:center;width:56px;height:56px;border-radius:18px;background:linear-gradient(140deg,var(--accent),color-mix(in oklab,var(--accent) 45%,#F5C451));color:#fff;box-shadow:0 16px 36px -16px var(--accent);animation:pwIc .7s var(--spring,var(--ease)) both}
+@keyframes pwIc{from{opacity:0;transform:scale(.6) rotate(-12deg)}}
+.pw-hero h2{font:650 24px/1.15 var(--sans);letter-spacing:-.03em;text-wrap:balance;margin-top:4px}
+.pw-hero p{margin-top:6px;color:var(--ink-2);font-size:14.5px;line-height:1.5;max-width:52ch}
+.pw-feats{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 18px;margin:20px 0 0;padding:16px 18px;border-radius:16px;background:var(--surface-2)}
+.pw-feats li{display:flex;gap:9px;align-items:center;font-size:13.5px;color:var(--ink-2);animation:rise .5s var(--ease) both;animation-delay:calc(var(--i) * 40ms)}
+.pw-feats li .ic{color:var(--yes);flex:none}
+.pw-feats li.hl{color:var(--ink);font-weight:600}
+.pw-feats li.hl .ic{color:var(--accent)}
+.pw-plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:16px}
+.pw-plan{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:3px;padding:16px 14px 14px;border-radius:16px;border:1.5px solid var(--line-2);background:var(--surface);text-align:left;cursor:pointer;transition:border-color .2s,background-color .2s,transform .18s var(--ease),box-shadow .25s}
+.pw-plan:hover{transform:translateY(-2px)}
+.pw-plan.on{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 14px 30px -20px var(--accent)}
+.pw-plan .nm{font-size:13px;font-weight:600;color:var(--ink-2)}
+.pw-plan b{font:650 26px/1.1 var(--sans);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.pw-plan small{font-size:12px;line-height:1.35;color:var(--muted)}
+.pw-plan .badge{font-family:var(--sans);position:absolute;top:-10px;right:10px;padding:3px 9px;border-radius:99px;background:var(--accent);color:var(--bg);font-size:10.5px;font-weight:700;letter-spacing:.04em}
+.pw-fine{margin-top:12px;font-size:12px;color:var(--muted);text-align:center;line-height:1.5}
+.pw-fine a{color:var(--accent)}
+@media (max-width:640px){.pw-plans{grid-template-columns:1fr}.pw-feats{grid-template-columns:1fr}.pw-hero{flex-direction:column}}
+.locked{position:relative;min-height:62vh}
+.locked-prev{filter:blur(7px) saturate(.7);opacity:.5;pointer-events:none;user-select:none;max-height:78vh;overflow:hidden;-webkit-mask-image:linear-gradient(180deg,#000 35%,transparent 92%);mask-image:linear-gradient(180deg,#000 35%,transparent 92%)}
+.locked-card{position:absolute;left:50%;top:clamp(40px,14vh,150px);transform:translateX(-50%);width:min(470px,calc(100% - 8px));display:flex;flex-direction:column;align-items:center;gap:8px;padding:30px 26px 24px;border-radius:26px;background:color-mix(in oklab,var(--surface) 86%,transparent);border:1px solid var(--line);box-shadow:0 40px 90px -40px rgba(0,0,0,.5);text-align:center;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);animation:lockIn .7s var(--ease) both}
+@keyframes lockIn{from{opacity:0;transform:translate(-50%,16px) scale(.97)}}
+.locked-card .pw-ic{margin-bottom:8px}
+.locked-card h2{font:650 26px/1.15 var(--sans);letter-spacing:-.035em;text-wrap:balance}
+.locked-card p{max-width:40ch;color:var(--ink-2);font-size:14.5px;line-height:1.55}
+.locked-card .row{justify-content:center;gap:10px;flex-wrap:wrap;margin-top:10px}
+.locked-card small{margin-top:4px;font-size:12.5px;color:var(--muted)}
+html.lite .locked-card{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--surface)}
+html.lite .locked-prev{filter:none;opacity:.18}
+.br-sw{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.br-sw button,.br-custom{width:34px;height:34px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 2px rgba(255,255,255,.22);transition:transform .15s var(--ease)}
+.br-sw button:hover{transform:scale(1.1)}
+.br-sw button.on{outline:2.5px solid var(--ink);outline-offset:2px}
+.br-custom{position:relative;display:grid;place-items:center;overflow:hidden;background:conic-gradient(#f43f5e,#f59e0b,#22c55e,#06b6d4,#6366f1,#d946ef,#f43f5e);cursor:pointer}
+.br-custom input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.br-prev{display:flex;align-items:center;gap:12px;margin-top:18px;padding:18px 20px;border-radius:18px;background:#0E0E10;color:#fff;font-size:15px;box-shadow:inset 0 -3px 0 var(--c)}
+.br-prev i{width:12px;height:12px;border-radius:50%;background:var(--c);box-shadow:0 0 14px var(--c)}
+.br-prev span{color:rgba(255,255,255,.55)}
 @keyframes pop{from{opacity:0;transform:translateY(-6px) scale(.98)}}
 @keyframes fade{from{opacity:0}}
 @keyframes fadeOut{to{opacity:0}}
@@ -1197,6 +1249,7 @@ html.lite .rs-stamp span{animation-name:stampL}
 <div id="toast-root" role="status" aria-live="polite"></div>
 <div id="print-root" aria-hidden="true"></div>
 <script src="../config.js"></script>
+<script src="../assets/plans.js"></script>
 <script>(function () { var u = null; try { u = localStorage.getItem('gavel.uid'); } catch (e) { } window.GAVEL_STORE = 'gavel.v1:' + (u || 'anon'); document.documentElement.classList.add('auth-wait'); })();</script>
 <style>
 .auth-wait #app{visibility:hidden}
@@ -1211,6 +1264,11 @@ html.lite .rs-stamp span{animation-name:stampL}
 .acct-sync{display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:8px 14px;border-radius:99px;background:var(--surface-2);font-size:13px;color:var(--ink-2)}
 .acct-sync i{width:8px;height:8px;border-radius:50%;background:var(--faint)}
 .acct-sync[data-sync="synced"] i{background:var(--yes)} .acct-sync[data-sync="syncing"] i{background:var(--accent)} .acct-sync[data-sync="offline"] i{background:var(--abs)}
+.acct-plan{display:flex;flex-direction:column;align-items:center;gap:4px;width:100%;margin-top:16px;padding:16px;border-radius:18px;background:linear-gradient(135deg,var(--accent-soft),color-mix(in oklab,#F5C451 14%,transparent))}
+.acct-plan b{display:inline-flex;align-items:center;gap:7px;font-size:15px}
+.acct-plan b .ic{color:var(--accent)}
+.acct-plan span{font-size:13px;color:var(--muted)}
+.acct-plan .btn{margin-top:8px;text-decoration:none}
 </style>
 <script>
 "use strict";
@@ -1441,6 +1499,10 @@ const KEYS = [['Space', 'Start or pause the timer'], ['N', 'Next speaker'], ['R'
 
 /* ═════════════════════════ Icons ═════════════════════════ */
 const ICON = {
+  lock: '<rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/>',
+  spark: '<path d="M12 3.5l1.7 4.8 4.8 1.7-4.8 1.7L12 16.5l-1.7-4.8L5.5 10l4.8-1.7z"/><path d="M18.5 15l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/>',
+  shield: '<path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/>',
+  palette: '<path d="M12 3a9 9 0 0 0 0 18c1.4 0 2-1 2-2 0-1.3-1-1.6-1-2.8 0-1 .8-1.7 1.8-1.7H17a4 4 0 0 0 4-4C21 6.6 17 3 12 3z"/><circle cx="7.5" cy="11" r="1.2"/><circle cx="10" cy="7" r="1.2"/><circle cx="15" cy="7" r="1.2"/>',
   trophy: '<path d="M8 21h8M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/>',
   qr: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/>',
   micon: '<rect x="9" y="2.5" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3.5"/>',
@@ -1811,7 +1873,7 @@ function homeView() {
     <header class="topbar">
       <a class="brand" href="#/" aria-label="Gavel home">${logo()}<span>Gavel</span></a>
       ${ss.length ? `<label class="search"><span class="search-ic">${ic('search', 16)}</span><input class="input" data-home-search placeholder="Search committees, topics and chairs" autocomplete="off" spellcheck="false" aria-label="Search sessions"><kbd>/</kbd></label>` : '<div class="grow"></div>'}
-      <div class="tools"><button class="btn sm ghost hide-sm" data-a="becomeProjector" title="Turn this window into the projector screen. Your other Gavel window controls it.">${ic('monitor', 15)} Projector mode</button>${themeBtn()}<button class="btn icon ghost hide-sm" data-a="help" aria-label="Keyboard shortcuts" title="Keyboard shortcuts (?)">${ic('keyboard', 18)}</button><button class="btn primary" data-a="newSession">${ic('plus', 16)}<span>New session</span></button>${window.acctHTML ? acctHTML() : ''}</div>
+      <div class="tools"><button class="btn sm ghost hide-sm" data-a="becomeProjector" title="Turn this window into the projector screen. Your other Gavel window controls it.">${ic('monitor', 15)} Projector mode</button>${themeBtn()}<button class="btn icon ghost hide-sm" data-a="help" aria-label="Keyboard shortcuts" title="Keyboard shortcuts (?)">${ic('keyboard', 18)}</button><button class="btn primary" data-a="newSession">${ic('plus', 16)}<span>New session</span></button>${planChip()}${window.acctHTML ? acctHTML() : ''}</div>
     </header>
     <main class="dash">
       <div class="dash-head"><div class="eyebrow">${esc(date)}</div><h1>Good ${part}, ${esc(who || 'Chair')}</h1><p>${ss.length ? `${plural(ss.length, 'session')} saved on this device${today ? ` · ${today} active today` : ''}` : 'Set up your first committee session — it takes ten seconds.'}</p></div>
@@ -1966,7 +2028,7 @@ function sessionView(s) {
     <aside class="side">
       <a class="brand" href="#/" aria-label="All sessions">${logo()}<span>Gavel</span></a>
       <div class="ctx"><div class="eyebrow">${s.chair ? 'Chaired by ' + esc(s.chair) : 'Committee'}</div><div class="ctx-name">${esc(s.committee)}</div>${s.topic ? `<p title="${esc(s.topic)}">${esc(s.topic)}</p>` : ''}<button class="btn icon sm ghost edit" data-a="editSession" aria-label="Edit session details" title="Edit session details">${ic('edit', 15)}</button></div>
-      <nav class="nav" aria-label="Session sections"><span class="nav-pill" aria-hidden="true"></span>${TABS.map(([k, l, i], n) => `<a href="#/s/${esc(s.id)}/${k}" draggable="false" class="${tab === k ? 'on' : ''}"${tab === k ? ' aria-current="page"' : ''}>${ic(i, 17)}<span class="lbl">${l}</span>${badge(s, k) || `<kbd class="nk" aria-hidden="true">${n + 1}</kbd>`}</a>`).join('')}</nav>
+      <nav class="nav" aria-label="Session sections"><span class="nav-pill" aria-hidden="true"></span>${TABS.map(([k, l, i], n) => `<a href="#/s/${esc(s.id)}/${k}" draggable="false" class="${tab === k ? 'on' : ''}"${tab === k ? ' aria-current="page"' : ''}>${ic(i, 17)}<span class="lbl">${l}${PRO_TABS.has(k) ? proTag() : ''}</span>${badge(s, k) || `<kbd class="nk" aria-hidden="true">${n + 1}</kbd>`}</a>`).join('')}</nav>
       <div class="side-foot"><button class="btn sm ghost" data-a="help">${ic('keyboard', 15)} Shortcuts</button><span class="saved">${ic('check', 13)} Saved</span></div>
     </aside>
     <main class="main">
@@ -1977,9 +2039,9 @@ function sessionView(s) {
           ${endBtn(s)}${screenBtn(s)}
           <button class="btn sm outline" data-a="present" title="Present on a projector or this screen">${ic('monitor', 15)}<span class="hide-sm">Present</span></button>
           <button class="btn sm ghost" data-a="report" title="View the session report">${ic('file', 15)}<span class="hide-sm">Report</span></button>
-          ${soundBtn()}${themeBtn()}${window.acctHTML ? acctHTML() : ''}</div>
+          ${soundBtn()}${themeBtn()}${planChip()}${window.acctHTML ? acctHTML() : ''}</div>
       </header>
-      <div class="content">${endedBar(s)}<div class="view" id="view">${(VIEWS[tab] || VIEWS.roll)(s)}</div></div>
+      <div class="content">${endedBar(s)}<div class="view" id="view">${viewFor(tab, s)}</div></div>
     </main>
   </div>`;
 }
@@ -2174,7 +2236,7 @@ function votingView(s) {
     <form class="card vote-form" data-form="vote">
       <label class="field grow"><span>What is being voted on</span><input class="input" name="title" required maxlength="120" placeholder="e.g. Draft Resolution 1.1" autocomplete="off"></label>
       <div class="field"><span>Type</span><div class="seg2" data-on="sub" data-group="type" role="radiogroup" aria-label="Vote type"><button type="button" role="radio" data-a="segpick" data-v="sub">Substantive</button><button type="button" role="radio" data-a="segpick" data-v="proc">Procedural</button></div></div>
-      <div class="field"><span>Rules</span><div class="seg2" data-on="${/security council|unsc/i.test(s.committee) || (PRESETS.p5.every(c => s.delegates.some(d => d.code === c)) && s.delegates.length <= 20) ? 'sc' : 'std'}" data-group="rules" role="radiogroup" aria-label="Rules"><button type="button" role="radio" data-a="segpick" data-v="std">Standard</button><button type="button" role="radio" data-a="segpick" data-v="sc">Security Council</button></div></div>
+      <div class="field"><span>Rules</span><div class="seg2" data-on="${hasPro() && /security council|unsc/i.test(s.committee) || (PRESETS.p5.every(c => s.delegates.some(d => d.code === c)) && s.delegates.length <= 20) ? 'sc' : 'std'}" data-group="rules" role="radiogroup" aria-label="Rules"><button type="button" role="radio" data-a="segpick" data-v="std">Standard</button><button type="button" role="radio" ${hasPro() ? 'data-a="segpick"' : 'data-a="paywall" data-f="veto"'} data-v="sc">Security Council${proTag()}</button></div></div>
       <div class="field"><span>Majority</span><div class="seg2" data-on="simple" data-group="maj" role="radiogroup" aria-label="Majority needed"><button type="button" role="radio" data-a="segpick" data-v="simple">Simple</button><button type="button" role="radio" data-a="segpick" data-v="2/3">Two-thirds</button></div></div>
       <button class="btn primary" type="submit">Begin vote ${ic('next', 16)}</button>
     </form>
@@ -2449,7 +2511,7 @@ function snapshot(s) {
 async function refreshQr(s) { if (!s) return; try { QRC[s.id] = { link: viewBase() + '#' + await pack(JSON.stringify(snapshot(s))), at: Date.now() }; } catch { } }
 setInterval(() => { const s = cur(); if (s && (s.screen?.m === 'qr' || $('[data-qrbox]'))) refreshQr(s).then(() => { const b = $('[data-qrbox]'); if (b && QRC[s.id]) qrSvg(QRC[s.id].link).then(svg => { b.innerHTML = svg; }).catch(() => { }); }); }, 12000);
 function qrDialog() {
-  const s = cur(); if (!s) return;
+  const s = cur(); if (!s || !need('qr')) return;
   openModal(`<div class="eyebrow">Share with delegates</div><h2 class="mt">Session on their phones</h2>
     <p class="body">Delegates scan this code to see who is present, the speakers list and every result on their own phone. It is a snapshot: the code refreshes every few seconds, so they can scan again for the latest.</p>
     <div class="qr-box" data-qrbox><div class="spinner"></div></div>
@@ -2460,6 +2522,104 @@ function qrDialog() {
       $('[data-m="copy"]', m).addEventListener('click', () => QRC[s.id] && copyText(QRC[s.id].link, 'Link copied — share it in your committee chat'));
       $('[data-m="room"]', m).addEventListener('click', () => { closeModal(); setScreen(s, { m: 'qr' }); });
     }, { label: 'Share with delegates' });
+}
+
+/* ═════════════════════════ Plans (only on the Gavel website) ═════════════════════════
+   The website sets window.GAVEL_PLAN (see app/cloud.js). Without it — the standalone app — everything is unlocked. */
+const PLAN_DEF = { trialDays: 14, freeSessions: 3, monthly: { price: 4 }, yearly: { price: 29 }, pass: { price: 6, days: 7 }, secretariat: { from: 79 } };
+const PLANS = () => window.GAVEL_PLANS || PLAN_DEF;
+const PRO_F = {
+  scores: ['trophy', 'Scores & awards', 'Score every delegation on a rubric, rate speeches with stars and let Gavel rank Best Delegate, Outstanding Delegate and Honourable Mention.'],
+  debate: ['scale', 'Oxford-style debates', 'Alternate Proposition and Opposition, protect time, take points of information and measure how far the room moved.'],
+  veto: ['shield', 'Security Council voting', 'Nine affirmative votes and the P5 veto, worked out and recorded with every substantive vote.'],
+  qr: ['qr', 'Delegate QR page', 'Delegates scan a code and follow attendance, the speakers list and every result on their own phones.'],
+  voice: ['micon', 'Voice roll call', 'Say “present” or “present and voting” and Gavel marks each delegation for you.'],
+  brand: ['palette', 'Conference branding', 'Your conference name and colour on every projector screen, in every committee.'],
+  sessions: ['layers', 'Unlimited sessions', `Keep every committee and every day of your conference. Free keeps ${PLAN_DEF.freeSessions} sessions.`],
+};
+const PRO_TABS = new Set(['scores', 'debate']);
+const plan = () => window.GAVEL_PLAN || null;
+const hasPro = () => !plan() || !!plan().pro;
+const daysLeft = t => Math.max(0, Math.ceil((t - Date.now()) / 864e5));
+const proTag = () => hasPro() ? '' : '<i class="pro-tag">PRO</i>';
+const eur = n => '€' + (Number.isInteger(n) ? n : n.toFixed(2));
+function need(f) { if (hasPro()) return true; paywall(f); return false; }
+function canAddSession() { if (hasPro() || db.sessions.length < PLANS().freeSessions) return true; paywall('sessions'); return false; }
+function planChip() {
+  const p = plan(); if (!p) return '';
+  if (p.state === 'pro') return `<button class="plan-chip pro" data-a="acct" title="Gavel Pro">${ic('spark', 14)}<span>Pro</span></button>`;
+  if (p.state === 'trial') return `<button class="plan-chip" data-a="paywall" title="Choose a plan">${ic('spark', 14)}<span>Pro trial <small>· ${plural(daysLeft(p.until), 'day')} left</small></span></button>`;
+  return `<button class="plan-chip" data-a="paywall" title="Upgrade to Gavel Pro">${ic('spark', 14)}<span>Upgrade <small>· ${Math.min(db.sessions.length, PLANS().freeSessions)} of ${PLANS().freeSessions} sessions</small></span></button>`;
+}
+function paywall(f) {
+  const p = plan(); if (!p) return;
+  const P = PLANS(), F = PRO_F[f] || null, trial = !p.trialUsed && p.state === 'free';
+  const savePct = Math.round(100 - P.yearly.price / (P.monthly.price * 12) * 100);
+  const cards = [
+    ['yearly', 'Pro yearly', eur(P.yearly.price), `a year · ${eur(+(P.yearly.price / 12).toFixed(2))} a month`, `Save ${savePct}%`],
+    ['monthly', 'Pro monthly', eur(P.monthly.price), 'a month · cancel any time'],
+    ['pass', 'Conference Pass', eur(P.pass.price), `once · Pro for ${P.pass.days} days`],
+  ];
+  let pick = 'yearly';
+  const title = F ? `${F[1]} is part of Pro` : p.state === 'trial' ? `Your Pro trial ends in ${plural(daysLeft(p.until), 'day')}` : p.expired ? 'Your Pro plan has ended' : 'Chair your best conference yet';
+  const sub = F ? F[2] : 'Everything in Free, plus the tools that make a committee feel run by a professional.';
+  openModal(`<div class="pw">
+    <div class="pw-hero"><span class="pw-ic">${ic(F ? F[0] : 'spark', 26)}</span><div><div class="eyebrow">Gavel Pro</div><h2>${esc(title)}</h2><p>${esc(sub)}</p></div></div>
+    <ul class="pw-feats">${Object.entries(PRO_F).map(([k, [, t]], i) => `<li class="${k === f ? 'hl' : ''}" style="--i:${i}">${ic('check', 15)}${esc(t)}</li>`).join('')}</ul>
+    <div class="pw-plans" role="radiogroup" aria-label="Choose a plan">${cards.map(([k, n, pr, s2, badge]) => `<button type="button" class="pw-plan${k === pick ? ' on' : ''}" role="radio" aria-checked="${k === pick}" data-m="pick" data-k="${k}" data-p="${pr}">${badge ? `<span class="badge">${badge}</span>` : ''}<span class="nm">${n}</span><b>${pr}</b><small>${s2}</small></button>`).join('')}</div>
+    <div class="mfoot">${trial ? `<button class="btn ghost" data-m="trial">${ic('spark', 15)} Try Pro free for ${P.trialDays} days</button>` : '<button class="btn ghost" data-a="closeModal">Not now</button>'}<span class="grow"></span><button class="btn primary" data-m="buy">Continue · <span data-m="price">${cards[0][2]}</span> ${ic('next', 15)}</button></div>
+    <p class="pw-fine">Secure checkout by Lemon Squeezy · VAT worked out at checkout · cancel any time${p.pricingUrl ? ` · running a whole conference? <a href="${esc(p.pricingUrl)}#secretariat" target="_blank" rel="noopener">Secretariat licences</a> from ${eur(P.secretariat.from)}` : ''}</p>
+  </div>`, m => {
+    $$('[data-m="pick"]', m).forEach(b => b.addEventListener('click', () => {
+      pick = b.dataset.k;
+      $$('[data-m="pick"]', m).forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-checked', x === b); });
+      $('[data-m="price"]', m).textContent = b.dataset.p;
+    }));
+    $('[data-m="buy"]', m).addEventListener('click', () => { if (p.checkout?.(pick) === false) toast(trial ? 'Payments open very soon — start the free trial in the meantime' : 'Payments open very soon. Check back in a few days.'); });
+    const t = $('[data-m="trial"]', m);
+    if (t) t.addEventListener('click', () => { t.disabled = true; p.startTrial().catch(() => { t.disabled = false; toast('Could not start the trial — check your connection and try again'); }); });
+  }, { cls: 'wide pw-modal', label: 'Gavel Pro' });
+}
+function viewFor(tab, s) {
+  const fn = VIEWS[tab] || VIEWS.roll;
+  if (!PRO_TABS.has(tab) || hasPro()) return fn(s);
+  const F = PRO_F[tab], p = plan(), P = PLANS();
+  let peek = ''; try { peek = fn(s); } catch { }
+  return `<div class="locked"><div class="locked-prev" inert aria-hidden="true">${peek}</div>
+    <div class="locked-card"><span class="pw-ic">${ic(F[0], 26)}</span><div class="eyebrow">Gavel Pro</div><h2>${esc(F[1])}</h2><p>${esc(F[2])}</p>
+      <div class="row">${!p.trialUsed ? `<button class="btn primary" data-a="startTrial">${ic('spark', 15)} Try free for ${P.trialDays} days</button><button class="btn ghost" data-a="paywall" data-f="${tab}">See plans</button>` : `<button class="btn primary" data-a="paywall" data-f="${tab}">Unlock with Pro ${ic('next', 15)}</button>`}</div>
+      <small>${!p.trialUsed ? `No card needed · then from ${eur(+(P.yearly.price / 12).toFixed(2))} a month` : `From ${eur(+(P.yearly.price / 12).toFixed(2))} a month, or ${eur(P.pass.price)} for one conference`}</small></div></div>`;
+}
+let wasPro = hasPro();
+addEventListener('gavel-plan', () => {
+  const now = hasPro(), p = plan();
+  if (now && !wasPro) {
+    burst({ particleCount: 150, spread: 95, origin: { y: .55 } });
+    toast(p?.state === 'trial' ? `Your ${PLANS().trialDays}-day Pro trial has started — every feature is open` : 'Welcome to Gavel Pro — thank you!');
+    if (modal?.m?.classList.contains('pw-modal')) closeModal();
+  }
+  wasPro = now;
+  if (!modal) render(); else $$('.plan-chip').forEach(c => { c.outerHTML = planChip(); });
+});
+const BRAND_COLORS = ['#2546D6', '#0E8A6E', '#C2410C', '#B91C1C', '#7C3AED', '#0369A1', '#A16207', '#DB2777'];
+const brandOut = () => { const b = db.prefs.brand; return hasPro() && b && (b.n || b.k) ? { n: b.n || '', k: b.k || '' } : undefined; };
+function brandDialog() {
+  if (!need('brand')) return;
+  const b = db.prefs.brand || {};
+  let k = /^#[0-9a-f]{6}$/i.test(b.k || '') ? b.k : '';
+  openModal(`<div class="eyebrow">Conference branding</div><h2 class="mt">Make the room screen yours</h2><p class="body">Your conference name and colour appear on every projector screen, in every committee you chair.</p>
+    <label class="field" style="margin-top:14px"><span>Conference name</span><input class="input" data-m="n" maxlength="60" value="${esc(b.n || '')}" placeholder="e.g. Budapest MUN 2026" autocomplete="off"></label>
+    <div class="field" style="margin-top:12px"><span>Accent colour</span><div class="br-sw">${BRAND_COLORS.map(c => `<button type="button" style="--c:${c}" data-c="${c}" class="${c === k ? 'on' : ''}" aria-label="Use colour ${c}"></button>`).join('')}<label class="br-custom" title="Any colour"><input type="color" data-m="k" value="${k || '#2546D6'}" aria-label="Pick any colour"></label></div></div>
+    <div class="br-prev" style="--c:${k || '#8299FF'}"><i></i><b data-m="pn">${esc(b.n || 'Your conference')}</b><span>· ${esc(cur()?.committee || 'Committee')}</span></div>
+    <div class="mfoot">${b.n || b.k ? '<button class="btn ghost danger-text" data-m="clear">Remove</button>' : ''}<span class="grow"></span><button class="btn ghost" data-a="closeModal">Cancel</button><button class="btn primary" data-m="save">Save branding</button></div>`,
+    m => {
+      const prev = $('.br-prev', m), setK = c => { k = c; prev.style.setProperty('--c', c); $$('.br-sw button', m).forEach(x => x.classList.toggle('on', x.dataset.c === c)); };
+      $$('.br-sw button', m).forEach(x => x.addEventListener('click', () => setK(x.dataset.c)));
+      $('[data-m="k"]', m).addEventListener('input', e => setK(e.target.value));
+      $('[data-m="n"]', m).addEventListener('input', e => { $('[data-m="pn"]', m).textContent = e.target.value.trim() || 'Your conference'; });
+      $('[data-m="save"]', m).addEventListener('click', () => { db.prefs.brand = { n: $('[data-m="n"]', m).value.trim().slice(0, 60), k: /^#[0-9a-f]{6}$/i.test(k) ? k : '' }; save(); closeModal(); render(); toast('Branding saved — it shows on every room screen'); });
+      $('[data-m="clear"]', m)?.addEventListener('click', () => { delete db.prefs.brand; save(); closeModal(); render(); toast('Branding removed'); });
+    }, { label: 'Conference branding' });
 }
 
 const VIEWS = { roll: rollView, openings: openingsView, gsl: gslView, caucus: caucusView, motions: motionsView, voting: votingView, debate: debateView, scores: scoresView, log: logView };
@@ -2475,7 +2635,7 @@ function buildStage(s) {
   const st = stats(s), names = {};
   const N = c => { if (String(c).startsWith('x-')) names[c] = del(s, c).name; return c; };
   const T = k => { const t = s.timers[k]; return { d: t.dur, r: Math.round(t.rem * 10) / 10, run: t.run }; };
-  const out = { sid: s.id, c: s.committee, t: s.topic, names, at: Date.now() };
+  const out = { sid: s.id, c: s.committee, t: s.topic, names, at: Date.now(), br: brandOut() };
   if (s.ended) { const z = sessionSummary(s); return Object.assign(out, { m: 'closed', z: { speeches: z.speeches, mp: z.mp, va: z.va } }); }
   const sc = s.screen;
   if (sc?.m === 'qr') return Object.assign(out, { m: 'qr', qr: QRC[s.id] || null });
@@ -2762,7 +2922,7 @@ function pjMount(el, projector) {
       <div class="row"><span class="pj-clock" data-clock>${clock(Date.now())}</span>${projector ? `<button class="btn sm ghost pj-btn" data-a="pjfs">${ic('monitor', 15)} Fullscreen</button>` : `<button class="btn sm ghost pj-btn" data-a="unpresent">${ic('x', 15)} Exit <kbd>Esc</kbd></button>`}</div></header>
     <main class="pj-stage" data-pj="stage"></main>
     <div class="pj-toast" data-pj="toast" aria-live="polite"></div>
-    <footer class="pj-foot"><span>${projector ? 'Projector window · run everything from your main screen' : 'Space start / pause · N next speaker · R reset'}</span><span>Gavel</span></footer>
+    <footer class="pj-foot"><span>${projector ? 'Projector window · run everything from your main screen' : 'Space start / pause · N next speaker · R reset'}</span><span data-pj="brand">Gavel</span></footer>
   </div>`;
   PJ.scene = null; PJ.sceneKey = ''; PJ.st = null;
 }
@@ -2771,6 +2931,10 @@ function pjApply(st) {
   const prev = PJ.st; PJ.st = st; PJ.recv = performance.now();
   $('[data-pj="c"]', root).textContent = st.c || 'Gavel';
   $('[data-pj="t"]', root).textContent = st.t ? '· ' + st.t : '';
+  const br = st.br && typeof st.br === 'object' ? st.br : null, bk = br && /^#[0-9a-f]{6}$/i.test(br.k || '') ? br.k : '';
+  if (bk) { root.style.setProperty('--accent', bk); root.style.setProperty('--accent-soft', `color-mix(in oklab, ${bk} 18%, transparent)`); }
+  else { root.style.removeProperty('--accent'); root.style.removeProperty('--accent-soft'); }
+  const bn = $('[data-pj="brand"]', root); if (bn) bn.textContent = br?.n ? String(br.n).slice(0, 60) : 'Gavel';
   root.dataset.mode = st.m; root.dataset.res = st.m === 'result' ? (st.v.pass ? 'pass' : 'fail') : '';
   const key = [st.m, st.sid || '', st.m === 'vote' || st.m === 'result' ? st.v.id : st.m === 'speech' ? st.q.k : st.m === 'break' ? st.b.kind + st.b.until : ''].join('|');
   root.dataset.kind = st.m === 'break' ? st.b.kind : '';
@@ -2962,6 +3126,7 @@ function pjOffer() {
 const screenLabel = s => !s.screen ? 'Room screen' : s.screen.m === 'title' ? 'Title screen on' : s.screen.m === 'qr' ? 'QR code on' : `${s.screen.kind === 'lunch' ? 'Lunch' : 'Coffee'} break · ${clock(s.screen.until)}`;
 const screenBtn = s => `<button class="btn sm ${s.screen ? 'scr-on' : 'ghost'}" data-a="screenMenu" data-scrbtn title="Choose what the room sees (T toggles the title screen)">${ic(s.screen?.m === 'break' ? (s.screen.kind === 'lunch' ? 'lunch' : 'coffee') : 'layers', 15)}<span class="hide-sm">${esc(screenLabel(s))}</span></button>`;
 function setScreen(s, sc) {
+  if (sc?.m === 'qr' && !need('qr')) return;
   const wasBreak = s.screen?.m === 'break';
   s.screen = sc;
   if (wasBreak && sc?.m !== 'break' && s.delegates.length) setTimeout(() => promptRoll(s, 'The break is over.'), 450);
@@ -2979,7 +3144,8 @@ function screenMenu() {
     <div class="scr-grid">
       <button class="scr-tile${on === 'auto' ? ' on' : ''}" data-m="auto"><span class="pj-ci">${ic('monitor', 20)}</span><b>Follow what I open</b><small>Roll call, speeches, caucuses and votes show as you run them</small></button>
       <button class="scr-tile${on === 'title' ? ' on' : ''}" data-m="title"><span class="pj-ci">${ic('layers', 20)}</span><b>Title screen</b><small>Committee and topic over a spinning globe. For when you are speaking. Shortcut <kbd>T</kbd></small></button>
-      <button class="scr-tile${on === 'qr' ? ' on' : ''}" data-m="qr"><span class="pj-ci">${ic('qr', 20)}</span><b>Delegate QR code</b><small>Delegates scan it to follow the session on their phones</small></button>
+      <button class="scr-tile" data-m="brand"><span class="pj-ci">${ic('palette', 20)}</span><b>Conference branding${proTag()}</b><small>${db.prefs.brand?.n ? esc(db.prefs.brand.n) + ' · on every room screen' : 'Your conference name and colour on the room screen'}</small></button>
+      <button class="scr-tile${on === 'qr' ? ' on' : ''}" data-m="qr"><span class="pj-ci">${ic('qr', 20)}</span><b>Delegate QR code${proTag()}</b><small>Delegates scan it to follow the session on their phones</small></button>
       <div class="scr-tile${on === 'break' && kind !== 'lunch' ? ' on' : ''}"><span class="pj-ci">${ic('coffee', 20)}</span><b>Coffee break</b><small>Countdown until the session resumes</small><div class="row">${mins('coffee', [10, 15, 20, 30])}</div></div>
       <div class="scr-tile${on === 'break' && kind === 'lunch' ? ' on' : ''}"><span class="pj-ci">${ic('lunch', 20)}</span><b>Lunch break</b><small>Countdown until the session resumes</small><div class="row">${mins('lunch', [30, 45, 60, 90])}</div></div>
     </div>
@@ -2988,6 +3154,7 @@ function screenMenu() {
       $('[data-m="auto"]', m).addEventListener('click', () => { closeModal(); setScreen(s, null); });
       $('[data-m="title"]', m).addEventListener('click', () => { closeModal(); setScreen(s, { m: 'title' }); });
       $('[data-m="qr"]', m).addEventListener('click', () => { closeModal(); setTimeout(qrDialog, 200); });
+      $('[data-m="brand"]', m).addEventListener('click', () => { closeModal(); setTimeout(brandDialog, 200); });
       $$('[data-m="brk"]', m).forEach(b => b.addEventListener('click', () => { const d = +b.dataset.v * 60; closeModal(); setScreen(s, { m: 'break', kind: b.dataset.k, dur: d, until: Date.now() + d * 1000 }); }));
     }, { label: 'Room screen', cls: 'wide' });
 }
@@ -3267,7 +3434,7 @@ function sequence(cfg) {
       <div class="seq-stage" aria-live="polite"></div>
       <div class="seq-opts" style="grid-template-columns:repeat(${cfg.options.length},minmax(0,1fr))">${cfg.options.map(o => `<button class="o-${o.v}" data-sv="${o.v}">${o.label}<kbd>${o.key.toUpperCase()}</kbd></button>`).join('')}</div>
       <div class="seq-heard" data-s-heard></div>
-      <div class="seq-nav"><button class="btn sm ghost" data-s="prev">${ic('back', 14)} Back</button>${cfg.voice && voiceSupported() ? `<button class="btn sm soft seq-mic" data-s="mic" title="Say present, present and voting, absent, skip or back">${ic('micon', 14)}<span>Voice</span><i class="mic-dot"></i></button>` : '<span class="muted sm">Press the key shown, or use ← →</span>'}<button class="btn sm ghost" data-s="skip">Skip ${ic('chev', 14)}</button></div>
+      <div class="seq-nav"><button class="btn sm ghost" data-s="prev">${ic('back', 14)} Back</button>${cfg.voice && voiceSupported() ? `<button class="btn sm soft seq-mic" data-s="mic" title="Say present, present and voting, absent, skip or back">${ic('micon', 14)}<span>Voice</span>${proTag()}<i class="mic-dot"></i></button>` : '<span class="muted sm">Press the key shown, or use ← →</span>'}<button class="btn sm ghost" data-s="skip">Skip ${ic('chev', 14)}</button></div>
     </div>`, (m, st) => {
     const s = cur();
     const draw = dir => {
@@ -3292,6 +3459,7 @@ function sequence(cfg) {
       const n = e.target.closest('[data-s]'); if (!n || busy) return;
       if (n.dataset.s === 'prev') prev(); else if (n.dataset.s === 'skip') next();
       else if (n.dataset.s === 'mic') {
+        if (!hasPro()) { closeModal(); setTimeout(() => paywall('voice'), 220); return; }
         if (VOICE.stop) { VOICE.stop(); return; }
         const heard = $('[data-s-heard]', m), setOn = on => { n.classList.toggle('on', on); $('span', n).textContent = on ? 'Listening' : 'Voice'; if (!on && heard) heard.textContent = ''; };
         voiceStart(text => {
@@ -3337,7 +3505,11 @@ function doYield(key, code) {
 /* ═════════════════════════ Actions ═════════════════════════ */
 const A = {
   closeModal: () => closeModal(),
+  paywall(el) { paywall(el?.dataset?.f || null); },
+  startTrial(el) { const p = plan(); if (!p) return; if (el) el.disabled = true; p.startTrial().catch(() => { if (el) el.disabled = false; toast('Could not start the trial — check your connection and try again'); }); },
+  brand() { brandDialog(); },
   newSession() {
+    if (!canAddSession()) return;
     openModal(`<div class="eyebrow">New session</div><h2 class="mt">Open a committee session</h2><form data-form="newSession" class="mform">${sessionForm()}<div class="mfoot"><button type="button" class="btn ghost" data-a="closeModal">Cancel</button><button class="btn primary" type="submit">Create session</button></div></form>`, null, { label: 'New session' });
   },
   editSession() {
@@ -3649,7 +3821,7 @@ function importText(txt) {
 /* form handlers */
 const FORMS = {
   newSession(fd) {
-    const committee = String(fd.get('committee') || '').trim(); if (!committee) return;
+    const committee = String(fd.get('committee') || '').trim(); if (!committee || !canAddSession()) return;
     const s = normalize({ id: uid(), committee, topic: String(fd.get('topic') || '').trim(), chair: String(fd.get('chair') || '').trim(), created: Date.now(), updated: Date.now() });
     log(s, `Session opened: ${s.committee}`);
     db.sessions.push(s); save(); closeModal(); go(`#/s/${encodeURIComponent(s.id)}/roll`);
@@ -3679,7 +3851,7 @@ const FORMS = {
   vote(fd, form) {
     const s = cur(), title = String(fd.get('title') || '').trim(); if (!s || !title) return;
     if (!s.delegates.length) { toast('Add delegations in Roll call first'); return; }
-    s.activeVote = { id: uid(), title, type: $('[data-group="type"]', form).dataset.on, maj: $('[data-group="maj"]', form).dataset.on, sc: $('[data-group="rules"]', form)?.dataset.on === 'sc', votes: {} };
+    s.activeVote = { id: uid(), title, type: $('[data-group="type"]', form).dataset.on, maj: $('[data-group="maj"]', form).dataset.on, sc: hasPro() && $('[data-group="rules"]', form)?.dataset.on === 'sc', votes: {} };
     log(s, `Voting opened: ${title}`);
     touch(s); render('view');
   },

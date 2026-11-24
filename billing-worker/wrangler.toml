@@ -1,0 +1,14 @@
+name = "gavel-billing"
+main = "src/index.js"
+compatibility_date = "2025-06-01"
+
+[vars]
+# Lemon Squeezy variant IDs (Products → a product → the variant's ID)
+VARIANT_MONTHLY = ""
+VARIANT_YEARLY = ""
+VARIANT_PASS = ""
+PASS_DAYS = "7"
+
+# Secrets — set them with:
+#   npx wrangler secret put LS_SIGNING_SECRET
+#   npx wrangler secret put FIREBASE_SA

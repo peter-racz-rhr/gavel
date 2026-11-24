@@ -77,6 +77,18 @@ window.GavelAuth = (() => {
     for (const k of Object.keys(row)) if (row[k] === undefined) delete row[k];
     await S.setDoc(S.doc(db, 'users', user.id), row, { merge: true });
   }
+  /** Calls back with the profile now and whenever it changes (e.g. after a payment). */
+  async function watchProfile(user, cb) {
+    if (DEMO) { cb(read(DEMO_PROFILE)); const on = e => { if (e.key === DEMO_PROFILE) cb(read(DEMO_PROFILE)); }; addEventListener('storage', on); return () => removeEventListener('storage', on); }
+    const { db, S } = await client();
+    return S.onSnapshot(S.doc(db, 'users', user.id), snap => cb(snap.exists() ? { id: user.id, ...snap.data() } : null), () => { });
+  }
+  /** Starts the free Pro trial once per account (the database rules allow it only once, stamped by the server). */
+  async function startTrial(user) {
+    if (DEMO) { const p = { ...(read(DEMO_PROFILE) || {}), id: user.id, trial_started: Date.now() }; write(DEMO_PROFILE, p); return p; }
+    const { db, S } = await client();
+    await S.setDoc(S.doc(db, 'users', user.id), { trial_started: S.serverTimestamp() }, { merge: true });
+  }
   /** Where a signed-in person should land next. */
   async function nextPage(user) {
     const p = await getProfile(user).catch(() => null);
@@ -120,5 +132,5 @@ window.GavelAuth = (() => {
       for (const ch of snap.docChanges()) if (ch.type !== 'removed' && !ch.doc.metadata.hasPendingWrites) onRow(rowOf(ch.doc));
     }, () => { });
   }
-  return { DEMO, BASE, href, client, getUser, signInWithGoogle, signOut, getProfile, saveProfile, nextPage, requireUser, pullSessions, pushSession, removeSession, watchSessions };
+  return { DEMO, BASE, href, client, getUser, signInWithGoogle, signOut, getProfile, saveProfile, watchProfile, startTrial, nextPage, requireUser, pullSessions, pushSession, removeSession, watchSessions };
 })();

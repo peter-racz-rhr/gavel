@@ -17,5 +17,12 @@ window.GAVEL_CONFIG = {
     messagingSenderId: '607539536449',
     appId: '1:607539536449:web:89fb6a0f52f1901ca7dcc0',
   },
-  contactEmail: '',          // shown on the privacy and terms pages, e.g. 'hello@gavel-mun.com'
+  // Lemon Squeezy checkout links (Store → Products → Share). Empty = "payments open soon".
+  // The free trial works without these. Prices are in assets/plans.js.
+  billing: {
+    monthly: '',             // e.g. 'https://gavel.lemonsqueezy.com/buy/xxxxxxxx'
+    yearly: '',
+    pass: '',
+  },
+  contactEmail: '',          // shown on the privacy, terms and pricing pages, e.g. 'hello@gavel-mun.com'
 };

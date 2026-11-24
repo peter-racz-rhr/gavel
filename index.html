@@ -13,6 +13,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
 <script src="config.js"></script>
+<script src="assets/plans.js"></script>
 <script src="assets/site.js"></script>
 <script src="assets/auth.js"></script>
 </head>
@@ -20,7 +21,7 @@
 
 <header class="nav"><div class="wrap"><div class="nav-in">
   <a class="brand" href="./" aria-label="Gavel home"><span data-logo></span>Gavel</a>
-  <nav class="nav-links" aria-label="Sections"><a href="#features">Features</a><a href="#projector">Projector</a><a href="#how">How it works</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></nav>
+  <nav class="nav-links" aria-label="Sections"><a href="#features">Features</a><a href="#projector">Projector</a><a href="#how">How it works</a><a href="pricing.html">Pricing</a><a href="#faq">FAQ</a></nav>
   <div class="right"><a class="btn ghost" href="login.html" data-auth-link>Sign in</a><a class="btn primary" href="login.html" data-auth-link>Get started <span class="arrow">→</span></a></div>
 </div></div></header>
 
@@ -150,24 +151,37 @@
 
   <!-- pricing -->
   <section class="sec" id="pricing"><div class="wrap">
-    <div class="sec-head"><div class="eyebrow rv">Pricing</div><h2 class="title rv" style="--d:1">Free while we are in beta.</h2><p class="sub rv" style="--d:2">Every feature, no limits, no card. Chairs who join now keep their sessions whatever comes next.</p></div>
-    <div class="plans">
-      <article class="plan best rv"><div class="plan-top"><span class="eyebrow">Chair</span><span class="tag">Beta</span></div>
-        <div class="price"><b>€0</b><span>during the beta</span></div>
-        <ul class="ticks"><li><span>Unlimited committees and sessions</span></li><li><span>Roll call, speakers lists, caucuses, motions and voting</span></li><li><span>Projector mode with title and break screens</span></li><li><span>Sync across your devices with Google sign-in</span></li><li><span>Oxford-style debates with points of information</span></li><li><span>Session log and printable reports</span></li></ul>
-        <a class="btn primary lg" href="login.html" data-auth-link><span data-g></span>Start free with Google</a></article>
-      <article class="plan rv" style="--d:1"><div class="plan-top"><span class="eyebrow">Conference</span><span class="tag soft">Coming soon</span></div>
-        <div class="price"><b>Secretariat</b><span>for whole conferences</span></div>
-        <ul class="ticks"><li><span>Every chair of your conference in one place</span></li><li><span>Your conference name and colours on the projector</span></li><li><span>Reports from all committees in one go</span></li></ul>
-        <a class="btn soft lg" href="login.html" data-auth-link>Join the beta to hear first</a></article>
+    <div class="sec-head"><div class="eyebrow rv">Pricing</div><h2 class="title rv" style="--d:1">Free to chair. Pro when it counts.</h2><p class="sub rv" style="--d:2">Run any committee for free. Every new account gets <span data-trial-days>14</span> days of Pro, no card needed — then keep it from <b>€2.42 a month</b>, or buy a pass for one conference.</p><a class="fine rv" style="--d:2" href="pricing.html">Compare every feature →</a></div>
+    <div class="bill rv" style="--d:2" role="group" aria-label="Billing period"><button class="on" data-bill="yearly">Yearly <span>save 40%</span></button><button data-bill="monthly">Monthly</button></div>
+    <div class="plans three">
+      <article class="plan rv"><div class="plan-top"><span class="eyebrow">Free</span></div>
+        <div class="price"><b>€0</b><span>forever · no card</span></div>
+        <p class="plan-for">Everything you need to run a committee.</p>
+        <ul class="ticks"><li><span>Roll call with flags and quorum</span></li><li><span>Speakers lists, yields and every timer</span></li><li><span>Moderated and unmoderated caucuses</span></li><li><span>Motions ranked by disruptiveness</span></li><li><span>Recorded votes with simple and two-thirds majorities</span></li><li><span>Projector with title, coffee and lunch screens</span></li><li><span>Sync across your devices · <b data-free-sessions>3</b> saved sessions</span></li></ul>
+        <a class="btn soft lg" href="login.html" data-auth-link>Start free</a></article>
+      <article class="plan best rv" style="--d:1"><div class="plan-top"><span class="eyebrow">Pro</span><span class="tag">Most chairs pick this</span></div>
+        <div class="price"><b data-price-pro>€29</b><span data-price-pro-sub>a year · €2.42 a month</span></div>
+        <p class="plan-for">For chairs who want the committee to feel professional.</p>
+        <ul class="ticks"><li><span><b>Everything in Free</b>, with unlimited sessions</span></li><li><span>Scores, speech ratings and awards</span></li><li><span>Oxford-style debates</span></li><li><span>Security Council voting with the P5 veto</span></li><li><span>Delegate QR page for their phones</span></li><li><span>Voice roll call</span></li><li><span>Your conference name and colour on the projector</span></li></ul>
+        <a class="btn primary lg" href="login.html" data-auth-link><span data-g></span>Try Pro free for <span data-trial-days>14</span> days</a></article>
+      <article class="plan rv" style="--d:2"><div class="plan-top"><span class="eyebrow">Conference Pass</span><span class="tag soft">One-off</span></div>
+        <div class="price"><b data-price-pass>€6</b><span>once · Pro for <span data-pass-days>7</span> days</span></div>
+        <p class="plan-for">Chairing one conference? Pay once for the weekend.</p>
+        <ul class="ticks"><li><span>Every Pro feature for a full week</span></li><li><span>No subscription, nothing to cancel</span></li><li><span>Buy another pass for your next conference</span></li></ul>
+        <a class="btn soft lg" href="login.html" data-auth-link>Get a pass</a></article>
     </div>
+    <div class="secretariat rv" id="secretariat"><div><div class="eyebrow">Secretariat</div><h3>Running the whole conference?</h3><p>Pro for every chair on your team, your branding in every room and one invoice for the school or association. From <b data-price-sec>€79</b> per conference.</p></div><a class="btn primary lg" data-contact href="pricing.html#secretariat">Talk to us <span class="arrow">→</span></a></div>
+    <p class="fine plans-fine rv">Prices in euros. VAT is worked out at checkout for your country. Payments are handled by Lemon Squeezy, our merchant of record. Cancel any time from your account.</p>
   </div></section>
 
   <!-- faq -->
   <section class="sec" id="faq"><div class="wrap">
     <div class="sec-head"><div class="eyebrow rv">FAQ</div><h2 class="title rv" style="--d:1">Questions chairs ask.</h2></div>
     <div class="faq rv">
-      <details><summary>Is Gavel free?</summary><div class="ans">Yes — Gavel is free while it is in beta. If paid plans come later, you will hear about it well in advance, and your existing sessions stay yours.</div></details>
+      <details><summary>Is Gavel free?</summary><div class="ans">Yes. The Free plan runs a whole committee — roll call, speakers lists, caucuses, motions, voting and the projector — with no time limit. Pro adds scores and awards, Oxford debates, Security Council voting, the delegate QR page, voice roll call, branding and unlimited sessions.</div></details>
+      <details><summary>How does the free trial work?</summary><div class="ans">Every new account gets <span data-trial-days>14</span> days of Pro, with no card. When it ends you simply drop back to Free — nothing is charged and nothing is deleted. Sessions over the Free limit stay readable; you just can't open new ones until you upgrade or remove a few.</div></details>
+      <details><summary>I only chair one conference a year. What should I buy?</summary><div class="ans">The Conference Pass: one payment, Pro for a full week, no subscription to cancel. Buy another one when your next conference comes around.</div></details>
+      <details><summary>Can I cancel?</summary><div class="ans">Any time, from your account menu in the app. You keep Pro until the end of the period you paid for. EU customers can also withdraw within 14 days of a first purchase — see the <a href="terms.html#payments" style="color:var(--accent)">terms</a>.</div></details>
       <details><summary>Does it follow real MUN rules of procedure?</summary><div class="ans">Gavel follows the usual flow of most conferences: roll call with quorum at one-third, opening speeches, the general speakers list with yields, moderated and unmoderated caucuses, motions ranked by disruptiveness, and recorded votes with simple or two-thirds majorities. You stay in control of every decision.</div></details>
       <details><summary>Can I run an Oxford-style debate?</summary><div class="ans">Yes. Set the motion, seat the Proposition and the Opposition, and Gavel alternates the speakers for you, shows protected time and points of information, and compares the room vote before and after to name the side that moved the room. The projector gets its own animated debate screen.</div></details>
       <details><summary>How do I end a session?</summary><div class="ans">Press End in the top bar. Gavel stops every timer, shows a closing slide on the projector and opens the session report. You can reopen an ended session at any time.</div></details>
@@ -185,11 +199,30 @@
 <footer class="foot"><div class="wrap"><div class="foot-in">
   <a class="brand" href="./"><span data-logo></span>Gavel</a>
   <span>© <span id="yr"></span> Gavel · Made for Model UN chairs</span>
-  <nav><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="login.html" data-auth-link>Sign in</a></nav>
+  <nav><a href="pricing.html">Pricing</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="login.html" data-auth-link>Sign in</a></nav>
 </div></div></footer>
 
 <script>
 (() => {
+
+// prices come from assets/plans.js, so they change in one place
+(() => {
+  const P = window.GAVEL_PLANS; if (!P) return;
+  const eur = n => '€' + (Number.isInteger(n) ? n : n.toFixed(2)), save = Math.round(100 - P.yearly.price / (P.monthly.price * 12) * 100);
+  const set = (sel, v) => document.querySelectorAll(sel).forEach(e => { e.textContent = v; });
+  set('[data-trial-days]', P.trialDays); set('[data-free-sessions]', P.freeSessions); set('[data-price-pass]', eur(P.pass.price)); set('[data-pass-days]', P.pass.days); set('[data-price-sec]', eur(P.secretariat.from));
+  document.querySelectorAll('[data-bill] span').forEach(e => { e.textContent = 'save ' + save + '%'; });
+  const bill = k => {
+    document.querySelectorAll('[data-bill]').forEach(b => b.classList.toggle('on', b.dataset.bill === k));
+    set('[data-price-pro]', eur(k === 'yearly' ? P.yearly.price : P.monthly.price));
+    set('[data-price-pro-sub]', k === 'yearly' ? 'a year · ' + eur(+(P.yearly.price / 12).toFixed(2)) + ' a month' : 'a month · cancel any time');
+  };
+  document.querySelectorAll('[data-bill]').forEach(b => b.addEventListener('click', () => bill(b.dataset.bill)));
+  bill('yearly');
+  const mail = (window.GAVEL_CONFIG || {}).contactEmail;
+  document.querySelectorAll('[data-contact]').forEach(a => { if (mail) a.href = 'mailto:' + mail + '?subject=' + encodeURIComponent('Gavel for our conference'); });
+  document.querySelectorAll('[data-contact-text]').forEach(e => { e.textContent = mail || 'the email on our privacy page'; });
+})();
 const { splitWords, reveal, nav, globe, GOOGLE_G, fillLogos } = window.GavelSite, { getUser, href } = window.GavelAuth;
 fillLogos();
 document.querySelectorAll('[data-g]').forEach(e => e.outerHTML = `<span style="display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#fff;padding:3px">${GOOGLE_G}</span>`);

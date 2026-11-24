@@ -76,6 +76,26 @@ Commit and push to the `gavel` repo on GitHub (or ask Claude to). Cloudflare red
 | Orange dot on the profile picture | No internet, the rules weren't published, or a key in `config.js` is wrong. Everything stays on the device and syncs later. |
 | Sign-in works on the computer but not when opening the file directly | Sign-in needs a real web address (`https://…` or `localhost`), not `file://`. |
 
+## Taking payments (when you are ready to sell)
+
+Until you do this, everything already works: Free, the 14-day trial (no card), and the paywall. The "Continue" button just says payments open soon.
+
+**Prices** are in `assets/plans.js` (Pro €4/month or €29/year, Conference Pass €6 for 7 days, Secretariat from €79). Change them there and the site and the app follow.
+
+1. **Lemon Squeezy store (~20 min).** Sign up at https://lemonsqueezy.com (an adult must own the account; they handle VAT and invoices as merchant of record). Create one product **Gavel Pro** with two subscription variants (**Monthly** €4, **Yearly** €29) and one product **Conference Pass** (single payment €6). For each, under *Confirmation modal → Button link*, put `https://gavel.peter-racz-rhr.workers.dev/app/`.
+2. **Checkout links.** For each variant copy its *Share* link (`https://….lemonsqueezy.com/buy/…`) into `config.js` → `billing.monthly`, `billing.yearly`, `billing.pass`. Note each variant's **ID** too.
+3. **Service account.** Firebase → ⚙️ Project settings → **Service accounts** → **Generate new private key**. It downloads a JSON file. It **is secret**: never commit it.
+4. **Deploy the billing worker** (from this repo, needs Node):
+   ```
+   cd billing-worker
+   npx wrangler login
+   npx wrangler secret put FIREBASE_SA        (paste the whole JSON file)
+   npx wrangler secret put LS_SIGNING_SECRET  (make up a long random string)
+   ```
+   Put the three variant IDs into `billing-worker/wrangler.toml`, then `npx wrangler deploy`. It prints the worker address, e.g. `https://gavel-billing.<you>.workers.dev`.
+5. **Webhook.** Lemon Squeezy → Settings → **Webhooks** → add the worker address, the same signing secret, and tick `order_created`, `order_refunded`, `subscription_created`, `subscription_updated`, `subscription_cancelled`, `subscription_resumed`, `subscription_expired`, `subscription_paused`, `subscription_unpaused`.
+6. Push. Buy a plan in Lemon Squeezy's **test mode** with card `4242 4242 4242 4242`: Pro unlocks in the open app within a second or two.
+
 ## Free limits (Spark plan)
 
 Free with no time limit, and the project never pauses. Every day you get 50,000 reads, 20,000 writes and 1 GB of storage. A chaired session uses a few dozen writes, so this is enough for thousands of sessions a month.

@@ -1,16 +1,25 @@
 rules_version = '2';
 // Gavel database rules. Paste all of this into Firebase → Firestore Database → Rules → Publish.
 // Everyone can read and write only their own profile and sessions.
+// Plan fields are written only by the billing worker (with a service account, which skips these rules).
 service cloud.firestore {
   match /databases/{database}/documents {
     function isOwner(uid) { return request.auth != null && request.auth.uid == uid; }
+    function billingKeys() { return ['plan', 'plan_until', 'plan_kind', 'billing']; }
+    // the free trial can be started once, stamped with the server's own clock
+    function trialOk(before) {
+      let after = request.resource.data.get('trial_started', null);
+      return after == before || (before == null && after == request.time);
+    }
 
     match /users/{uid} {
       allow read: if isOwner(uid);
-      // "plan" is reserved for paid plans later: people cannot set it themselves
-      allow create: if isOwner(uid) && !('plan' in request.resource.data);
+      allow create: if isOwner(uid)
+        && !request.resource.data.keys().hasAny(billingKeys())
+        && trialOk(null);
       allow update: if isOwner(uid)
-        && request.resource.data.get('plan', null) == resource.data.get('plan', null);
+        && !request.resource.data.diff(resource.data).affectedKeys().hasAny(billingKeys())
+        && trialOk(resource.data.get('trial_started', null));
       allow delete: if false;
 
       match /sessions/{sid} {
