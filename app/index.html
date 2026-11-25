@@ -325,6 +325,7 @@ table.stable{width:100%;border-collapse:collapse;font-size:14px}
 .nav a.on{color:var(--ink)}
 .nav a.on::before{opacity:0}
 .nav a{-webkit-user-drag:none;user-select:none;-webkit-user-select:none}
+.nav .lbs{display:none}
 .nav a.peek{color:var(--ink)}
 .nav a.peek .ic{color:var(--ink)}
 .nav-pill{position:absolute;left:0;top:0;z-index:2;pointer-events:none;border-radius:12px;
@@ -990,6 +991,8 @@ html.lite .locked-prev{filter:none;opacity:.18}
 @media (max-width:1100px){.stage{grid-template-columns:minmax(0,1fr);grid-template-areas:"now" "queue" "spoken"}}
 @media (max-width:1120px){.start{grid-template-columns:1fr}.globe-box{width:min(100%,460px);margin:0}}
 @media (hover:none){.srow .del,.rc-card .rm,.row-actions,.grip,.nk{opacity:1}}
+html,body{overflow-x:clip}
+@media (max-width:480px){.qlist .upnext,.qlist .grip{display:none}.qlist .row-actions .btn.icon.sm{width:32px;min-width:32px}}
 @media (max-width:900px){
   .shell{grid-template-columns:minmax(0,1fr)}
   .side{min-width:0;position:sticky;top:0;z-index:35;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 12px 8px;border-right:0;border-bottom:1px solid var(--line);overflow:visible;background:color-mix(in oklab,var(--bg) 90%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
@@ -1025,6 +1028,41 @@ html.lite .locked-prev{filter:none;opacity:.18}
   .modal{padding:22px}
   .seq-opts button{height:60px;font-size:13px}
   .p-tally .tnums{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@keyframes shellFade{from{opacity:0}}
+/* phone: section tabs become a bottom tab bar, like a native app */
+@media (max-width:640px){
+  .dash-solo .hero .hero-col{order:-1}
+  .shell.enter{animation:shellFade .45s var(--ease) both}
+  .side{position:fixed;top:auto;bottom:0;left:0;right:0;z-index:40;height:auto;padding:6px max(4px,env(safe-area-inset-left,0px)) calc(6px + env(safe-area-inset-bottom,0px));border-bottom:0;border-top:1px solid var(--line);background:color-mix(in oklab,var(--bg) 92%,transparent);-webkit-backdrop-filter:saturate(1.4) blur(16px);backdrop-filter:saturate(1.4) blur(16px)}
+  html.lite .side{background:var(--bg)}
+  .side>.brand{display:none}
+  .nav{gap:2px;scroll-snap-type:x proximity;overscroll-behavior-x:contain}
+  .nav a{flex:0 0 auto;min-width:64px;height:54px;flex-direction:column;justify-content:center;gap:4px;padding:0 8px;font-size:11px;font-weight:550;letter-spacing:0;border-radius:14px;scroll-snap-align:start}
+  .nav a .ic{width:21px;height:21px}
+  .nav .lbl{display:none}
+  .nav .lbs{display:block;white-space:nowrap}
+  .nav a.on{background:var(--accent-soft);color:var(--accent)}
+  .nav-pill{display:none}
+  .rc-list{grid-template-columns:minmax(0,1fr);gap:8px}
+  .rc-card{display:grid;grid-template-columns:56px minmax(0,1fr) auto;align-items:center;gap:12px;padding:8px 8px 8px 10px;border-radius:14px}
+  .rc-flag .flag-card{width:56px;border-radius:7px}
+  .rc-name{min-height:0;padding:0;font-size:15px}
+  .rc-act{grid-template-columns:repeat(3,42px);gap:5px}
+  .rc-b{height:40px;padding:0}
+  .rc-list .rc-card .rm{top:-9px;left:-11px;right:auto;width:20px;height:20px;border-radius:50%;background:var(--surface-3);box-shadow:0 0 0 2px var(--surface);-webkit-backdrop-filter:none;backdrop-filter:none}
+  .rc-list .rc-card .rm .ic{width:11px;height:11px}
+  .crumbs{flex:1;gap:2px}
+  .crumbs .cr-l,.crumbs .sep{display:none}
+  .crumbs b{font-weight:600;font-size:14.5px}
+  .mtop .tools{gap:2px}
+  .mtop [data-a="theme"]{display:none}
+  .seg2{width:100%}
+  .vote-form>.btn,.vote-form .field{width:100%}
+  .nav a .badge{position:absolute;top:3px;left:calc(50% + 6px);min-width:18px;height:16px;padding:0 5px;margin:0;border-radius:99px;font-size:9.5px;line-height:16px;font-weight:650;background:var(--accent);color:var(--bg)}
+  .mtop{position:sticky;top:0;height:52px;padding:0 12px}
+  .content{padding:16px 14px calc(92px + env(safe-area-inset-bottom,0px))}
+  .toast-root,#toast-root{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
 }
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 
@@ -1493,6 +1531,7 @@ const TABS = [
   ['roll', 'Roll call', 'roll'], ['openings', 'Opening speeches', 'quote'], ['gsl', 'Speakers list', 'mic'],
   ['caucus', 'Caucus', 'caucus'], ['motions', 'Motions', 'flagic'], ['voting', 'Voting', 'vote'], ['debate', 'Debate', 'scale'], ['scores', 'Scores', 'trophy'], ['log', 'Session log', 'clock'],
 ];
+const TAB_SHORT = { roll: 'Roll call', openings: 'Openings', gsl: 'Speakers', caucus: 'Caucus', motions: 'Motions', voting: 'Voting', debate: 'Debate', scores: 'Scores', log: 'Log' };
 const QLABEL = { gsl: 'speakers list', openings: 'opening speech', mod: 'moderated caucus' };
 const TMSG = { 'q-gsl': 'Speaking time has elapsed', 'q-openings': 'Opening speech time has elapsed', 'q-mod': 'Speaking time has elapsed', 'c-total': 'The moderated caucus has ended', 'c-unmod': 'The unmoderated caucus has ended', 'o-speech': 'Speech time has elapsed' };
 const KEYS = [['Space', 'Start or pause the timer'], ['N', 'Next speaker'], ['R', 'Reset the timer'], ['F', 'Present on a projector'], ['T or X', 'Title screen for the room'], ['1 – 9', 'Jump to a section'], ['/', 'Search sessions'], ['?', 'Show all shortcuts'], ['Esc', 'Close a dialog or stop presenting']];
@@ -2028,12 +2067,12 @@ function sessionView(s) {
     <aside class="side">
       <a class="brand" href="#/" aria-label="All sessions">${logo()}<span>Gavel</span></a>
       <div class="ctx"><div class="eyebrow">${s.chair ? 'Chaired by ' + esc(s.chair) : 'Committee'}</div><div class="ctx-name">${esc(s.committee)}</div>${s.topic ? `<p title="${esc(s.topic)}">${esc(s.topic)}</p>` : ''}<button class="btn icon sm ghost edit" data-a="editSession" aria-label="Edit session details" title="Edit session details">${ic('edit', 15)}</button></div>
-      <nav class="nav" aria-label="Session sections"><span class="nav-pill" aria-hidden="true"></span>${TABS.map(([k, l, i], n) => `<a href="#/s/${esc(s.id)}/${k}" draggable="false" class="${tab === k ? 'on' : ''}"${tab === k ? ' aria-current="page"' : ''}>${ic(i, 17)}<span class="lbl">${l}${PRO_TABS.has(k) ? proTag() : ''}</span>${badge(s, k) || `<kbd class="nk" aria-hidden="true">${n + 1}</kbd>`}</a>`).join('')}</nav>
+      <nav class="nav" aria-label="Session sections"><span class="nav-pill" aria-hidden="true"></span>${TABS.map(([k, l, i], n) => `<a href="#/s/${esc(s.id)}/${k}" draggable="false" class="${tab === k ? 'on' : ''}"${tab === k ? ' aria-current="page"' : ''}>${ic(i, 17)}<span class="lbl">${l}${PRO_TABS.has(k) ? proTag() : ''}</span><span class="lbs">${TAB_SHORT[k] || l}</span>${badge(s, k) || `<kbd class="nk" aria-hidden="true">${n + 1}</kbd>`}</a>`).join('')}</nav>
       <div class="side-foot"><button class="btn sm ghost" data-a="help">${ic('keyboard', 15)} Shortcuts</button><span class="saved">${ic('check', 13)} Saved</span></div>
     </aside>
     <main class="main">
       <header class="mtop">
-        <nav class="crumbs" aria-label="Breadcrumb"><a href="#/">${ic('back', 14)} Sessions</a><span class="sep">/</span><b>${esc(s.committee)}</b></nav>
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="#/" aria-label="All sessions">${ic('back', 14)}<span class="cr-l"> Sessions</span></a><span class="sep">/</span><b>${esc(s.committee)}</b></nav>
         <div class="tools"><span class="clock" data-clock title="Current time">${clock(Date.now())}</span>
           <button class="pj-live" data-a="present" data-pjlive${pjLive() ? '' : ' hidden'} title="The projector follows this window"><i></i><span class="hide-sm">Projector live</span></button>
           ${endBtn(s)}${screenBtn(s)}
